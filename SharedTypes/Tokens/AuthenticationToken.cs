@@ -13,7 +13,7 @@ namespace SharedTypes.Tokens
         public const int TTL = 120;
         public static SymmetricSecurityKey GetEncryptionKey()
         {
-            using(System.IO.StreamReader sr = new System.IO.StreamReader("key.rcc"))
+            using(System.IO.StreamReader sr = new System.IO.StreamReader("Tokens/key.rcc"))
             {
                 EncryptionKey = sr.ReadLine();
             }

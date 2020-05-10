@@ -14,15 +14,16 @@ namespace FeddosMessengerApp.MobileDataBase
         public MobileDataBaseContext(string DbPath)
         {
             this.DbPath = DbPath;
+            Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
             dbContextOptionsBuilder.UseSqlite($"Filename={DbPath}");
-            Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            base.OnModelCreating(modelBuilder);
         }
+        
     }
 }
