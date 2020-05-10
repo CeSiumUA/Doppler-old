@@ -20,7 +20,7 @@ namespace FeddosMessengerApp
     {
         public delegate void OnAuthSuccessfullHandler();
         public event OnAuthSuccessfullHandler OnAuthSuccessfullEvent;
-        private const string URL = "https://192.168.0.154:5001/auth";
+        private const string URL = "https://192.168.0.100:5001/auth";
         public AuthPage()
         {
             InitializeComponent();

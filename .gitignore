@@ -13,3 +13,5 @@ FeddosMessengerApp/FeddosMessengerApp.iOS/bin/
 FeddosMessengerApp/FeddosMessengerApp.iOS/obj/
 FeddosMessengerApp/FeddosMessengerApp.UWP/bin/
 FeddosMessengerApp/FeddosMessengerApp.UWP/obj/
+FeddosMessengerApp/FeddosMessengerApp.Android/google-services.json
+.idea/

@@ -9,11 +9,11 @@ namespace SharedTypes.Tokens
     {
         public const string Issuer = "kit.Messaging.server";
         public const string Audience = "kit.messenger.users";
-        public readonly string EncryptionKey = "12345";
+        public static string EncryptionKey = "12345";
         public const int TTL = 120;
         public static SymmetricSecurityKey GetEncryptionKey()
         {
-            using(System.IO.StreamReader sr = new System.IO.StreamReader())
+            using(System.IO.StreamReader sr = new System.IO.StreamReader("key.rcc"))
             {
                 EncryptionKey = sr.ReadLine();
             }
