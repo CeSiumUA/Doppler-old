@@ -1,0 +1,15 @@
+FeddosMessenger/bin/
+FeddosMessenger/obj/
+SharedTypes/Tokens/key.rcc
+SharedTypes/bin/
+SharedTypes/obj/
+HelperApplication/bin/
+HelperApplication/obj/
+FeddosMessengerApp/FeddosMessengerApp/bin/
+FeddosMessengerApp/FeddosMessengerApp/obj/
+FeddosMessengerApp/FeddosMessengerApp.Android/bin/
+FeddosMessengerApp/FeddosMessengerApp.Android/obj/
+FeddosMessengerApp/FeddosMessengerApp.iOS/bin/
+FeddosMessengerApp/FeddosMessengerApp.iOS/obj/
+FeddosMessengerApp/FeddosMessengerApp.UWP/bin/
+FeddosMessengerApp/FeddosMessengerApp.UWP/obj/
