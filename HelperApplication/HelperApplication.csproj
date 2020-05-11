@@ -12,10 +12,19 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="MongoDB.Bson" Version="2.10.4" />
+    <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.10.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FeddosMessenger\FeddosMessenger.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Names.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

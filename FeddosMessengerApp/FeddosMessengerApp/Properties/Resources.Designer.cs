@@ -61,7 +61,7 @@ namespace FeddosMessengerApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://192.168.0.100:5001.
+        ///   Looks up a localized string similar to https://192.168.0.154:5001.
         /// </summary>
         public static string ServerIPAddress {
             get {

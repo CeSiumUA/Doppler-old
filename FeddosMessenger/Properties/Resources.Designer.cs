@@ -61,11 +61,29 @@ namespace FeddosMessenger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Host=localhost;Port=5432;Database=Messenger;Username=postgres;Password=12345.
+        ///   Looks up a localized string similar to mongodb://localhost:27017.
         /// </summary>
-        public static string ConnectionString {
+        public static string MongoConnectionString {
             get {
-                return ResourceManager.GetString("ConnectionString", resourceCulture);
+                return ResourceManager.GetString("MongoConnectionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to messengerdatabase.
+        /// </summary>
+        public static string MongoDBName {
+            get {
+                return ResourceManager.GetString("MongoDBName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string MongoUsers {
+            get {
+                return ResourceManager.GetString("MongoUsers", resourceCulture);
             }
         }
         
@@ -79,7 +97,7 @@ namespace FeddosMessenger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://192.168.0.100:5001.
+        ///   Looks up a localized string similar to https://192.168.0.154:5001.
         /// </summary>
         public static string URL {
             get {

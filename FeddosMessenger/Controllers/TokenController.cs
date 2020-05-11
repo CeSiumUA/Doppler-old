@@ -1,11 +1,14 @@
 ﻿using FeddosMessenger.Database;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using SharedTypes.Cryptography;
 using SharedTypes.SocialTypes;
 using SharedTypes.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -15,10 +18,11 @@ namespace FeddosMessenger.Controllers
 {
     public class TokenController:ControllerBase
     {
-        private DataBaseContext _dataBaseContext;
-        public TokenController(DataBaseContext dataBaseContext)
+        //TODO
+        //private DataBaseContext _dataBaseContext;
+        public TokenController()
         {
-            _dataBaseContext = dataBaseContext;
+
         }
 
         [HttpPost("/auth")]
@@ -42,22 +46,28 @@ namespace FeddosMessenger.Controllers
             (string Token, string CallName) payload = (encodedToken, authenticatedUser.Name);
             return new JsonResult(payload);
         }
-        //TODO
+        //TODO Update Firebase Token
         private async Task<ClaimsIdentity> Checkidentity(string userName, string Password, string FireBaseToken)
         {
+            Console.WriteLine("Authentication: Searching for a user...");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Restart();
             User usr = null;
-            usr = await _dataBaseContext.Users.Where(x => x.CallName == userName && x.Password == Password).Include(x => x.FireBaseToken).FirstOrDefaultAsync(); 
-            
+            usr = MongoDbContext.UsersCollection.AsQueryable().Where(x => x.CallName == userName).FirstOrDefault();
+            stopwatch.Stop();
+            Console.WriteLine(stopwatch.ElapsedMilliseconds);
             if(usr != null)
             {
-                List<Claim> claims = new List<Claim>()
+                if (usr.Password.CompareToNormalPassword(Password))
                 {
+                    List<Claim> claims = new List<Claim>()
+                    {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, usr.CallName)
-                };
-                usr.FireBaseToken.Token = FireBaseToken;
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                await _dataBaseContext.SaveChangesAsync();
-                return claimsIdentity;
+                    };
+                    usr.FireBaseToken.Token = FireBaseToken;
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                    return claimsIdentity;
+                }
             }
             return null;
 

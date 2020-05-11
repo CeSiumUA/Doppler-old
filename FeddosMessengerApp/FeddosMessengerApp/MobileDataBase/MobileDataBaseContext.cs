@@ -9,7 +9,7 @@ namespace FeddosMessengerApp.MobileDataBase
     public class MobileDataBaseContext:DbContext
     {
         private string DbPath;
-        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<MContact> Contacts { get; set; }
         public DbSet<Personal> Personal { get; set; }
         public MobileDataBaseContext(string DbPath)
         {
