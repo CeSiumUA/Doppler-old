@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SharedTypes.Tokens;
 using FeddosMessenger.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace FeddosMessenger
 {
@@ -19,7 +20,7 @@ namespace FeddosMessenger
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataBaseContext>();
+            services.AddDbContext<DataBaseContext>(options => options.UseNpgsql(Properties.Resources.ConnectionString));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -28,7 +29,7 @@ namespace FeddosMessenger
                     ValidateIssuerSigningKey = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
-                    IssuerSigningKey = AuthenticationToken.GetEncryptionKey(),
+                    IssuerSigningKey = AuthenticationToken.GetEncryptionKey(Properties.Resources.SecurityKey),
                     ValidIssuer = AuthenticationToken.Issuer,
                     ValidAudience = AuthenticationToken.Audience,
                 };

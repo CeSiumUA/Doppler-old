@@ -21,7 +21,7 @@ namespace FeddosMessenger
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("https://192.168.0.154:5001");
+                    webBuilder.UseUrls(Properties.Resources.URL);
                 });
     }
 }

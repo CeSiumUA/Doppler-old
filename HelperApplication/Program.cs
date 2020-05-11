@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 using FeddosMessenger;
 using SharedTypes.SocialTypes;
 using SharedTypes.Tokens;
+using Microsoft.EntityFrameworkCore;
+using FeddosMessenger.Database;
 
 namespace HelperApplication
 {
@@ -10,14 +12,18 @@ namespace HelperApplication
     {
         static void Main(string[] args)
         {
-            using(FeddosMessenger.Database.DataBaseContext dbc = new FeddosMessenger.Database.DataBaseContext())
+            try
+            {
+                
+           
+            using (privateDbHandler dbc = new privateDbHandler())
             {
                 InsertToDb();
                 async void InsertToDb()
                 {
                     Console.WriteLine("Insert new? y/n");
                     string dcs = Console.ReadLine().ToUpper();
-                    if(dcs == "Y")
+                    if (dcs == "Y")
                     {
                         Console.WriteLine("Enter CallName:");
                         User user = new User();
@@ -36,7 +42,7 @@ namespace HelperApplication
                         Console.WriteLine("----");
                         InsertToDb();
                     }
-                    if(dcs == "N")
+                    if (dcs == "N")
                     {
                         SaveChanges();
                     }
@@ -46,6 +52,34 @@ namespace HelperApplication
                     Console.WriteLine(dbc.SaveChanges());
                 }
             }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                
+            }
+
+            Console.WriteLine("Type something to exit...");
+            Console.ReadLine();
+        }
+    }
+
+    public class privateDbHandler:DbContext
+    {
+        public DbSet<User> Users { get; set; }
+        public privateDbHandler()
+        {
+            Database.EnsureCreated();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql(FeddosMessenger.Properties.Resources.ConnectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
         }
     }
 }

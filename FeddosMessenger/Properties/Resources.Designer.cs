@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FeddosMessengerApp.Properties {
+namespace FeddosMessenger.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace FeddosMessengerApp.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FeddosMessengerApp.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FeddosMessenger.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,29 @@ namespace FeddosMessengerApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Host=localhost;Port=5432;Database=Messenger;Username=postgres;Password=12345.
+        /// </summary>
+        public static string ConnectionString {
+            get {
+                return ResourceManager.GetString("ConnectionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 52f3a0ab62df9eb33b9216fa7ca030ecb4060382b6c2dbdc5f9a075fa84435bb011c2a1b8df039447a9db2911f202d80e2fc823d969d8bf35af41e9f187356fb530fb8a8454db1c07262d3ca01c3a966aa7301dec1e9490320195f0102ab6189618786c6f02a2fce2cb6e97f2dbf349134256a51c78046b2a55189f507e4373b562ba7722e25765a4215885187544957366df599a829c83113d44547266796b9d800a00e471612675e788b374f4caa4e0f8f7d63060c1f8f2f9808427a378f84b203346d561523ecb225d0e37744db840346b4cccef1da6a4c1fcd265d1c315b8877cbb392da81a93672ef25b738f670e4251711c5f01ce6ea3883c1e81c7b6a [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string SecurityKey {
+            get {
+                return ResourceManager.GetString("SecurityKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://192.168.0.100:5001.
         /// </summary>
-        public static string ServerIPAddress {
+        public static string URL {
             get {
-                return ResourceManager.GetString("ServerIPAddress", resourceCulture);
+                return ResourceManager.GetString("URL", resourceCulture);
             }
         }
     }

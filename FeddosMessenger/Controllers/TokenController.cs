@@ -15,9 +15,10 @@ namespace FeddosMessenger.Controllers
 {
     public class TokenController:ControllerBase
     {
+        private DataBaseContext _dataBaseContext;
         public TokenController(DataBaseContext dataBaseContext)
         {
-
+            _dataBaseContext = dataBaseContext;
         }
 
         [HttpPost("/auth")]
@@ -30,7 +31,13 @@ namespace FeddosMessenger.Controllers
             }
             DateTime dateTime = DateTime.Now;
 
-            JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(AuthenticationToken.Issuer, AuthenticationToken.Audience, authenticatedUser.Claims, dateTime, dateTime.AddMinutes(AuthenticationToken.TTL), new SigningCredentials(AuthenticationToken.GetEncryptionKey(), SecurityAlgorithms.HmacSha256));
+            JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(AuthenticationToken.Issuer, 
+                AuthenticationToken.Audience, 
+                authenticatedUser.Claims, 
+                dateTime, 
+                dateTime.AddMinutes(AuthenticationToken.TTL), 
+                new SigningCredentials(AuthenticationToken.GetEncryptionKey(Properties.Resources.SecurityKey), 
+                SecurityAlgorithms.HmacSha256));
             string encodedToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             (string Token, string CallName) payload = (encodedToken, authenticatedUser.Name);
             return new JsonResult(payload);
@@ -39,22 +46,17 @@ namespace FeddosMessenger.Controllers
         private async Task<ClaimsIdentity> Checkidentity(string userName, string Password, string FireBaseToken)
         {
             User usr = null;
-            using(DataBaseContext dbc = new DataBaseContext())
-            {
-                usr = await dbc.Users.Where(x => x.CallName == userName && x.Password == Password).FirstOrDefaultAsync();
-                if(usr != null)
-                {
-                    usr.FireBaseToken = new FireBaseToken() { Token = FireBaseToken };
-                }
-                await dbc.SaveChangesAsync();
-            }
+            usr = await _dataBaseContext.Users.Where(x => x.CallName == userName && x.Password == Password).Include(x => x.FireBaseToken).FirstOrDefaultAsync(); 
+            
             if(usr != null)
             {
                 List<Claim> claims = new List<Claim>()
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, usr.CallName)
                 };
+                usr.FireBaseToken.Token = FireBaseToken;
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                await _dataBaseContext.SaveChangesAsync();
                 return claimsIdentity;
             }
             return null;
