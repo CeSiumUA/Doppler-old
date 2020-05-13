@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedTypes.SocialTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -13,5 +14,6 @@ namespace FeddosMessengerApp.MobileDataBase
         public string AuthServerToken { get; set; }
         public string UserName { get; set; }
         public string PassWord { get; set; }
+        public MContact Contact { get; set; }
     }
 }

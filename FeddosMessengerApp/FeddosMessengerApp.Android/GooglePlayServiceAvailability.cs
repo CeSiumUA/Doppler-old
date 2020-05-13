@@ -12,6 +12,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FeddosMessengerApp.Droid;
+using FeddosMessengerApp.FireBase;
 using Firebase.Iid;
 
 [assembly: Xamarin.Forms.Dependency(typeof(GooglePlayServiceAvailability))]

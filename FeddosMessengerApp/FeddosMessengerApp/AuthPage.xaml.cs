@@ -1,6 +1,9 @@
-﻿using FeddosMessengerApp.MobileDataBase;
+﻿using FeddosMessengerApp.FireBase;
+using FeddosMessengerApp.MobileDataBase;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using SharedTypes.SocialTypes;
+using SharedTypes.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +12,6 @@ using System.Net;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -52,7 +54,8 @@ namespace FeddosMessengerApp
                 WebResponse webResponse = await httpWebRequest.GetResponseAsync();
                 using(StreamReader streamReader = new StreamReader(webResponse.GetResponseStream()))
                 {
-                    (string Token, string CallName) authTuple = JsonConvert.DeserializeObject<(string Token, string CallName)>(streamReader.ReadToEnd());
+                    string json = streamReader.ReadToEnd();
+                    PayLoad authTuple = JsonConvert.DeserializeObject<PayLoad>(json);
                     using (MobileDataBaseContext mdbc = new MobileDataBaseContext(getPath.GetDataBasePath("msngr.db")))
                     {
                         Personal pers = null;
@@ -65,7 +68,16 @@ namespace FeddosMessengerApp
                             PassWord = password,
                             AuthServerToken = authTuple.Token,
                             UserName = authTuple.CallName,
-                            FireBaseToken = FireBaseToken
+                            FireBaseToken = FireBaseToken,
+                            Contact = new MContact()
+                            {
+                                FirstName = authTuple.Contact.FirstName,
+                                SecondName = authTuple.Contact.SecondName,
+                                CallName = authTuple.Contact.CallName,
+                                Description = authTuple.Contact.Description,
+                                Icon = authTuple.Contact.Icon,
+                                PhoneNumber = authTuple.Contact.PhoneNumber
+                            }
                         };
                         await mdbc.Personal.AddAsync(pers);
                         

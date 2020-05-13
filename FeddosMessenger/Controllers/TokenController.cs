@@ -28,8 +28,8 @@ namespace FeddosMessenger.Controllers
         [HttpPost("/auth")]
         public async Task<IActionResult> Token(string username, string password, string firebasetoken)
         {
-            ClaimsIdentity authenticatedUser = await Checkidentity(username, password, firebasetoken);
-            if(authenticatedUser == null)
+            (ClaimsIdentity ClaimsIdentity, Contact Contact) authenticatedUser = await Checkidentity(username, password, firebasetoken);
+            if(authenticatedUser.ClaimsIdentity == null)
             {
                 return BadRequest("Invalid username or password!");
             }
@@ -37,17 +37,23 @@ namespace FeddosMessenger.Controllers
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(AuthenticationToken.Issuer, 
                 AuthenticationToken.Audience, 
-                authenticatedUser.Claims, 
+                authenticatedUser.ClaimsIdentity.Claims, 
                 dateTime, 
                 dateTime.AddMinutes(AuthenticationToken.TTL), 
                 new SigningCredentials(AuthenticationToken.GetEncryptionKey(Properties.Resources.SecurityKey), 
                 SecurityAlgorithms.HmacSha256));
             string encodedToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-            (string Token, string CallName) payload = (encodedToken, authenticatedUser.Name);
-            return new JsonResult(payload);
+            //(string Token, string CallName, Contact Contact) payload = (encodedToken, authenticatedUser.ClaimsIdentity.Name, authenticatedUser.Contact);
+            PayLoad payLoad = new PayLoad()
+            {
+                Token = encodedToken,
+                CallName = authenticatedUser.ClaimsIdentity.Name,
+                Contact = authenticatedUser.Contact
+            };
+            return new JsonResult(payLoad);
         }
         //TODO Update Firebase Token
-        private async Task<ClaimsIdentity> Checkidentity(string userName, string Password, string FireBaseToken)
+        private async Task<(ClaimsIdentity, Contact)> Checkidentity(string userName, string Password, string FireBaseToken)
         {
             Console.WriteLine("Authentication: Searching for a user...");
             Stopwatch stopwatch = new Stopwatch();
@@ -55,7 +61,7 @@ namespace FeddosMessenger.Controllers
             User usr = null;
             usr = MongoDbContext.UsersCollection.AsQueryable().Where(x => x.CallName == userName).FirstOrDefault();
             stopwatch.Stop();
-            Console.WriteLine(stopwatch.ElapsedMilliseconds);
+            Console.WriteLine("Search performed in: " + stopwatch.ElapsedMilliseconds + " ms");
             if(usr != null)
             {
                 if (usr.Password.CompareToNormalPassword(Password))
@@ -64,12 +70,21 @@ namespace FeddosMessenger.Controllers
                     {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, usr.CallName)
                     };
-                    usr.FireBaseToken.Token = FireBaseToken;
+                    if (FireBaseToken != usr.FireBaseToken.Token)
+                    {
+                        Stopwatch stopwatch1 = new Stopwatch();
+                        stopwatch1.Restart();
+                        var filter = Builders<User>.Filter.Eq(x => x.Id, usr.Id);
+                        var update = Builders<User>.Update.Set(x => x.FireBaseToken.Token, FireBaseToken);
+                        await MongoDbContext.UsersCollection.UpdateOneAsync(filter, update);
+                        stopwatch1.Stop();
+                        Console.WriteLine("FireBase token update performed, operation took: " + stopwatch1.ElapsedMilliseconds + " ms, for User: " + usr.CallName);
+                    }
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                    return claimsIdentity;
+                    return (claimsIdentity, usr.Contact);
                 }
             }
-            return null;
+            return (null, null);
 
         }
     }

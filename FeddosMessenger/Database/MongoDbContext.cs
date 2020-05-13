@@ -12,6 +12,5 @@ namespace FeddosMessenger.Database
         public static MongoClient MongoClient = new MongoClient(Properties.Resources.MongoConnectionString);
         public static IMongoDatabase mongoDatabase = MongoClient.GetDatabase(Properties.Resources.MongoDBName);
         public static IMongoCollection<User> UsersCollection = mongoDatabase.GetCollection<User>(Properties.Resources.MongoUsers);
-        
     }
 }
