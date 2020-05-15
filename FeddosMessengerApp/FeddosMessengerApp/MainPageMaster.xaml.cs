@@ -34,8 +34,8 @@ namespace FeddosMessengerApp
             {
                 MenuItems = new ObservableCollection<MainPageMasterMenuItem>(new[]
                 {
-                    new MainPageMasterMenuItem { Id = 0, Title = "Chats", TargetType=typeof(ChatsPage) },
-                    new MainPageMasterMenuItem { Id = 1, Title = "Contacts", TargetType=typeof(ContactsPage) },
+                    new MainPageMasterMenuItem { Id = 0, Title = "Чати", TargetType=typeof(ChatsPage) },
+                    new MainPageMasterMenuItem { Id = 1, Title = "Контакти", TargetType=typeof(ContactsPage) },
                 });
             }
 

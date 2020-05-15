@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SharedTypes.Tokens;
 using FeddosMessenger.Database;
+using FeddosMessenger.Hubs;
+using MessagePack;
 
 namespace FeddosMessenger
 {
@@ -47,7 +49,7 @@ namespace FeddosMessenger
                     }
                 };
             });
-            services.AddSignalR();
+            services.AddSignalR().AddMessagePackProtocol();
             services.AddControllers();
         }
 
@@ -62,7 +64,7 @@ namespace FeddosMessenger
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //endpoints.MapHub<>("/chat");
+                endpoints.MapHub<MainHub>("/chat");
             });
         }
     }
