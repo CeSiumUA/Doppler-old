@@ -1,4 +1,5 @@
 ﻿using FeddosMessengerApp.FireBase;
+using FeddosMessengerApp.Hubs;
 using FeddosMessengerApp.MobileDataBase;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -79,6 +80,7 @@ namespace FeddosMessengerApp
                                 PhoneNumber = authTuple.Contact.PhoneNumber
                             }
                         };
+                        CommunicationHub.InitiateHub(pers.AuthServerToken);
                         await mdbc.Personal.AddAsync(pers);
                         
                         await mdbc.SaveChangesAsync();

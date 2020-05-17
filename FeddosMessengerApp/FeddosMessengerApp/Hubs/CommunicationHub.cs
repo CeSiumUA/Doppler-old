@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Xamarin.Forms;
 
-namespace FeddosMessengerApp
+namespace FeddosMessengerApp.Hubs
 {
     //TODO
     class CommunicationHub
@@ -30,7 +30,11 @@ namespace FeddosMessengerApp
                 }).Build();
             
         }
-
+        public static async Task<List<string>> GetNewChats()
+        {
+            await hubConnection.InvokeAsync("GetNewChats");
+            return null;
+        }
         public static void InitiateHub()
         {
             string Token = "";

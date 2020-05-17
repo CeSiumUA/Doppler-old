@@ -49,7 +49,7 @@ namespace FeddosMessenger
                     }
                 };
             });
-            services.AddSignalR().AddMessagePackProtocol();
+            services.AddSignalR();
             services.AddControllers();
         }
 

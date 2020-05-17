@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FeddosMessengerApp.Hubs;
+using Microsoft.AspNetCore.Connections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,7 @@ namespace FeddosMessengerApp
         public ChatsPage()
         {
             InitializeComponent();
+            CommunicationHub.GetNewChats();
         }
     }
 }
