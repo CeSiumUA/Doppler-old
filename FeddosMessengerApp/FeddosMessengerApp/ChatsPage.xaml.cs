@@ -17,7 +17,7 @@ namespace FeddosMessengerApp
         public ChatsPage()
         {
             InitializeComponent();
-            CommunicationHub.GetNewChats();
+            //CommunicationHub.GetNewChats();
         }
     }
 }

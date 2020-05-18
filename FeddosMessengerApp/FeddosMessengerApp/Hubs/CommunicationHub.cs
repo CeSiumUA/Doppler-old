@@ -15,10 +15,10 @@ using Xamarin.Forms;
 namespace FeddosMessengerApp.Hubs
 {
     //TODO
-    class CommunicationHub
+    public class CommunicationHub
     {
         public static HubConnection hubConnection;
-        public static void InitiateHub(string Token)
+        public static async void InitiateHub(string Token)
         {
             ServicePointManager.ServerCertificateValidationCallback +=
                 (sender, certificate, chain, sllPolicyError) => true;
@@ -26,13 +26,17 @@ namespace FeddosMessengerApp.Hubs
             hubConnection = new HubConnectionBuilder().WithUrl(Properties.Resources.ServerIPAddress + "/chat",
                 options =>
                 {
+                    
+                    
                     options.AccessTokenProvider = () => Task.FromResult(Token);
                 }).Build();
-            
+           
+            await hubConnection.StartAsync();
+
         }
         public static async Task<List<string>> GetNewChats()
         {
-            await hubConnection.InvokeAsync("GetNewChats");
+            await hubConnection.InvokeAsync<string>("GetNewChats", "test");
             return null;
         }
         public static void InitiateHub()

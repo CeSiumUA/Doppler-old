@@ -1,4 +1,5 @@
 ﻿using FeddosMessengerApp.FireBase;
+using FeddosMessengerApp.Hubs;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

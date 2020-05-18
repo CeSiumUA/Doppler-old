@@ -10,14 +10,15 @@ namespace FeddosMessenger.Hubs
     [Authorize]
     public class MainHub:Hub
     {
-        public MainHub()
-        {
-            
-        }
         
-        public async Task GetNewChats()
+        public async Task GetNewChats(string test)
         {
             Console.WriteLine("Getting chats");
+        }
+        public override async Task OnConnectedAsync()
+        {
+            Console.WriteLine("Connected! " + Context.ConnectionId);
+            await base.OnConnectedAsync();
         }
     }
 }

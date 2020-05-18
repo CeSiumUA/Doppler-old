@@ -63,8 +63,8 @@ namespace FeddosMessenger
             app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
                 endpoints.MapHub<MainHub>("/chat");
+                endpoints.MapControllers();
             });
         }
     }

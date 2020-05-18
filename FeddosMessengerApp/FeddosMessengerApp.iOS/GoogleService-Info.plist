@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>967847916253-lona70g2fqaptd3t8mr21sg9k0bcn880.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.967847916253-lona70g2fqaptd3t8mr21sg9k0bcn880</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBaVXw3AqtQ3k4bSIzMRqg4AgH1Ha_10dc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>967847916253</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.companyname.FirebaseTest</string>
+	<key>PROJECT_ID</key>
+	<string>feddosopenmessenger</string>
+	<key>STORAGE_BUCKET</key>
+	<string>feddosopenmessenger.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:967847916253:ios:a5313925960c31257be134</string>
+	<key>DATABASE_URL</key>
+	<string>https://feddosopenmessenger.firebaseio.com</string>
+</dict>
+</plist>

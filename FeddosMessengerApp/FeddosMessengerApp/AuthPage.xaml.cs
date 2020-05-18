@@ -1,6 +1,7 @@
 ﻿using FeddosMessengerApp.FireBase;
 using FeddosMessengerApp.Hubs;
 using FeddosMessengerApp.MobileDataBase;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SharedTypes.SocialTypes;
@@ -53,6 +54,7 @@ namespace FeddosMessengerApp
             try
             {
                 WebResponse webResponse = await httpWebRequest.GetResponseAsync();
+                string Token = "";
                 using(StreamReader streamReader = new StreamReader(webResponse.GetResponseStream()))
                 {
                     string json = streamReader.ReadToEnd();
@@ -64,6 +66,7 @@ namespace FeddosMessengerApp
                         {
                             pers = mdbc.Personal.FirstOrDefault();
                         }
+                        Token = authTuple.Token;
                         pers = new Personal()
                         {
                             PassWord = password,
@@ -80,14 +83,15 @@ namespace FeddosMessengerApp
                                 PhoneNumber = authTuple.Contact.PhoneNumber
                             }
                         };
-                        CommunicationHub.InitiateHub(pers.AuthServerToken);
+                        
                         await mdbc.Personal.AddAsync(pers);
                         
                         await mdbc.SaveChangesAsync();
                     }
-
-                    OnAuthSuccessfullEvent.Invoke();
                 }
+                CommunicationHub.InitiateHub(Token);
+                OnAuthSuccessfullEvent.Invoke();
+
             }
             catch(System.Net.WebException exc)
             {
