@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/FeddosMessenger",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:57731",
       "sslPort": 44331
@@ -9,7 +13,7 @@
   },
   "profiles": {
     "IIS Express": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
