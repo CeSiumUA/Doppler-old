@@ -11,6 +11,7 @@ using FeddosMessengerApp.Properties;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Xamarin.Forms;
+using System.Net.Http;
 
 namespace FeddosMessengerApp.Hubs
 {
@@ -18,7 +19,7 @@ namespace FeddosMessengerApp.Hubs
     public class CommunicationHub
     {
         public static HubConnection hubConnection;
-        public static async void InitiateHub(string Token)
+        public static async Task InitiateHub(string Token)
         {
             ServicePointManager.ServerCertificateValidationCallback +=
                 (sender, certificate, chain, sllPolicyError) => true;
@@ -26,8 +27,14 @@ namespace FeddosMessengerApp.Hubs
             hubConnection = new HubConnectionBuilder().WithUrl(Properties.Resources.ServerIPAddress + "/chat",
                 options =>
                 {
-                    
-                    
+                    options.WebSocketConfiguration = conf =>
+                    {
+                        conf.RemoteCertificateValidationCallback = (message, cert, chain, errors) => { return true; };
+                    };
+                    options.HttpMessageHandlerFactory = factory => new HttpClientHandler
+                    {
+                        ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; }
+                    };
                     options.AccessTokenProvider = () => Task.FromResult(Token);
                 }).Build();
            
@@ -39,7 +46,7 @@ namespace FeddosMessengerApp.Hubs
             await hubConnection.InvokeAsync<string>("GetNewChats", "test");
             return null;
         }
-        public static void InitiateHub()
+        public static async void InitiateHub()
         {
             string Token = "";
             using (MobileDataBaseContext mdbc = new MobileDataBaseContext(DependencyService.Get<IGetPath>().GetDataBasePath("msngr.db")))
@@ -49,7 +56,7 @@ namespace FeddosMessengerApp.Hubs
 
             if (Token != "")
             {
-                InitiateHub(Token);
+                await InitiateHub(Token);
             }
             else
             {

@@ -89,7 +89,7 @@ namespace FeddosMessengerApp
                         await mdbc.SaveChangesAsync();
                     }
                 }
-                CommunicationHub.InitiateHub(Token);
+                await CommunicationHub.InitiateHub(Token);
                 OnAuthSuccessfullEvent.Invoke();
 
             }
