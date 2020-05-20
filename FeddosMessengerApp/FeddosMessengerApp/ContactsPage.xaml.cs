@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeddosMessengerApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace FeddosMessengerApp
         public ContactsPage()
         {
             InitializeComponent();
+            this.BindingContext = new ContacsViewModel();
         }
     }
 }

@@ -77,6 +77,7 @@ namespace HelperApplication
                 user.CallName = CallName;
                 user.Contact = new Contact()
                 {
+                    Id = Guid.NewGuid().ToString(),
                     FirstName = firstName,
                     CallName = CallName
                 };
@@ -90,6 +91,7 @@ namespace HelperApplication
                 Password = "12345".CreateHash(true, "@Master"),
                 Contact = new Contact()
                 {
+                    Id = Guid.NewGuid().ToString(),
                     FirstName = "Fedir",
                     SecondName = "Katushonok"
                 },

@@ -14,6 +14,6 @@ namespace FeddosMessengerApp.MobileDataBase
         public string AuthServerToken { get; set; }
         public string UserName { get; set; }
         public string PassWord { get; set; }
-        public MContact Contact { get; set; }
+        public Contact Contact { get; set; }
     }
 }

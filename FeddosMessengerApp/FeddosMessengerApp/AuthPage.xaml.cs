@@ -34,10 +34,6 @@ namespace FeddosMessengerApp
         private async void AuthBox_Clicked(object sender, EventArgs e)
         {
             IGetPath getPath = DependencyService.Get<IGetPath>();
-            using (MobileDataBaseContext mobileDataBase = new MobileDataBaseContext(getPath.GetDataBasePath("msngr.db")))
-            {
-
-            }
             string name = usernameBox.Text;
             string password = passwordBox.Text;
             string FireBaseToken = DependencyService.Get<IFireBaseComponent>().GetFireBaseToken();
@@ -73,8 +69,9 @@ namespace FeddosMessengerApp
                             AuthServerToken = authTuple.Token,
                             UserName = authTuple.CallName,
                             FireBaseToken = FireBaseToken,
-                            Contact = new MContact()
+                            Contact = new Contact()
                             {
+                                Id = authTuple.Contact.Id,
                                 FirstName = authTuple.Contact.FirstName,
                                 SecondName = authTuple.Contact.SecondName,
                                 CallName = authTuple.Contact.CallName,

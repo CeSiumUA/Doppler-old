@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Xamarin.Forms;
 using System.Net.Http;
+using SharedTypes.SocialTypes;
 
 namespace FeddosMessengerApp.Hubs
 {
@@ -41,10 +42,14 @@ namespace FeddosMessengerApp.Hubs
             await hubConnection.StartAsync();
 
         }
-        public static async Task<List<string>> GetNewChats()
+        public static async Task GetContacts(string pattern)
         {
-            await hubConnection.InvokeAsync<string>("GetNewChats", "test");
-            return null;
+            await hubConnection.InvokeAsync("GetContacts", pattern);
+        }
+        public static async Task<List<Contact>> GetNewChats(string pattern)
+        {
+            List<Contact> gotContacts = await hubConnection.InvokeAsync<List<Contact>>("GetNewChats", pattern);
+            return gotContacts;
         }
         public static async void InitiateHub()
         {

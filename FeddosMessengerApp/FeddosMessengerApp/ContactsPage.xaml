@@ -8,9 +8,7 @@
              x:Class="FeddosMessengerApp.ContactsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Entry x:Name="EntryBox" Text="" Placeholder="Enter Name Here" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

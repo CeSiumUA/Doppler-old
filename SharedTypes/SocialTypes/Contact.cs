@@ -8,10 +8,8 @@ namespace SharedTypes.SocialTypes
 {
     public class Contact:IContact
     {
-        
-        //[BsonIgnore]
-        //[Key]
-        //public Guid Id { get; set; }
+        [Key]
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string CallName { get; set; }

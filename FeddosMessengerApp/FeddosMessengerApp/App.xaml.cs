@@ -1,5 +1,6 @@
 ﻿using FeddosMessengerApp.FireBase;
 using FeddosMessengerApp.Hubs;
+using FeddosMessengerApp.MobileDataBase;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,6 +12,11 @@ namespace FeddosMessengerApp
         public App()
         {
             InitializeComponent();
+
+            using (MobileDataBaseContext mobileDataBase = new MobileDataBaseContext(DependencyService.Get<IGetPath>().GetDataBasePath("msngr.db")))
+            {
+
+            }
             IFireBaseComponent fireBaseComponent = DependencyService.Get<IFireBaseComponent>();
             if (fireBaseComponent.CheckGooglePlayServicesAvailability())
             {
