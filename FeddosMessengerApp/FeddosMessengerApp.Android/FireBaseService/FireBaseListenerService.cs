@@ -13,7 +13,8 @@ using Firebase.Messaging;
 
 namespace FeddosMessengerApp.Droid.FireBaseService
 {
-    [Service, IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
+    [Service]
+    [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     public class FireBaseListenerService:FirebaseMessagingService
     {
         public override void OnMessageReceived(RemoteMessage p0)

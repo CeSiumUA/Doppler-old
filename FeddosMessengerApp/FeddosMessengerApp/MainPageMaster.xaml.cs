@@ -1,4 +1,5 @@
-﻿using SharedTypes.SocialTypes;
+﻿using FeddosMessengerApp.MobileDataBase;
+using SharedTypes.SocialTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +22,7 @@ namespace FeddosMessengerApp
         public MainPageMaster()
         {
             InitializeComponent();
-
+            HeadetLabel.Text = Newtonsoft.Json.JsonConvert.DeserializeObject<Personal>(Application.Current.Properties["Personal"].ToString()).Contact.Name;
             BindingContext = new MainPageMasterViewModel();
             ListView = MenuItemsListView;
         }

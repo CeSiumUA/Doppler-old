@@ -9,8 +9,7 @@ namespace SharedTypes.SocialTypes
     {
         [Key]
         string Id { get; set; }
-        string FirstName { get; set; }
-        string SecondName { get; set; }
+        string Name { get; set; }
         string CallName { get; set; }
         string Description { get; set; }
         string PhoneNumber { get; set; }

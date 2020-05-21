@@ -78,7 +78,7 @@ namespace HelperApplication
                 user.Contact = new Contact()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    FirstName = firstName,
+                    Name = firstName,
                     CallName = CallName
                 };
                 user.FireBaseToken = new FireBaseToken();
@@ -92,8 +92,7 @@ namespace HelperApplication
                 Contact = new Contact()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    FirstName = "Fedir",
-                    SecondName = "Katushonok"
+                    Name = "Fedir " + "Katushonok"
                 },
                 Contacts = new List<Contact>(),
                 FireBaseToken = new FireBaseToken(),

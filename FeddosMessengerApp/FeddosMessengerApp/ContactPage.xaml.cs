@@ -11,15 +11,14 @@ using Xamarin.Forms.Xaml;
 namespace FeddosMessengerApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ContactsPage : ContentPage
+    public partial class ContactPage : ContentPage
     {
-        public ContactsPage()
+        ContactViewModel contactViewModel { get; set; }
+        public ContactPage(ContactViewModel contactViewModel)
         {
             InitializeComponent();
-            this.BindingContext = new ContactsViewModel()
-            {
-                Navigation = this.Navigation
-            };
+            this.contactViewModel = contactViewModel;
+            this.BindingContext = this.contactViewModel;
         }
     }
 }

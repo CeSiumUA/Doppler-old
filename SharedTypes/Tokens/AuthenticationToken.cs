@@ -9,7 +9,7 @@ namespace SharedTypes.Tokens
     {
         public const string Issuer = "kit.Messaging.server";
         public const string Audience = "kit.messenger.users";
-        public const int TTL = 120;
+        public const int TTL = 2;
         public static SymmetricSecurityKey GetEncryptionKey(string key)
         {
            

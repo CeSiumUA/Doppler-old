@@ -38,7 +38,7 @@ namespace FeddosMessengerApp.Hubs
                     };
                     options.AccessTokenProvider = () => Task.FromResult(Token);
                 }).Build();
-           
+            
             await hubConnection.StartAsync();
 
         }
@@ -46,27 +46,31 @@ namespace FeddosMessengerApp.Hubs
         {
             await hubConnection.InvokeAsync("GetContacts", pattern);
         }
+        public static void CheckConnection()
+        {
+            hubConnection.InvokeAsync("CheckConnection");
+        }
         public static async Task<List<Contact>> GetNewChats(string pattern)
         {
             List<Contact> gotContacts = await hubConnection.InvokeAsync<List<Contact>>("GetNewChats", pattern);
             return gotContacts;
         }
-        public static async void InitiateHub()
-        {
-            string Token = "";
-            using (MobileDataBaseContext mdbc = new MobileDataBaseContext(DependencyService.Get<IGetPath>().GetDataBasePath("msngr.db")))
-            {
-                Token = mdbc.Personal.FirstOrDefault().AuthServerToken;
-            }
+        //public static async void InitiateHub()
+        //{
+        //    string Token = "";
+        //    using (MobileDataBaseContext mdbc = new MobileDataBaseContext(DependencyService.Get<IGetPath>().GetDataBasePath("msngr.db")))
+        //    {
+        //        Token = mdbc.Personal.FirstOrDefault().AuthServerToken;
+        //    }
 
-            if (Token != "")
-            {
-                await InitiateHub(Token);
-            }
-            else
-            {
-                throw new Exception("Token was null");
-            }
-        }
+        //    if (Token != "")
+        //    {
+        //        await InitiateHub(Token);
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Token was null");
+        //    }
+        //}
     }
 }

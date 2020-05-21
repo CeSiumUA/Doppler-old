@@ -55,36 +55,48 @@ namespace FeddosMessengerApp
                 {
                     string json = streamReader.ReadToEnd();
                     PayLoad authTuple = JsonConvert.DeserializeObject<PayLoad>(json);
-                    using (MobileDataBaseContext mdbc = new MobileDataBaseContext(getPath.GetDataBasePath("msngr.db")))
+                    //using (MobileDataBaseContext mdbc = new MobileDataBaseContext(getPath.GetDataBasePath("msngr.db")))
+                    //{
+                    //    Personal pers = null;
+                    //    if (mdbc.Personal.Count() > 0)
+                    //    {
+                    //        pers = mdbc.Personal.FirstOrDefault();
+                    //    }
+                    //    Token = authTuple.Token;
+                    //    pers = new Personal()
+                    //    {
+                    //        //PassWord = password,
+                    //        //AuthServerToken = authTuple.Token,
+                    //        UserName = authTuple.CallName,
+                    //        //FireBaseToken = FireBaseToken,
+                    //        Contact = new Contact()
+                    //        {
+                    //            Id = authTuple.Contact.Id,
+                    //            Name = authTuple.Contact.Name,
+                    //            CallName = authTuple.Contact.CallName,
+                    //            Description = authTuple.Contact.Description,
+                    //            Icon = authTuple.Contact.Icon,
+                    //            PhoneNumber = authTuple.Contact.PhoneNumber
+                    //        }
+                    //    };
+                    Token = authTuple.Token;
+
+                    Application.Current.Properties.Remove("JWT_Token");
+                    Application.Current.Properties.Add("JWT_Token", Token);
+
+                    Application.Current.Properties.Remove("Personal");
+                    Application.Current.Properties.Add("Personal", JsonConvert.SerializeObject(new Personal()
                     {
-                        Personal pers = null;
-                        if (mdbc.Personal.Count() > 0)
-                        {
-                            pers = mdbc.Personal.FirstOrDefault();
-                        }
-                        Token = authTuple.Token;
-                        pers = new Personal()
-                        {
-                            PassWord = password,
-                            AuthServerToken = authTuple.Token,
-                            UserName = authTuple.CallName,
-                            FireBaseToken = FireBaseToken,
-                            Contact = new Contact()
-                            {
-                                Id = authTuple.Contact.Id,
-                                FirstName = authTuple.Contact.FirstName,
-                                SecondName = authTuple.Contact.SecondName,
-                                CallName = authTuple.Contact.CallName,
-                                Description = authTuple.Contact.Description,
-                                Icon = authTuple.Contact.Icon,
-                                PhoneNumber = authTuple.Contact.PhoneNumber
-                            }
-                        };
-                        
-                        await mdbc.Personal.AddAsync(pers);
-                        
-                        await mdbc.SaveChangesAsync();
-                    }
+                        UserName = authTuple.CallName,
+                        Contact = authTuple.Contact
+                    }));
+                    
+                    await Application.Current.SavePropertiesAsync();
+                    //    await mdbc.Personal.AddAsync(pers);
+
+                    //    await mdbc.SaveChangesAsync();
+                    //}
+                   
                 }
                 await CommunicationHub.InitiateHub(Token);
                 OnAuthSuccessfullEvent.Invoke();
@@ -92,7 +104,7 @@ namespace FeddosMessengerApp
             }
             catch(System.Net.WebException exc)
             {
-
+                AuthResult.Text = "Не вдалося аутентифікувати користувача";
             }
         }
     }

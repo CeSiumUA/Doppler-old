@@ -34,6 +34,7 @@
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
           <Label
+              x:Name="HeadetLabel"
               Grid.Column="1"
               Grid.Row="2"
               Text="AppName"

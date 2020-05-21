@@ -2,6 +2,8 @@
 using FeddosMessengerApp.Hubs;
 using FeddosMessengerApp.MobileDataBase;
 using System;
+using System.Collections;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,19 +15,50 @@ namespace FeddosMessengerApp
         {
             InitializeComponent();
 
-            using (MobileDataBaseContext mobileDataBase = new MobileDataBaseContext(DependencyService.Get<IGetPath>().GetDataBasePath("msngr.db")))
-            {
-
-            }
             IFireBaseComponent fireBaseComponent = DependencyService.Get<IFireBaseComponent>();
             if (fireBaseComponent.CheckGooglePlayServicesAvailability())
             {
-                AuthPage authPage = new AuthPage();
-                MainPage = authPage;
-                authPage.OnAuthSuccessfullEvent += () =>
+                //Personal personal = null;
+                //using (MobileDataBaseContext mobileDataBase = new MobileDataBaseContext(DependencyService.Get<IGetPath>().GetDataBasePath("msngr.db")))
+                //{
+                //    personal = mobileDataBase.Personal.FirstOrDefault();
+                //}
+                string token = "";
+                
+                try
                 {
-                    MainPage = new MainPage();
-                };
+                    token = Application.Current.Properties["JWT_Token"].ToString();
+                }
+                catch
+                {
+
+                }
+                if (!string.IsNullOrEmpty(token))
+                {
+                    try
+                    {
+                        //CommunicationHub.InitiateHub(personal.AuthServerToken);
+                        CommunicationHub.InitiateHub(token);
+                        MainPage = new MainPage();
+                    }
+                    catch(Exception ex)
+                    {
+                        Authentication();
+                    }
+                }
+                else
+                {
+                    Authentication();
+                }
+                void Authentication()
+                {
+                    AuthPage authPage = new AuthPage();
+                    MainPage = new NavigationPage(authPage);
+                    authPage.OnAuthSuccessfullEvent += () =>
+                    {
+                        MainPage = new MainPage();
+                    };
+                }
             }
         }
 
