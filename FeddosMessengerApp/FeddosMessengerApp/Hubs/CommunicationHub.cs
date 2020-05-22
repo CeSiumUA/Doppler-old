@@ -46,9 +46,15 @@ namespace FeddosMessengerApp.Hubs
         {
             await hubConnection.InvokeAsync("GetContacts", pattern);
         }
-        public static void CheckConnection()
+        public static async Task<bool> CheckConnection()
         {
-            hubConnection.InvokeAsync("CheckConnection");
+            hubConnection.On<bool>("CheckAuthResult", (s) =>
+            {
+
+            });
+            bool bl = await hubConnection.InvokeAsync<bool>("CheckAuthorization");
+            
+            return bl;
         }
         public static async Task<List<Contact>> GetNewChats(string pattern)
         {

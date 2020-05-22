@@ -38,7 +38,7 @@ namespace FeddosMessengerApp
                     try
                     {
                         //CommunicationHub.InitiateHub(personal.AuthServerToken);
-                        CommunicationHub.InitiateHub(token);
+                        HubConnector(token);
                         MainPage = new MainPage();
                     }
                     catch(Exception ex)
@@ -61,7 +61,11 @@ namespace FeddosMessengerApp
                 }
             }
         }
-
+        private async void HubConnector(string token)
+        {
+            await CommunicationHub.InitiateHub(token);
+            await CommunicationHub.CheckConnection();
+        }
         protected override void OnStart()
         {
         }

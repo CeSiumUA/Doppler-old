@@ -49,6 +49,7 @@ namespace FeddosMessenger
                     }
                 };
             });
+            services.AddAuthorization();
             services.AddSignalR();
             services.AddControllers();
         }

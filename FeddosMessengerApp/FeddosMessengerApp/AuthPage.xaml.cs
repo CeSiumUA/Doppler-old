@@ -88,6 +88,7 @@ namespace FeddosMessengerApp
                     Application.Current.Properties.Add("Personal", JsonConvert.SerializeObject(new Personal()
                     {
                         UserName = authTuple.CallName,
+                        //PassWord = password,
                         Contact = authTuple.Contact
                     }));
                     
@@ -99,6 +100,7 @@ namespace FeddosMessengerApp
                    
                 }
                 await CommunicationHub.InitiateHub(Token);
+                
                 OnAuthSuccessfullEvent.Invoke();
 
             }
