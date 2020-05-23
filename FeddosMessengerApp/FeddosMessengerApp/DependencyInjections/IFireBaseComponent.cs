@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FeddosMessengerApp.FireBase
+namespace FeddosMessengerApp.DependencyInjections
 {
     public interface IFireBaseComponent
     {

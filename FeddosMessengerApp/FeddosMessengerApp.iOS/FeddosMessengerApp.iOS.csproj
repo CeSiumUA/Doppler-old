@@ -66,9 +66,11 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DependencyInjections\GetCurrentPlatform.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
+    <None Include="GoogleService-Info.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -131,9 +133,14 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\SharedTypes\SharedTypes.csproj">
+      <Project>{8F61DD03-CEB9-440F-B635-D2951F0A91EB}</Project>
+      <Name>SharedTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FeddosMessengerApp\FeddosMessengerApp.csproj">
       <Project>{61769F8E-55B4-41C6-9C72-DB32F91D10E6}</Project>
       <Name>FeddosMessengerApp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
 </Project>

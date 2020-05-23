@@ -19,7 +19,15 @@ namespace FeddosMessenger.Hubs
         [Authorize]
         public async Task GetContacts(string pattern)
         {
-            List<Contact> Contacts = await MongoDbContext.UsersCollection.AsQueryable().Where(x => x.CallName.Contains(pattern) || x.Contact.Name.Contains(pattern)).Select(x => x.Contact).ToListAsync();
+            List<Contact> Contacts;
+            if (!string.IsNullOrEmpty(pattern))
+            {
+                Contacts = await MongoDbContext.UsersCollection.AsQueryable().Where(x => x.CallName.Contains(pattern) || x.Contact.Name.Contains(pattern)).Select(x => x.Contact).ToListAsync();
+            }
+            else
+            {
+                Contacts = await MongoDbContext.UsersCollection.AsQueryable().Select(x => x.Contact).ToListAsync();
+            }
             await Clients.Caller.SendAsync("ReceiveContacts", Contacts);
         }
         [Authorize]

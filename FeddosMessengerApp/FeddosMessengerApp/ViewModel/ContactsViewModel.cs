@@ -1,4 +1,5 @@
-﻿using FeddosMessengerApp.Hubs;
+﻿using FeddosMessengerApp.DependencyInjections;
+using FeddosMessengerApp.Hubs;
 using FeddosMessengerApp.MobileDataBase;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -16,6 +17,7 @@ namespace FeddosMessengerApp.ViewModel
 {
     public class ContactsViewModel : INotifyPropertyChanged
     {
+        public string Title { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<ContactViewModel> InnerContacts { get; set; }
         public ObservableCollection<ContactViewModel> ReceivedContacts { get; set; }
@@ -26,6 +28,7 @@ namespace FeddosMessengerApp.ViewModel
         public INavigation Navigation { get; set; }
         public ContactsViewModel()
         {
+            Title = "Знайдено в БД";
             ReceiveContacts = new Command(GetContacts);
             SaveContactCommand = new Command(SaveContact);
             CommunicationHub.hubConnection.On<List<Contact>>("ReceiveContacts", (contacts) =>
@@ -37,6 +40,7 @@ namespace FeddosMessengerApp.ViewModel
                     contactViewModel.Name = cont.Name;
                     contactViewModel.CallName = cont.CallName;
                     contactViewModel.Description = cont.Description;
+                    contactViewModel.Id = cont.Id;
                     ReceivedContacts.Add(contactViewModel);
                 }
                 OnPropertyChanged("ReceivedContacts");
@@ -67,15 +71,20 @@ namespace FeddosMessengerApp.ViewModel
         }
         public async void SaveContact(object ContactModel)
         {
-            using(MobileDataBaseContext mobileDataBase = new MobileDataBaseContext(DependencyService.Get<IGetPath>().GetDataBasePath("msngr.db")))
+           
+            Contact contact = ((ContactViewModel)ContactModel).Contact;
+
+            try
             {
-                Contact contact = ContactModel as Contact;
-                if (!mobileDataBase.Contacts.Contains(contact)) 
-                {
-                    await mobileDataBase.Contacts.AddAsync(contact);
-                    await mobileDataBase.SaveChangesAsync();
-                }
+                await DataBaseClient.MobileDataBaseContext.Contacts.AddAsync(contact);
+                await DataBaseClient.MobileDataBaseContext.SaveChangesAsync();
             }
+            catch(Exception ex)
+            {
+
+            }
+                
+            
             await Navigation.PopAsync();
         }
     }

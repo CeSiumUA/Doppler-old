@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FeddosMessengerApp.Hubs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,10 @@ namespace FeddosMessengerApp
             InitializeComponent();
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
-
+        public async void InitiateHubAsync(string token)
+        {
+            await CommunicationHub.InitiateHub(token);
+        }
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as MainPageMasterMenuItem;

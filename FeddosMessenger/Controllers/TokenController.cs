@@ -27,9 +27,9 @@ namespace FeddosMessenger.Controllers
         }
 
         [HttpPost("/auth")]
-        public async Task<IActionResult> Token(string username, string password, string firebasetoken)
+        public async Task<IActionResult> Token(string username, string password, string firebasetoken, string platform)
         {
-            (ClaimsIdentity ClaimsIdentity, Contact Contact) authenticatedUser = await Checkidentity(username, password, firebasetoken);
+            (ClaimsIdentity ClaimsIdentity, Contact Contact) authenticatedUser = await Checkidentity(username, password, firebasetoken, platform);
             if(authenticatedUser.ClaimsIdentity == null)
             {
                 return BadRequest("Invalid username or password!");
@@ -54,7 +54,7 @@ namespace FeddosMessenger.Controllers
             return new JsonResult(payLoad);
         }
         //TODO Update Firebase Token
-        private async Task<(ClaimsIdentity, Contact)> Checkidentity(string userName, string Password, string FireBaseToken)
+        private async Task<(ClaimsIdentity, Contact)> Checkidentity(string userName, string Password, string FireBaseToken, string platform)
         {
             Console.WriteLine("Authentication: Searching for a user...");
             Stopwatch stopwatch = new Stopwatch();
@@ -76,8 +76,10 @@ namespace FeddosMessenger.Controllers
                         Stopwatch stopwatch1 = new Stopwatch();
                         stopwatch1.Restart();
                         var filter = Builders<User>.Filter.Eq(x => x.Id, usr.Id);
-                        var update = Builders<User>.Update.Set(x => x.FireBaseToken.Token, FireBaseToken);
-                        await MongoDbContext.UsersCollection.UpdateOneAsync(filter, update);
+                        var update1 = Builders<User>.Update.Set(x => x.FireBaseToken.Token, FireBaseToken);
+                        var update2 = Builders<User>.Update.Set(x => x.FireBaseToken.PlatformType, Enum.Parse(typeof(PlatformType), platform));
+                        await MongoDbContext.UsersCollection.UpdateOneAsync(filter, update1);
+                        await MongoDbContext.UsersCollection.UpdateOneAsync(filter, update2);
                         stopwatch1.Stop();
                         Console.WriteLine("FireBase token update performed, operation took: " + stopwatch1.ElapsedMilliseconds + " ms, for User: " + usr.CallName);
                     }

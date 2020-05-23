@@ -8,10 +8,9 @@
              x:Class="FeddosMessengerApp.ContactsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Entry x:Name="EntryBox" Text="{Binding SearchPattern}" Placeholder="Введіть ім'я"/>
-            <Button Text="Пошук" Command="{Binding ReceiveContacts}" CommandParameter="{Binding}"/>
-            <Label Text="Знайдено в БД"/>
-            <ListView ItemsSource="{Binding ReceivedContacts}" SelectedItem="{Binding SelectedContact, Mode=TwoWay}" x:Name="ReceivedContactList" HasUnevenRows="True">
+            <Entry x:Name="EntryBox" Text="{Binding SearchPattern}" Placeholder="Введіть ім'я" TextChanged="EntryBox_TextChanged"/>
+            <!--<Button Text="Пошук" Command="{Binding ReceiveContacts}" CommandParameter="{Binding}"/>-->
+            <ListView GroupDisplayBinding="{Binding Title}" ItemsSource="{Binding ReceivedContacts}" SelectedItem="{Binding SelectedContact, Mode=TwoWay}" x:Name="ReceivedContactList" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -26,6 +25,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Label Text="Ваші контакти" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FeddosMessengerApp.MobileDataBase
+namespace FeddosMessengerApp.DependencyInjections
 {
     public interface IGetPath
     {

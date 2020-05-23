@@ -10,5 +10,11 @@ namespace SharedTypes.Tokens
         [Key]
         public string Id { get; set; }
         public string Token { get; set; }
+        public PlatformType PlatformType { get; set; }
+    }
+    public enum PlatformType
+    {
+        Android = 0,
+        iOS
     }
 }

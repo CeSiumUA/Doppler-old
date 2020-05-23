@@ -1,9 +1,12 @@
-﻿using FeddosMessengerApp.FireBase;
+﻿using FeddosMessengerApp.DependencyInjections;
 using FeddosMessengerApp.Hubs;
 using FeddosMessengerApp.MobileDataBase;
+using SharedTypes.Tokens;
 using System;
 using System.Collections;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,7 +17,6 @@ namespace FeddosMessengerApp
         public App()
         {
             InitializeComponent();
-
             IFireBaseComponent fireBaseComponent = DependencyService.Get<IFireBaseComponent>();
             if (fireBaseComponent.CheckGooglePlayServicesAvailability())
             {
@@ -23,30 +25,33 @@ namespace FeddosMessengerApp
                 //{
                 //    personal = mobileDataBase.Personal.FirstOrDefault();
                 //}
+                DataBaseClient.MobileDataBaseContext = new MobileDataBaseContext(DependencyService.Get<IGetPath>().GetDataBasePath("msngr.db"));
                 string token = "";
-                
+                DateTime dateTime;
                 try
                 {
                     token = Application.Current.Properties["JWT_Token"].ToString();
-                }
-                catch
-                {
-
-                }
-                if (!string.IsNullOrEmpty(token))
-                {
-                    try
+                    dateTime = DateTime.Parse(Application.Current.Properties["Token_Time_Added"].ToString());
+                    if (!string.IsNullOrEmpty(token))
                     {
-                        //CommunicationHub.InitiateHub(personal.AuthServerToken);
-                        HubConnector(token);
-                        MainPage = new MainPage();
+                        double elapsedMilliSeconds = DateTime.Now.Subtract(dateTime).TotalMilliseconds;
+                        if (elapsedMilliSeconds > (AuthenticationToken.TTL * 60000))
+                        {
+                            Authentication();
+                        }
+                        else
+                        {
+                            MainPage mainPage = new MainPage();
+                            mainPage.InitiateHubAsync(token);
+                            MainPage = mainPage;
+                        }
                     }
-                    catch(Exception ex)
+                    else
                     {
                         Authentication();
                     }
                 }
-                else
+                catch
                 {
                     Authentication();
                 }
@@ -61,11 +66,7 @@ namespace FeddosMessengerApp
                 }
             }
         }
-        private async void HubConnector(string token)
-        {
-            await CommunicationHub.InitiateHub(token);
-            await CommunicationHub.CheckConnection();
-        }
+       
         protected override void OnStart()
         {
         }

@@ -1,4 +1,4 @@
-﻿using FeddosMessengerApp.FireBase;
+﻿using FeddosMessengerApp.DependencyInjections;
 using FeddosMessengerApp.Hubs;
 using FeddosMessengerApp.MobileDataBase;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -41,7 +41,7 @@ namespace FeddosMessengerApp
             httpWebRequest.ServerCertificateValidationCallback = delegate { return true; };
             httpWebRequest.Method = "POST";
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
-            byte[] bytes = Encoding.UTF8.GetBytes("username=" + name + "&password=" + password + "&firebasetoken=" + FireBaseToken);
+            byte[] bytes = Encoding.UTF8.GetBytes("username=" + name + "&password=" + password + "&firebasetoken=" + FireBaseToken + "&platform=" + DependencyService.Get<IGetPlatform>().GetPlatform().ToString());
             httpWebRequest.ContentLength = bytes.Length;
             using (Stream stream = httpWebRequest.GetRequestStream()) 
             {
@@ -83,6 +83,9 @@ namespace FeddosMessengerApp
 
                     Application.Current.Properties.Remove("JWT_Token");
                     Application.Current.Properties.Add("JWT_Token", Token);
+
+                    Application.Current.Properties.Remove("Token_Time_Added");
+                    Application.Current.Properties.Add("Token_Time_Added", DateTime.Now.ToString());
 
                     Application.Current.Properties.Remove("Personal");
                     Application.Current.Properties.Add("Personal", JsonConvert.SerializeObject(new Personal()

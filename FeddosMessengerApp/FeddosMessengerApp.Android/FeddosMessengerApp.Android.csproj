@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase\dbDependency.cs" />
+    <Compile Include="DependencyInjections\GetCurrentPlatform.cs" />
     <Compile Include="FireBaseService\FireBaseListenerService.cs" />
     <Compile Include="FireBaseService\FireBaseTokenRefreshService.cs" />
     <Compile Include="GooglePlayServiceAvailability.cs" />
@@ -106,6 +107,10 @@
     <GoogleServicesJson Include="google-services.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SharedTypes\SharedTypes.csproj">
+      <Project>{8F61DD03-CEB9-440F-B635-D2951F0A91EB}</Project>
+      <Name>SharedTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FeddosMessengerApp\FeddosMessengerApp.csproj">
       <Project>{61769F8E-55B4-41C6-9C72-DB32F91D10E6}</Project>
       <Name>FeddosMessengerApp</Name>

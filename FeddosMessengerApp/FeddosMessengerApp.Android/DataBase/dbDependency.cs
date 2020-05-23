@@ -12,6 +12,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FeddosMessengerApp.Droid.DataBase;
+using FeddosMessengerApp.DependencyInjections;
 
 [assembly: Xamarin.Forms.Dependency(typeof(dbDependency))]
 namespace FeddosMessengerApp.Droid.DataBase

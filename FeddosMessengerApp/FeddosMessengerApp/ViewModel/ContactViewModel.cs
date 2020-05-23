@@ -29,6 +29,18 @@ namespace FeddosMessengerApp.ViewModel
                 }
             }
         }
+        public string Id
+        {
+            get { return Contact.Id; }
+            set
+            {
+                if(Contact.Id != value)
+                {
+                    Contact.Id = value;
+                    OnPropertyChanged("Id");
+                }
+            }
+        }
         public string Name { get { return Contact.Name; }
             set
             {
