@@ -137,8 +137,8 @@
       <Project>{8F61DD03-CEB9-440F-B635-D2951F0A91EB}</Project>
       <Name>SharedTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FeddosMessengerApp\Doppler.csproj">
-      <Project>{BC57D377-6307-49F5-A167-7F208B6D9736}</Project>
+    <ProjectReference Include="..\Doppler\Doppler.csproj">
+      <Project>{492d5a05-f8cd-4685-acb7-229c44a13fd3}</Project>
       <Name>Doppler</Name>
     </ProjectReference>
   </ItemGroup>

@@ -8,7 +8,7 @@ namespace SharedTypes.Tokens
     public class FireBaseToken
     {
         [Key]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Token { get; set; }
         public PlatformType PlatformType { get; set; }
     }

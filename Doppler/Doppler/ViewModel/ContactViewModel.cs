@@ -10,9 +10,8 @@ namespace Doppler.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         ContactsViewModel contactsViewModel;
-
+        public string AddOrRemoveTitle { get; set; }
         public Contact Contact { get; private set; }
-
         public ContactViewModel()
         {
             Contact = new Contact();
@@ -24,12 +23,13 @@ namespace Doppler.ViewModel
             {
                 if(contactsViewModel != value)
                 {
+                   
                     contactsViewModel = value;
                     OnPropertyChanged("ListViewModel");
                 }
             }
         }
-        public string Id
+        public Guid Id
         {
             get { return Contact.Id; }
             set

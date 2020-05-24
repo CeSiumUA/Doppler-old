@@ -13,22 +13,25 @@ using System.IO;
 using System.Linq;
 using MongoDB.Driver.Linq;
 using SharedTypes.Cryptography;
+using System.Drawing;
 
 namespace HelperApplication
 {
     class Program
     {
-        private static IMongoCollection<User> collection;
         static void Main(string[] args)
         {
-            string connectionString = "mongodb://localhost:27017";
-            MongoClient mongoClient = new MongoClient(connectionString);
-            var dataBase = mongoClient.GetDatabase("messengerdatabase");
-            collection = dataBase.GetCollection<User>("Users");
-            
+            GenerateDB();
+        }
+        private static void GenerateDB()
+        {
             Console.WriteLine("Enter users amount:");
             List<User> usersToAdd = DatabaseGenerator(Convert.ToInt32(Console.ReadLine())).GetAwaiter().GetResult();
-            collection.InsertManyAsync(usersToAdd).GetAwaiter().GetResult();
+            using (DBCNT dBCNT = new DBCNT())
+            {
+                dBCNT.Users.AddRange(usersToAdd);
+                dBCNT.SaveChanges();
+            }
         }
 
         private static List<string> PreLoadNames()
@@ -44,18 +47,38 @@ namespace HelperApplication
             }
             return names;
         }
+        private static async void UpdateImages()
+        {
+            Random random = new Random();
+            Image[] images = Directory.GetFiles("png", "*.png", SearchOption.AllDirectories).Select(x => { return Image.FromFile(x); }).ToArray();
+            using (DBCNT dBCNT = new DBCNT())
+            {
+                List<User> users = await dBCNT.Users.ToListAsync();
+                for(int x = 0; x < users.Count; x++)
+                {
+                    User usr = users[x];
+                    usr.Contact.Icon = new SharedTypes.Media.EntityIcon()
+                    {
+                        Icon = images[random.Next(0, images.Length - 1)].ConvertImageToByteArray()
+                    };
+                    users[x] = usr;
+                }
+                dBCNT.UpdateRange(users);
+                await dBCNT.SaveChangesAsync();
+            }
+        }
         private static async Task<List<User>> DatabaseGenerator(int amount)
         {
             List<string> preLoadNames = PreLoadNames();
             HashSet<string> callnamesHashSet = new HashSet<string>();
             List<User> users = new List<User>();
             Random random = new Random();
+            Image[] images = Directory.GetFiles("png", "*.png", SearchOption.AllDirectories).Select(x => { return Image.FromFile(x); }).ToArray();
             for (int x = 0; x < amount; x++)
             {
                 string firstName = preLoadNames[random.Next(0, preLoadNames.Count())];
                 User user = new User();
                 string CallName = "@" + firstName;
-                user.Contacts = new List<Contact>();
                 CheckAvailability(CallName);
                 void CheckAvailability(string callname)
                 {
@@ -71,28 +94,38 @@ namespace HelperApplication
                     }
                     
                 }
-
+                
                 user.CallName = CallName;
                 user.Contact = new Contact()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = Guid.NewGuid(),
                     Name = firstName,
                     CallName = CallName
+                };
+                user.Contact.Icon = new SharedTypes.Media.EntityIcon()
+                {
+                    Icon = images[random.Next(0, images.Length - 1)].ConvertImageToByteArray()
                 };
                 user.FireBaseToken = new FireBaseToken();
                 user.Password = random.GetRandomHexadecimal(36).CreateHash(true, user.CallName);
                 users.Add(user);
             }
+            string clnm = "@Master";
             User masteruser = new User()
             {
-                CallName = "@Master",
+                
+                CallName = clnm,
                 Password = "12345".CreateHash(true, "@Master"),
                 Contact = new Contact()
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Fedir " + "Katushonok"
+                    Id = Guid.NewGuid(),
+                    Name = "Fedir " + "Katushonok",
+                    CallName = clnm,
+                    Icon = new SharedTypes.Media.EntityIcon()
+                    {
+                        Icon = images[random.Next(0, images.Length - 1)].ConvertImageToByteArray()
+                    }
                 },
-                Contacts = new List<Contact>(),
                 FireBaseToken = new FireBaseToken(),
             };
             users.Add(masteruser);
@@ -101,5 +134,5 @@ namespace HelperApplication
         
     }
 
-   
+    
 }

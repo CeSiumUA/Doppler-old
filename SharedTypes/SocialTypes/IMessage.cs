@@ -8,8 +8,8 @@ namespace SharedTypes.SocialTypes
     public interface IMessage
     {
         [Key]
-        string Id { get; set; }
-        string MessageText { get; set; }
+        Guid Id { get; set; }
+        MessageContent MessageContent { get; set; }
         string Sender { get; set; }
         bool Dialog { get; set; }
         string ChatId { get; set; }

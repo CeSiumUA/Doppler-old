@@ -97,6 +97,15 @@ namespace DopplerServer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Server=DESKTOP-GNILB6P;Database=Doppler;Trusted_Connection=True;.
+        /// </summary>
+        public static string SQLServer {
+            get {
+                return ResourceManager.GetString("SQLServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://192.168.0.154:5001.
         /// </summary>
         public static string URL {

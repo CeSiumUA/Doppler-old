@@ -9,12 +9,12 @@ namespace SharedTypes.SocialTypes
 {
     public class User:IUser
     {
-        //[Key]
-        public ObjectId Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
         public string CallName { get; set; }
         public string Password { get; set; }
         public FireBaseToken FireBaseToken { get; set; }
         public Contact Contact { get; set; }
-        public List<Contact> Contacts { get; set; }
+        
     }
 }

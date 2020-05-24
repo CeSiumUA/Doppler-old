@@ -1,1 +1,0 @@
-C:\Users\mtgin\Documents\GitHub\FeDDoSMessenger\FeddosMessengerApp\FeddosMessengerApp.UWP\FeddosMessengerApp.UWP.csproj;x86

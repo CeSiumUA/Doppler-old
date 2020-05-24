@@ -33,7 +33,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
-          <Label
+                    <Image x:Name="profileImage"/>
+                    <Label
               x:Name="HeadetLabel"
               Grid.Column="1"
               Grid.Row="2"

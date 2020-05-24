@@ -15,7 +15,7 @@
             <Label Text="Опис"/>
             <Entry IsReadOnly="True" Text="{Binding Description}" FontSize="Medium"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                <Button Text="Додати" Command="{Binding ListViewModel.SaveContactCommand}" CommandParameter="{Binding}"/>
+                <Button Text="{Binding AddOrRemoveTitle}" Command="{Binding ListViewModel.SaveContactCommand}" CommandParameter="{Binding}"/>
                 <Button Text="Написати" Command="{Binding ListViewModel.CreateChat}" />
             </StackLayout>
         </StackLayout>

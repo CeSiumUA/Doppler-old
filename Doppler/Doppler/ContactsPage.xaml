@@ -10,7 +10,8 @@
         <StackLayout>
             <Entry x:Name="EntryBox" Text="{Binding SearchPattern}" Placeholder="Введіть ім'я" TextChanged="EntryBox_TextChanged"/>
             <!--<Button Text="Пошук" Command="{Binding ReceiveContacts}" CommandParameter="{Binding}"/>-->
-            <ListView GroupDisplayBinding="{Binding Title}" ItemsSource="{Binding ReceivedContacts}" SelectedItem="{Binding SelectedContact, Mode=TwoWay}" x:Name="ReceivedContactList" HasUnevenRows="True">
+            <Label Text="{Binding Title1}" FontSize="Caption"/>
+            <ListView ItemsSource="{Binding ReceivedContacts}" SelectedItem="{Binding SelectedContact, Mode=TwoWay}" x:Name="ReceivedContactList" HasUnevenRows="False">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -25,7 +26,22 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Label Text="Ваші контакти" />
+            <Label Text="{Binding Title2}" FontSize="Caption"/>
+            <ListView ItemsSource="{Binding InnerContacts}" SelectedItem="{Binding SelectedContact, Mode=TwoWay}" x:Name="InnerContactList" HasUnevenRows="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout>
+                                    <Label Text="{Binding Name}" FontSize="Medium"/>
+                                    <Label Text="{Binding CallName}" FontSize="Small"/>
+                                    <Label Text="{Binding Description}" FontSize="Small"/>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

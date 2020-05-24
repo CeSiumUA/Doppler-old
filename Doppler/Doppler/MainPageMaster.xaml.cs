@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -21,8 +22,13 @@ namespace Doppler
 
         public MainPageMaster()
         {
+            Contact cntc = Newtonsoft.Json.JsonConvert.DeserializeObject<Personal>(Application.Current.Properties["Personal"].ToString()).Contact;
             InitializeComponent();
-            HeadetLabel.Text = Newtonsoft.Json.JsonConvert.DeserializeObject<Personal>(Application.Current.Properties["Personal"].ToString()).Contact.Name;
+            HeadetLabel.Text = cntc.Name;
+            using (Stream ms = new MemoryStream(cntc.Icon.Icon))
+            {
+                profileImage.Source = ImageSource.FromStream(() => { return ms; });
+            }
             BindingContext = new MainPageMasterViewModel();
             ListView = MenuItemsListView;
         }

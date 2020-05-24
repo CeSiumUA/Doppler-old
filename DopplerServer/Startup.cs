@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SharedTypes.Tokens;
 using MessagePack;
 using DopplerServer.Hubs;
+using DopplerServer.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace DopplerServer
 {
@@ -20,7 +22,7 @@ namespace DopplerServer
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<DataBaseContext>(options => options.UseNpgsql(Properties.Resources.ConnectionString));
+            services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(Properties.Resources.SQLServer));
             
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

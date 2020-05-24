@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace DopplerServer.Database
 {
-    public static class MongoDbContext
-    {
-        public static MongoClient MongoClient = new MongoClient(Properties.Resources.MongoConnectionString);
-        public static IMongoDatabase mongoDatabase = MongoClient.GetDatabase(Properties.Resources.MongoDBName);
-        public static IMongoCollection<User> UsersCollection = mongoDatabase.GetCollection<User>(Properties.Resources.MongoUsers);
-    }
+    //public static class MongoDbContext
+    //{
+    //    public static MongoClient MongoClient = new MongoClient(Properties.Resources.MongoConnectionString);
+    //    public static IMongoDatabase mongoDatabase = MongoClient.GetDatabase(Properties.Resources.MongoDBName);
+    //    public static IMongoCollection<User> UsersCollection = mongoDatabase.GetCollection<User>(Properties.Resources.MongoUsers);
+    //}
 }

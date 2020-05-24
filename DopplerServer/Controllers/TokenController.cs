@@ -14,16 +14,17 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using MessagePack;
 using DopplerServer.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace DopplerServer.Controllers
 {
     public class TokenController:ControllerBase
     {
         //TODO
-        //private DataBaseContext _dataBaseContext;
-        public TokenController()
+        private DataBaseContext dataBaseContext;
+        public TokenController(DataBaseContext dataBaseContext)
         {
-
+            this.dataBaseContext = dataBaseContext;
         }
 
         [HttpPost("/auth")]
@@ -60,7 +61,7 @@ namespace DopplerServer.Controllers
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Restart();
             User usr = null;
-            usr = MongoDbContext.UsersCollection.AsQueryable().Where(x => x.CallName == userName).FirstOrDefault();
+            usr = await dataBaseContext.Users.Where(x => x.CallName == userName).Include(x => x.FireBaseToken).Include(x => x.Contact).FirstAsync();
             stopwatch.Stop();
             Console.WriteLine("Search performed in: " + stopwatch.ElapsedMilliseconds + " ms");
             if(usr != null)
@@ -75,11 +76,9 @@ namespace DopplerServer.Controllers
                     {
                         Stopwatch stopwatch1 = new Stopwatch();
                         stopwatch1.Restart();
-                        var filter = Builders<User>.Filter.Eq(x => x.Id, usr.Id);
-                        var update1 = Builders<User>.Update.Set(x => x.FireBaseToken.Token, FireBaseToken);
-                        var update2 = Builders<User>.Update.Set(x => x.FireBaseToken.PlatformType, Enum.Parse(typeof(PlatformType), platform));
-                        await MongoDbContext.UsersCollection.UpdateOneAsync(filter, update1);
-                        await MongoDbContext.UsersCollection.UpdateOneAsync(filter, update2);
+                        usr.FireBaseToken.Token = FireBaseToken;
+                        dataBaseContext.Users.Update(usr);
+                        await dataBaseContext.SaveChangesAsync();
                         stopwatch1.Stop();
                         Console.WriteLine("FireBase token update performed, operation took: " + stopwatch1.ElapsedMilliseconds + " ms, for User: " + usr.CallName);
                     }
