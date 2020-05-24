@@ -1,0 +1,108 @@
+{
+  "version": 2,
+  "dgSpecHash": "2Zlp8VyRWVxoiOPXBvzkov20E4vM4ynmy7eNjBgdp6RpOYRZ/JgX5C2YKf//B/wKpZkEQACuTqC+cgrtgoYYJA==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\mtgin\\Documents\\GitHub\\FeDDoSMessenger\\FeddosMessengerApp\\FeddosMessengerApp.UWP\\FeddosMessengerApp.UWP.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mtgin\\.nuget\\packages\\microsoft.net.native.compiler\\2.1.8\\microsoft.net.native.compiler.2.1.8.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\microsoft.net.uwpcoreruntimesdk\\2.1.2\\microsoft.net.uwpcoreruntimesdk.2.1.2.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\microsoft.netcore.universalwindowsplatform\\6.1.9\\microsoft.netcore.universalwindowsplatform.6.1.9.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\microsoft.ui.xaml\\2.1.190606001\\microsoft.ui.xaml.2.1.190606001.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-arm-aot.microsoft.netcore.universalwindowsplatform\\6.1.9\\runtime.win10-arm-aot.microsoft.netcore.universalwindowsplatform.6.1.9.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-arm.microsoft.net.native.compiler\\2.1.8\\runtime.win10-arm.microsoft.net.native.compiler.2.1.8.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-arm.microsoft.net.native.sharedlibrary\\2.1.8\\runtime.win10-arm.microsoft.net.native.sharedlibrary.2.1.8.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk\\2.1.2\\runtime.win10-arm.microsoft.net.uwpcoreruntimesdk.2.1.2.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-arm.microsoft.netcore.universalwindowsplatform\\6.1.9\\runtime.win10-arm.microsoft.netcore.universalwindowsplatform.6.1.9.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x64-aot.microsoft.netcore.universalwindowsplatform\\6.1.9\\runtime.win10-x64-aot.microsoft.netcore.universalwindowsplatform.6.1.9.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x64.microsoft.net.native.compiler\\2.1.8\\runtime.win10-x64.microsoft.net.native.compiler.2.1.8.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x64.microsoft.net.native.sharedlibrary\\2.1.8\\runtime.win10-x64.microsoft.net.native.sharedlibrary.2.1.8.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk\\2.1.2\\runtime.win10-x64.microsoft.net.uwpcoreruntimesdk.2.1.2.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\\6.1.9\\runtime.win10-x64.microsoft.netcore.universalwindowsplatform.6.1.9.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x86-aot.microsoft.netcore.universalwindowsplatform\\6.1.9\\runtime.win10-x86-aot.microsoft.netcore.universalwindowsplatform.6.1.9.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x86.microsoft.net.native.compiler\\2.1.8\\runtime.win10-x86.microsoft.net.native.compiler.2.1.8.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x86.microsoft.net.native.sharedlibrary\\2.1.8\\runtime.win10-x86.microsoft.net.native.sharedlibrary.2.1.8.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk\\2.1.2\\runtime.win10-x86.microsoft.net.uwpcoreruntimesdk.2.1.2.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\runtime.win10-x86.microsoft.netcore.universalwindowsplatform\\6.1.9\\runtime.win10-x86.microsoft.netcore.universalwindowsplatform.6.1.9.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\mtgin\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
+    "C:\\Microsoft\\Xamarin\\NuGet\\win2d.uwp\\1.20.0\\win2d.uwp.1.20.0.nupkg.sha512",
+    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.3.1\\xamarin.essentials.1.3.1.nupkg.sha512",
+    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.4.0.991265\\xamarin.forms.4.4.0.991265.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project FeddosMessengerApp is not compatible with uap10.0.16299 (UAP,Version=v10.0.16299). Project FeddosMessengerApp supports: netstandard2.1 (.NETStandard,Version=v2.1)",
+      "libraryId": "FeddosMessengerApp",
+      "targetGraphs": [
+        "UAP,Version=v10.0.16299"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project FeddosMessengerApp is not compatible with uap10.0.16299 (UAP,Version=v10.0.16299) / win10-arm. Project FeddosMessengerApp supports: netstandard2.1 (.NETStandard,Version=v2.1)",
+      "libraryId": "FeddosMessengerApp",
+      "targetGraphs": [
+        "UAP,Version=v10.0.16299/win10-arm"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project FeddosMessengerApp is not compatible with uap10.0.16299 (UAP,Version=v10.0.16299) / win10-arm-aot. Project FeddosMessengerApp supports: netstandard2.1 (.NETStandard,Version=v2.1)",
+      "libraryId": "FeddosMessengerApp",
+      "targetGraphs": [
+        "UAP,Version=v10.0.16299/win10-arm-aot"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project FeddosMessengerApp is not compatible with uap10.0.16299 (UAP,Version=v10.0.16299) / win10-arm64-aot. Project FeddosMessengerApp supports: netstandard2.1 (.NETStandard,Version=v2.1)",
+      "libraryId": "FeddosMessengerApp",
+      "targetGraphs": [
+        "UAP,Version=v10.0.16299/win10-arm64-aot"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project FeddosMessengerApp is not compatible with uap10.0.16299 (UAP,Version=v10.0.16299) / win10-x64. Project FeddosMessengerApp supports: netstandard2.1 (.NETStandard,Version=v2.1)",
+      "libraryId": "FeddosMessengerApp",
+      "targetGraphs": [
+        "UAP,Version=v10.0.16299/win10-x64"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project FeddosMessengerApp is not compatible with uap10.0.16299 (UAP,Version=v10.0.16299) / win10-x64-aot. Project FeddosMessengerApp supports: netstandard2.1 (.NETStandard,Version=v2.1)",
+      "libraryId": "FeddosMessengerApp",
+      "targetGraphs": [
+        "UAP,Version=v10.0.16299/win10-x64-aot"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project FeddosMessengerApp is not compatible with uap10.0.16299 (UAP,Version=v10.0.16299) / win10-x86. Project FeddosMessengerApp supports: netstandard2.1 (.NETStandard,Version=v2.1)",
+      "libraryId": "FeddosMessengerApp",
+      "targetGraphs": [
+        "UAP,Version=v10.0.16299/win10-x86"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project FeddosMessengerApp is not compatible with uap10.0.16299 (UAP,Version=v10.0.16299) / win10-x86-aot. Project FeddosMessengerApp supports: netstandard2.1 (.NETStandard,Version=v2.1)",
+      "libraryId": "FeddosMessengerApp",
+      "targetGraphs": [
+        "UAP,Version=v10.0.16299/win10-x86-aot"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "967847916253",
+    "firebase_url": "https://feddosopenmessenger.firebaseio.com",
+    "project_id": "feddosopenmessenger",
+    "storage_bucket": "feddosopenmessenger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967847916253:android:db9e2f2a4c1be8577be134",
+        "android_client_info": {
+          "package_name": "com.companyname.Doppler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967847916253-uu04hn3ibs6i7qbve8v25bo5kptir5an.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8aMAsqi0KghzIYxaYmKVpxiJoApUoec8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967847916253-uu04hn3ibs6i7qbve8v25bo5kptir5an.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "967847916253-egojm9t3rk9vvpl6oos6jvloigc27jul.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.companyname.FeddosMessengerApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

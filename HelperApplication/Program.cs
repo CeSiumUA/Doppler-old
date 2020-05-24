@@ -1,10 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.SqlServer;
-using FeddosMessenger;
 using SharedTypes.SocialTypes;
 using SharedTypes.Tokens;
 using Microsoft.EntityFrameworkCore;
-using FeddosMessenger.Database;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Threading.Tasks;
