@@ -9,9 +9,9 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6143fdea-f3c2-4a09-aafa-6e230626515e}</TemplateGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>FeddosMessengerApp.iOS</RootNamespace>
+    <RootNamespace>Doppler.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>FeddosMessengerApp.iOS</AssemblyName>
+    <AssemblyName>Doppler.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <ProvisioningType>automatic</ProvisioningType>
@@ -137,9 +137,9 @@
       <Project>{8F61DD03-CEB9-440F-B635-D2951F0A91EB}</Project>
       <Name>SharedTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FeddosMessengerApp\FeddosMessengerApp.csproj">
-      <Project>{61769F8E-55B4-41C6-9C72-DB32F91D10E6}</Project>
-      <Name>FeddosMessengerApp</Name>
+    <ProjectReference Include="..\FeddosMessengerApp\Doppler.csproj">
+      <Project>{BC57D377-6307-49F5-A167-7F208B6D9736}</Project>
+      <Name>Doppler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

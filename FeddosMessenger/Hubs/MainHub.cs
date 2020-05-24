@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using FeddosMessenger.Database;
+using DopplerServer.Database;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
@@ -11,7 +11,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using SharedTypes.SocialTypes;
 
-namespace FeddosMessenger.Hubs
+namespace DopplerServer.Hubs
 {
     
     public class MainHub:Hub

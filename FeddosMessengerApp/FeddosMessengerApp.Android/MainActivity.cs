@@ -11,7 +11,7 @@ using Xamarin.Forms.PlatformConfiguration.TizenSpecific;
 using Firebase.Iid;
 using Firebase;
 
-namespace FeddosMessengerApp.Droid
+namespace Doppler.Droid
 {
     [Activity(Label = "FeddosMessengerApp", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, Android.Gms.Tasks.IOnSuccessListener

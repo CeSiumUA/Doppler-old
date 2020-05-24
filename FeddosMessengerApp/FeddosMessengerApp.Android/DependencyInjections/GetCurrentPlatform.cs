@@ -9,13 +9,13 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FeddosMessengerApp.DependencyInjections;
-using FeddosMessengerApp.Droid.DependencyInjections;
+using Doppler.DependencyInjections;
+using Doppler.Droid.DependencyInjections;
 using SharedTypes.Tokens;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(GetCurrentPlatform))]
-namespace FeddosMessengerApp.Droid.DependencyInjections
+namespace Doppler.Droid.DependencyInjections
 {
     public class GetCurrentPlatform : IGetPlatform
     {

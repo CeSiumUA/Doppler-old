@@ -4,18 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using FeddosMessengerApp.MobileDataBase;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FeddosMessengerApp.Droid.DataBase;
-using FeddosMessengerApp.DependencyInjections;
+using Doppler.DependencyInjections;
+using Doppler.Droid.DataBase;
 
 [assembly: Xamarin.Forms.Dependency(typeof(dbDependency))]
-namespace FeddosMessengerApp.Droid.DataBase
+namespace Doppler.Droid.DataBase
 {
     public class dbDependency:IGetPath
     {

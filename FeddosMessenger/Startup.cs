@@ -9,11 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SharedTypes.Tokens;
-using FeddosMessenger.Database;
-using FeddosMessenger.Hubs;
 using MessagePack;
+using DopplerServer.Hubs;
 
-namespace FeddosMessenger
+namespace DopplerServer
 {
     public class Startup
     {

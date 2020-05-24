@@ -1,5 +1,4 @@
-﻿using FeddosMessengerApp.Hubs;
-using Microsoft.AspNetCore.Connections;
+﻿using Microsoft.AspNetCore.Connections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FeddosMessengerApp
+namespace Doppler
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChatsPage : ContentPage

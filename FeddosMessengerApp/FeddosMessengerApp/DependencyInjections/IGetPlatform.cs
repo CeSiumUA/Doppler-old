@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FeddosMessengerApp.DependencyInjections
+namespace Doppler.DependencyInjections
 {
     public interface IGetPlatform
     {

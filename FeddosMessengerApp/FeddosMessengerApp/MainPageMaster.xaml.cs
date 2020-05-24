@@ -1,4 +1,4 @@
-﻿using FeddosMessengerApp.MobileDataBase;
+﻿using Doppler.MobileDataBase;
 using SharedTypes.SocialTypes;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FeddosMessengerApp
+namespace Doppler
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPageMaster : ContentPage

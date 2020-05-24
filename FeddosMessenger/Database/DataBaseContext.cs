@@ -8,7 +8,7 @@ using SharedTypes.SocialTypes;
 
 using Microsoft.Extensions.Configuration;
 
-namespace FeddosMessenger.Database
+namespace DopplerServer.Database
 {
     //public class DataBaseContext : DbContext
     //{

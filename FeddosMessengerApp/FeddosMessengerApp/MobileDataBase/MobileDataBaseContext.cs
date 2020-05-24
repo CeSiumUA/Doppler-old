@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FeddosMessengerApp.MobileDataBase
+namespace Doppler.MobileDataBase
 {
     public class MobileDataBaseContext:DbContext
     {

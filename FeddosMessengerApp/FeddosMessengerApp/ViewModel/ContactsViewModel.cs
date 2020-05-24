@@ -1,6 +1,5 @@
-﻿using FeddosMessengerApp.DependencyInjections;
-using FeddosMessengerApp.Hubs;
-using FeddosMessengerApp.MobileDataBase;
+﻿using Doppler.Hubs;
+using Doppler.MobileDataBase;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SharedTypes.SocialTypes;
@@ -13,7 +12,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace FeddosMessengerApp.ViewModel
+namespace Doppler.ViewModel
 {
     public class ContactsViewModel : INotifyPropertyChanged
     {

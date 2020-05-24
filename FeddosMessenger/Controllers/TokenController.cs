@@ -1,5 +1,4 @@
-﻿using FeddosMessenger.Database;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -14,8 +13,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using MessagePack;
+using DopplerServer.Database;
 
-namespace FeddosMessenger.Controllers
+namespace DopplerServer.Controllers
 {
     public class TokenController:ControllerBase
     {

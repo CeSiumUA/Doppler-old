@@ -11,7 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Firebase.Iid;
 
-namespace FeddosMessengerApp.Droid.FireBaseService
+namespace Doppler.Droid.FireBaseService
 {
     [Service]
     [IntentFilter(new[] { "com.google.firebase.INSTANCE_ID_EVENT" })]

@@ -12,7 +12,7 @@ using Android.Support.V4.App;
 using Android.Views;
 using Android.Widget;
 
-namespace FeddosMessengerApp.Droid
+namespace Doppler.Droid
 {
     public class Notifier
     {

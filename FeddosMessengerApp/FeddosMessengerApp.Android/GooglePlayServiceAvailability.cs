@@ -11,12 +11,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FeddosMessengerApp.DependencyInjections;
-using FeddosMessengerApp.Droid;
+using Doppler.DependencyInjections;
+using Doppler.Droid;
 using Firebase.Iid;
 
 [assembly: Xamarin.Forms.Dependency(typeof(GooglePlayServiceAvailability))]
-namespace FeddosMessengerApp.Droid
+namespace Doppler.Droid
 {
     public class GooglePlayServiceAvailability:IFireBaseComponent
     {

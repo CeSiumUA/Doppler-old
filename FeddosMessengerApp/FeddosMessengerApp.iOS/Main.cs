@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace FeddosMessengerApp.iOS
+namespace Doppler.iOS
 {
     public class Application
     {

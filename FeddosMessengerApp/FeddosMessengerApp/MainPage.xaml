@@ -4,8 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="FeddosMessengerApp.MainPage"
-             xmlns:pages="clr-namespace:FeddosMessengerApp">
+             x:Class="Doppler.MainPage"
+             xmlns:pages="clr-namespace:Doppler">
   <MasterDetailPage.Master>
     <pages:MainPageMaster x:Name="MasterPage" />
   </MasterDetailPage.Master>

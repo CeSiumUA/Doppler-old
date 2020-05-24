@@ -1,4 +1,4 @@
-﻿using FeddosMessengerApp.Hubs;
+﻿using Doppler.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FeddosMessengerApp
+namespace Doppler
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : MasterDetailPage

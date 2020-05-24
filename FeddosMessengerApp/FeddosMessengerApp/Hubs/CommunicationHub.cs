@@ -6,15 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using FeddosMessengerApp.MobileDataBase;
-using FeddosMessengerApp.Properties;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Xamarin.Forms;
 using System.Net.Http;
 using SharedTypes.SocialTypes;
 
-namespace FeddosMessengerApp.Hubs
+namespace Doppler.Hubs
 {
     //TODO
     public class CommunicationHub

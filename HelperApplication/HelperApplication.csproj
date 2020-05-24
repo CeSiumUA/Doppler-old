@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FeddosMessenger\FeddosMessenger.csproj" />
+    <ProjectReference Include="..\FeddosMessenger\DopplerServer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

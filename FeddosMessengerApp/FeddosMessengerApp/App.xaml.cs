@@ -1,6 +1,5 @@
-﻿using FeddosMessengerApp.DependencyInjections;
-using FeddosMessengerApp.Hubs;
-using FeddosMessengerApp.MobileDataBase;
+﻿using Doppler.DependencyInjections;
+using Doppler.MobileDataBase;
 using SharedTypes.Tokens;
 using System;
 using System.Collections;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FeddosMessengerApp
+namespace Doppler
 {
     public partial class App : Application
     {

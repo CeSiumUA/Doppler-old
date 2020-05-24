@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FeddosMessengerApp.Models
+namespace Doppler.Models
 {
     public class MChat : IChat
     {

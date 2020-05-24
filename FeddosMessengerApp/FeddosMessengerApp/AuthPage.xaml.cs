@@ -1,6 +1,6 @@
-﻿using FeddosMessengerApp.DependencyInjections;
-using FeddosMessengerApp.Hubs;
-using FeddosMessengerApp.MobileDataBase;
+﻿using Doppler.DependencyInjections;
+using Doppler.Hubs;
+using Doppler.MobileDataBase;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FeddosMessengerApp
+namespace Doppler
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AuthPage : ContentPage

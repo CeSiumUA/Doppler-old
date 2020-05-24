@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace FeddosMessengerApp.ViewModel
+namespace Doppler.ViewModel
 {
     public class ContactViewModel:INotifyPropertyChanged
     {
