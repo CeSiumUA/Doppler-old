@@ -1,42 +1,36 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.iOS\\Doppler.iOS.csproj": {}
+    "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.iOS/Doppler.iOS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.iOS\\Doppler.iOS.csproj": {
+    "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.iOS/Doppler.iOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.iOS\\Doppler.iOS.csproj",
+        "projectUniqueName": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.iOS/Doppler.iOS.csproj",
         "projectName": "Doppler.iOS",
-        "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.iOS\\Doppler.iOS.csproj",
-        "packagesPath": "C:\\Users\\mtgin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.iOS\\obj\\",
+        "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.iOS/Doppler.iOS.csproj",
+        "packagesPath": "/Users/fedirkatushonok/.nuget/packages/",
+        "outputPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.iOS/obj/",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\mtgin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/fedirkatushonok/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "xamarinios10"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "xamarinios10": {
             "projectReferences": {
-              "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj": {
-                "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj"
+              "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj": {
+                "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj"
               },
-              "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj": {
-                "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj"
+              "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj": {
+                "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj"
               }
             }
           }
@@ -48,6 +42,14 @@
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.3.1, )"
+            },
+            "Xamarin.Firebase.iOS.CloudMessaging": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "Xamarin.Firebase.iOS.Core": {
+              "target": "Package",
+              "version": "[6.6.6, )"
             },
             "Xamarin.Forms": {
               "target": "Package",
@@ -68,35 +70,29 @@
         }
       }
     },
-    "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj": {
+    "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj",
+        "projectUniqueName": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj",
         "projectName": "Doppler",
-        "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj",
-        "packagesPath": "C:\\Users\\mtgin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\obj\\",
+        "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj",
+        "packagesPath": "/Users/fedirkatushonok/.nuget/packages/",
+        "outputPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\mtgin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/fedirkatushonok/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj": {
-                "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj"
+              "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj": {
+                "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj"
               }
             }
           }
@@ -160,32 +156,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj": {
+    "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj",
+        "projectUniqueName": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj",
         "projectName": "SharedTypes",
-        "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj",
-        "packagesPath": "C:\\Users\\mtgin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\obj\\",
+        "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj",
+        "packagesPath": "/Users/fedirkatushonok/.nuget/packages/",
+        "outputPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\mtgin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/fedirkatushonok/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -239,7 +229,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
         }
       }
     }
