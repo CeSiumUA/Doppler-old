@@ -18,13 +18,12 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "DopplerServer": {
+    "FeddosMessenger": {
       "commandName": "Project",
-      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:20706"
+      "applicationUrl": "https://192.168.0.154:5001;http://192.168.0.154:5000"
     }
   }
 }

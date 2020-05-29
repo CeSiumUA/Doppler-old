@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>967847916253-dfela656uv80rtcmbm0csfv6v7rvckvm.apps.googleusercontent.com</string>
+	<string>967847916253-egojm9t3rk9vvpl6oos6jvloigc27jul.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.967847916253-dfela656uv80rtcmbm0csfv6v7rvckvm</string>
+	<string>com.googleusercontent.apps.967847916253-egojm9t3rk9vvpl6oos6jvloigc27jul</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBaVXw3AqtQ3k4bSIzMRqg4AgH1Ha_10dc</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.companyname.Doppler</string>
+	<string>com.companyname.FeddosMessengerApp</string>
 	<key>PROJECT_ID</key>
 	<string>feddosopenmessenger</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:967847916253:ios:151af7769d3728d97be134</string>
+	<string>1:967847916253:ios:01ef3f8d2018b3b27be134</string>
 	<key>DATABASE_URL</key>
 	<string>https://feddosopenmessenger.firebaseio.com</string>
 </dict>

@@ -1,36 +1,42 @@
 {
   "format": 1,
   "restore": {
-    "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.Android/Doppler.Android.csproj": {}
+    "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.Android\\Doppler.Android.csproj": {}
   },
   "projects": {
-    "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.Android/Doppler.Android.csproj": {
+    "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.Android\\Doppler.Android.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.Android/Doppler.Android.csproj",
+        "projectUniqueName": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.Android\\Doppler.Android.csproj",
         "projectName": "Doppler.Android",
-        "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.Android/Doppler.Android.csproj",
-        "packagesPath": "/Users/fedirkatushonok/.nuget/packages/",
-        "outputPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler.Android/obj/",
+        "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.Android\\Doppler.Android.csproj",
+        "packagesPath": "C:\\Users\\mtgin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler.Android\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "/Users/fedirkatushonok/.config/NuGet/NuGet.Config"
+          "C:\\Users\\mtgin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "monoandroid90"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "monoandroid90": {
             "projectReferences": {
-              "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj": {
-                "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj"
+              "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj": {
+                "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj"
               },
-              "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj": {
-                "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj"
+              "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj": {
+                "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj"
               }
             }
           }
@@ -59,29 +65,35 @@
         }
       }
     },
-    "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj": {
+    "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj",
+        "projectUniqueName": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj",
         "projectName": "Doppler",
-        "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/Doppler.csproj",
-        "packagesPath": "/Users/fedirkatushonok/.nuget/packages/",
-        "outputPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/Doppler/Doppler/obj/",
+        "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\Doppler.csproj",
+        "packagesPath": "C:\\Users\\mtgin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\Doppler\\Doppler\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "/Users/fedirkatushonok/.config/NuGet/NuGet.Config"
+          "C:\\Users\\mtgin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj": {
-                "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj"
+              "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj": {
+                "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj"
               }
             }
           }
@@ -145,26 +157,32 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj": {
+    "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj",
+        "projectUniqueName": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj",
         "projectName": "SharedTypes",
-        "projectPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/SharedTypes.csproj",
-        "packagesPath": "/Users/fedirkatushonok/.nuget/packages/",
-        "outputPath": "/Users/fedirkatushonok/Documents/GitHub/Doppler/SharedTypes/obj/",
+        "projectPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\SharedTypes.csproj",
+        "packagesPath": "C:\\Users\\mtgin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mtgin\\Documents\\GitHub\\Doppler\\SharedTypes\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "/Users/fedirkatushonok/.config/NuGet/NuGet.Config"
+          "C:\\Users\\mtgin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -218,7 +236,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
