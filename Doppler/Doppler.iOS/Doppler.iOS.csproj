@@ -66,7 +66,9 @@
     <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DependencyInjections\FireBaseComponent.cs" />
     <Compile Include="DependencyInjections\GetCurrentPlatform.cs" />
+    <Compile Include="DependencyInjections\GetDBpath.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
