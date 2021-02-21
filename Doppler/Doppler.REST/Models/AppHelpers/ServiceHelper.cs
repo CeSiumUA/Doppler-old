@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Doppler.API.Security;
 using Doppler.API.Storage;
 using Doppler.REST.Models.Repository;
-using Doppler.REST.Security;
 using Doppler.REST.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +19,7 @@ namespace Doppler.REST.Models.AppHelpers
             service.AddScoped<AuthenticationService>();
             service.AddDbContext<ApplicationDatabaseContext>();
             service.AddScoped<IRepository, ApplicationRepository>();
-            service.AddScoped<ICryptographyProvider, CryptographyProvider>();
+            service.AddScoped<ICryptographyProvider, CryptographyProviderService>();
         }
     }
 }

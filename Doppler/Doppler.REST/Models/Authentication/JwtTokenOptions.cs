@@ -10,5 +10,6 @@ namespace Doppler.REST.Models.Authentication
         public const string JwtToken = "JwtToken";
         public string Issuer { get; set; }
         public string Audience { get; set; }
+        public int TokenLifeTime { get; set; }
     }
 }

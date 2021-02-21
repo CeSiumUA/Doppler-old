@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Doppler.API.Authentication;
 using Doppler.API.Storage;
 using Doppler.REST.Services;
 
@@ -16,12 +17,13 @@ namespace Doppler.REST.Controllers
         private readonly AuthenticationService authenticationService;
         public AuthenticationController(AuthenticationService authenticationService)
         {
+            this.authenticationService = authenticationService;
         }
 
         [HttpPost("authenticate")]
-        public async Task AuthenticateUser()
+        public async Task<IActionResult> AuthenticateUser(AuthenticateUserModel authenticateUserModel)
         {
-
+            return new JsonResult(this.authenticationService.Authenticate(authenticateUserModel));
         }
     }
 }

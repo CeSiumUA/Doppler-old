@@ -31,14 +31,14 @@ namespace Doppler.REST.Models.Authentication
             return jwtBearerOptions;
         }
 
-        private static JwtTokenOptions GetJwtOptions(IConfiguration configuration)
+        public static JwtTokenOptions GetJwtOptions(IConfiguration configuration)
         {
             var jwtTokenConfig = new JwtTokenOptions();
             configuration.GetSection(JwtTokenOptions.JwtToken).Bind(jwtTokenConfig);
             return jwtTokenConfig;
         }
 
-        private static byte[] GetSecurityKey(IConfiguration configuration)
+        public static byte[] GetSecurityKey(IConfiguration configuration)
         {
             return Encoding.ASCII.GetBytes(configuration["Doppler:TokenIssuerSigningKey"]);
         }

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Doppler.API.Authentication;
 using Doppler.API.Security;
 using Doppler.API.Social;
 using Doppler.API.Storage;
 using Doppler.REST.Models.Repository;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Doppler.REST.Services
 {
@@ -19,9 +21,30 @@ namespace Doppler.REST.Services
             this.cryptographyProvider = cryptographyProvider;
         }
 
-        internal User GetUserWithPassword(string login, string password)
+        private async Task<User> GetUserWithPasswordAsync(string login, string password)
         {
-            repository.GetDopplerUserWithPassword(login)
+            var userWithPassword = await repository.GetDopplerUserWithPassword(login);
+            if (userWithPassword != null && !cryptographyProvider.CompareHash(userWithPassword.Password.PasswordHash, password))
+            {
+                return null;
+            }
+            return userWithPassword;
+        }
+
+        public async Task<SignedInUser> Authenticate(AuthenticateUserModel authenticateUserModel)
+        {
+            var retreivedUser = await GetUserWithPasswordAsync(authenticateUserModel.UserName, authenticateUserModel.Password);
+            if (retreivedUser == null)
+            {
+                return null;
+            }
+
+            var jwtToken = cryptographyProvider.GenerateJwtToken(retreivedUser.Login);
+            return new SignedInUser()
+            {
+                Token = jwtToken,
+                User = retreivedUser
+            };
         }
     }
 }
