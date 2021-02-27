@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Doppler.API.Authentication;
 using Doppler.API.Storage;
 using Doppler.REST.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Doppler.REST.Controllers
 {
@@ -32,6 +33,13 @@ namespace Doppler.REST.Controllers
         {
             var registeredUser = await this.authenticationService.RegisterUserTask(registerUserModel);
             return new JsonResult(registeredUser);
+        }
+
+        [HttpPost("recoveraccess")]
+        [Authorize]
+        public async Task<IActionResult> RecoverAccess([FromHeader] string Authorization)
+        {
+            return new JsonResult(null);
         }
     }
 }

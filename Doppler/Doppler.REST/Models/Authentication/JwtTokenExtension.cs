@@ -21,6 +21,7 @@ namespace Doppler.REST.Models.Authentication
             jwtBearerOptions.SaveToken = true;
             jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
             {
+                ValidateLifetime = true,
                 ValidateIssuer = true,
                 ValidIssuer = jwt.Issuer,
                 ValidateAudience = true,
