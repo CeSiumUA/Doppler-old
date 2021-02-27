@@ -16,6 +16,7 @@ namespace Doppler.REST.Services
     {
         private readonly IRepository repository;
         private readonly ICryptographyProvider cryptographyProvider;
+
         public AuthenticationService(IRepository repository, ICryptographyProvider cryptographyProvider)
         {
             this.repository = repository;
@@ -29,6 +30,7 @@ namespace Doppler.REST.Services
             {
                 return null;
             }
+
             return userWithPassword;
         }
 
@@ -40,13 +42,11 @@ namespace Doppler.REST.Services
                 return null;
             }
 
-            var jwtToken = await AssignTokenAsync(retreivedUser.PhoneNumber);
-            return new SignedInUser()
-            {
-                Token = jwtToken,
-                User = retreivedUser
-            };
+            var accessJwtToken = await AssignTokenAsync(retreivedUser.PhoneNumber);
+            var refreshToken = await AssignRefreshTokenAsync(retreivedUser as DopplerUser);
+            return retreivedUser.GetSignedInUser(accessJwtToken, refreshToken);
         }
+
         public async Task<SignedInUser> Authenticate(AuthenticateUserModel authenticateUserModel)
         {
             return await Authenticate(authenticateUserModel.UserName, authenticateUserModel.Password);
@@ -56,6 +56,13 @@ namespace Doppler.REST.Services
         {
             return this.cryptographyProvider.GenerateJwtToken(login);
         }
+
+        private async Task<JwtToken> AssignRefreshTokenAsync(DopplerUser dopplerUser)
+        {
+            var refreshToken = this.cryptographyProvider.GenerateRefreshToken(dopplerUser.PhoneNumber);
+            return await this.repository.AssignNewRefreshTokenAsync(dopplerUser, refreshToken);
+        }
+
         public async Task<SignedInUser> RegisterUserTask(RegisterUserModel registerUserModel)
         {
             DopplerUser registeredUser = DopplerUser.InitializeNewUser(registerUserModel, this.cryptographyProvider);
@@ -66,7 +73,8 @@ namespace Doppler.REST.Services
             }
 
             var token = await AssignTokenAsync(registeredUser.PhoneNumber);
-            return registeredUser.GetSignedInUser(token);
+            var refreshToken = await AssignRefreshTokenAsync(registeredUser);
+            return registeredUser.GetSignedInUser(token, refreshToken);
         }
     }
 }

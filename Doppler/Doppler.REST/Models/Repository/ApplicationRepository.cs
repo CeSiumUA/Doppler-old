@@ -6,6 +6,7 @@ using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Doppler.API.Authentication;
 
 namespace Doppler.REST.Models.Repository
 {
@@ -26,7 +27,7 @@ namespace Doppler.REST.Models.Repository
 
         public async Task<DopplerUser> GetDopplerUserWithPassword(string login)
         {
-            var dopplerUser = await databaseContext.DopplerUsers.Include(x => x.Password)
+            var dopplerUser = await databaseContext.DopplerUsers.Include(x => x.Password).Include(x => x.RefreshToken)
                     .FirstOrDefaultAsync(x => x.PhoneNumber == login);
             return dopplerUser;
         }
@@ -41,6 +42,19 @@ namespace Doppler.REST.Models.Repository
             }
 
             return false;
+        }
+
+        public async Task<JwtToken> AssignNewRefreshTokenAsync(DopplerUser dopplerUser, JwtToken jwtToken)
+        {
+            if (dopplerUser.RefreshToken != null)
+            {
+                this.databaseContext.RefreshTokens.Remove(dopplerUser.RefreshToken);
+            }
+
+            dopplerUser.RefreshToken = jwtToken;
+            this.databaseContext.DopplerUsers.Update(dopplerUser);
+            await this.databaseContext.SaveChangesAsync();
+            return jwtToken;
         }
     }
 }

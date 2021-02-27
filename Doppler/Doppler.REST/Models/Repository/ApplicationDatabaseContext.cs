@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Doppler.API.Authentication;
 using Doppler.API.Social;
 using Doppler.API.Storage;
 using Doppler.REST.Models.Authentication;
@@ -18,6 +19,7 @@ namespace Doppler.REST.Models
         public DbSet<Password> Passwords { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<DopplerUser> DopplerUsers { get; set; }
+        public DbSet<JwtToken> RefreshTokens { get; set; }
         #endregion
         private readonly IConfiguration configuration;
         public ApplicationDatabaseContext(IConfiguration configuration)

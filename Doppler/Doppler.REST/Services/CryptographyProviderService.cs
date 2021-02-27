@@ -25,11 +25,17 @@ namespace Doppler.REST.Services
         {
             return HashProvider.CompareHash(plainText, passwordHash);
         }
-        public JwtToken GenerateJwtToken(string login)
+
+        public JwtToken GenerateJwtToken(string login, bool generateRefreshToken = false)
         {
             var tokenOptions = JwtTokenExtension.GetJwtOptions(configuration);
             var signingkey = JwtTokenExtension.GetSecurityKey(configuration);
             var currentTime = DateTime.Now;
+            int tokenLifeTime = tokenOptions.TokenLifeTime;
+            if (generateRefreshToken)
+            {
+                tokenLifeTime = tokenOptions.RefreshTokenLifeTimeInDays * 24 * 60;
+            }
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(new[]
@@ -38,7 +44,7 @@ namespace Doppler.REST.Services
                 }),
                 Issuer = tokenOptions.Issuer,
                 Audience = tokenOptions.Audience,
-                Expires = currentTime.AddMinutes(tokenOptions.TokenLifeTime),
+                Expires = currentTime.AddMinutes(tokenLifeTime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(signingkey), SecurityAlgorithms.HmacSha256Signature)
             };
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
@@ -47,13 +53,17 @@ namespace Doppler.REST.Services
             {
                 ExpireDate = tokenDescriptor.Expires.HasValue
                     ? tokenDescriptor.Expires.Value
-                    : currentTime.AddMinutes(tokenOptions.TokenLifeTime),
+                    : currentTime.AddMinutes(tokenLifeTime),
                 IssueDate = currentTime,
                 Token = tokenHandler.WriteToken(securityToken)
             };
             return jwtToken;
         }
 
+        public JwtToken GenerateRefreshToken(string login)
+        {
+            return GenerateJwtToken(login, true);
+        }
         public Password HashPassword(string plainText)
         {
             return HashProvider.GenerateHash(plainText);

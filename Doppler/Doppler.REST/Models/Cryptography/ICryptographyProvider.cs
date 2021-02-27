@@ -10,6 +10,7 @@ namespace Doppler.REST.Models.Cryptography
     {
         public Password HashPassword(string plainText);
         public bool CompareHash(Password passwordHash, string plainText);
-        public JwtToken GenerateJwtToken(string login);
+        public JwtToken GenerateJwtToken(string login, bool generateRefreshToken = false);
+        public JwtToken GenerateRefreshToken(string login);
     }
 }
