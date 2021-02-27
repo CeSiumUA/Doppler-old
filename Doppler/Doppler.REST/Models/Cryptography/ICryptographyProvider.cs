@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using Doppler.API.Authentication;
+using Doppler.API.Social;
 
-namespace Doppler.API.Security
+namespace Doppler.REST.Models.Cryptography
 {
     public interface ICryptographyProvider
     {
-        public string HashString(string plainText);
-        public bool CompareHash(string hashText, string plainText);
+        public Password HashPassword(string plainText);
+        public bool CompareHash(Password passwordHash, string plainText);
         public JwtToken GenerateJwtToken(string login);
     }
 }
