@@ -6,8 +6,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Doppler.API.Authentication;
-using Doppler.API.Security;
+using Doppler.API.Social;
 using Doppler.REST.Models.Authentication;
+using Doppler.REST.Models.Cryptography;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -20,9 +21,9 @@ namespace Doppler.REST.Services
         {
             this.configuration = configuration;
         }
-        public bool CompareHash(string hashText, string plainText)
+        public bool CompareHash(Password passwordHash, string plainText)
         {
-            throw new NotImplementedException();
+            return HashProvider.CompareHash(plainText, passwordHash);
         }
         public JwtToken GenerateJwtToken(string login)
         {
@@ -53,9 +54,9 @@ namespace Doppler.REST.Services
             return jwtToken;
         }
 
-        public string HashString(string plainText)
+        public Password HashPassword(string plainText)
         {
-            throw new NotImplementedException();
+            return HashProvider.GenerateHash(plainText);
         }
     }
 }

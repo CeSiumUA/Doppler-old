@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Doppler.API.Social;
 using Doppler.API.Storage;
 using Doppler.REST.Models.Authentication;
+using Doppler.REST.Models.Cryptography;
 using Doppler.REST.Models.Social;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

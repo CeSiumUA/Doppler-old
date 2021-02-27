@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Doppler.API.Authentication;
-using Doppler.API.Security;
 using Doppler.API.Social;
 using Doppler.API.Storage;
+using Doppler.REST.Models.Cryptography;
 using Doppler.REST.Models.Repository;
+using Doppler.REST.Models.Social;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Doppler.REST.Services
@@ -24,27 +25,48 @@ namespace Doppler.REST.Services
         private async Task<User> GetUserWithPasswordAsync(string login, string password)
         {
             var userWithPassword = await repository.GetDopplerUserWithPassword(login);
-            if (userWithPassword != null && !cryptographyProvider.CompareHash(userWithPassword.Password.PasswordHash, password))
+            if (userWithPassword != null && !cryptographyProvider.CompareHash(userWithPassword.Password, password))
             {
                 return null;
             }
             return userWithPassword;
         }
 
-        public async Task<SignedInUser> Authenticate(AuthenticateUserModel authenticateUserModel)
+        public async Task<SignedInUser> Authenticate(string userName, string password)
         {
-            var retreivedUser = await GetUserWithPasswordAsync(authenticateUserModel.UserName, authenticateUserModel.Password);
+            var retreivedUser = await GetUserWithPasswordAsync(userName, password);
             if (retreivedUser == null)
             {
                 return null;
             }
 
-            var jwtToken = cryptographyProvider.GenerateJwtToken(retreivedUser.Login);
+            var jwtToken = await AssignTokenAsync(retreivedUser.PhoneNumber);
             return new SignedInUser()
             {
                 Token = jwtToken,
                 User = retreivedUser
             };
+        }
+        public async Task<SignedInUser> Authenticate(AuthenticateUserModel authenticateUserModel)
+        {
+            return await Authenticate(authenticateUserModel.UserName, authenticateUserModel.Password);
+        }
+
+        private async Task<JwtToken> AssignTokenAsync(string login)
+        {
+            return this.cryptographyProvider.GenerateJwtToken(login);
+        }
+        public async Task<SignedInUser> RegisterUserTask(RegisterUserModel registerUserModel)
+        {
+            DopplerUser registeredUser = DopplerUser.InitializeNewUser(registerUserModel, this.cryptographyProvider);
+            var userAdded = await this.repository.AddUserAsync(dopplerUser: registeredUser);
+            if (!userAdded)
+            {
+                return await Authenticate(registerUserModel.PhoneNumber, registerUserModel.Password);
+            }
+
+            var token = await AssignTokenAsync(registeredUser.PhoneNumber);
+            return registeredUser.GetSignedInUser(token);
         }
     }
 }

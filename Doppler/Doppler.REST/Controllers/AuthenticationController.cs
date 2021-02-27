@@ -23,7 +23,15 @@ namespace Doppler.REST.Controllers
         [HttpPost("authenticate")]
         public async Task<IActionResult> AuthenticateUser(AuthenticateUserModel authenticateUserModel)
         {
-            return new JsonResult(this.authenticationService.Authenticate(authenticateUserModel));
+            var authenticationResult = await this.authenticationService.Authenticate(authenticateUserModel);
+            return new JsonResult(authenticationResult);
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterUser(RegisterUserModel registerUserModel)
+        {
+            var registeredUser = await this.authenticationService.RegisterUserTask(registerUserModel);
+            return new JsonResult(registeredUser);
         }
     }
 }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Doppler.API.Security;
 using Doppler.API.Storage;
+using Doppler.REST.Models.Cryptography;
 using Doppler.REST.Models.Repository;
 using Doppler.REST.Services;
 using Microsoft.EntityFrameworkCore;

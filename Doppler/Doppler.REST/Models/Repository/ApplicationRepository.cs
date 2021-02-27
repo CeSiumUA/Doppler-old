@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,12 @@ namespace Doppler.REST.Models.Repository
     {
         private readonly ApplicationDatabaseContext databaseContext;
 
+        private async Task<bool> CheckIsUserDuplicateAsync(DopplerUser dopplerUser)
+        {
+            return await this.databaseContext.DopplerUsers.AnyAsync(x =>
+                x.PhoneNumber == dopplerUser.PhoneNumber || x.Email == dopplerUser.Email ||
+                x.Login == dopplerUser.Login);
+        }
         public ApplicationRepository(ApplicationDatabaseContext databaseContext)
         {
             this.databaseContext = databaseContext;
@@ -19,8 +26,21 @@ namespace Doppler.REST.Models.Repository
 
         public async Task<DopplerUser> GetDopplerUserWithPassword(string login)
         {
-            return await databaseContext.DopplerUsers.Include(x => x.Password)
-                .FirstOrDefaultAsync(x => x.Email == login || x.PhoneNumber == login || x.Login == login);
+            var dopplerUser = await databaseContext.DopplerUsers.Include(x => x.Password)
+                    .FirstOrDefaultAsync(x => x.PhoneNumber == login);
+            return dopplerUser;
+        }
+        
+        public async Task<bool> AddUserAsync(DopplerUser dopplerUser)
+        {
+            if (!(await CheckIsUserDuplicateAsync(dopplerUser)))
+            {
+                await this.databaseContext.DopplerUsers.AddAsync(dopplerUser);
+                await this.databaseContext.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
     }
 }

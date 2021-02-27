@@ -9,5 +9,6 @@ namespace Doppler.REST.Models.Repository
     public interface IRepository
     {
         public Task<DopplerUser> GetDopplerUserWithPassword(string login);
+        public Task<bool> AddUserAsync(DopplerUser dopplerUser);
     }
 }
