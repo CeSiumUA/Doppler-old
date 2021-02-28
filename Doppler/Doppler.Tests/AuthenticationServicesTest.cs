@@ -26,12 +26,14 @@ namespace Doppler.Tests
             repoMock.Setup(repository => repository.GetDopplerUserWithPassword("fedir").Result)
                 .Returns(new DopplerUser()
                 {
-                    Email = "fedir@dot.com",
-                    Id = 1,
-                    Login = "fedir",
+                    Email = "fedir.katushonok@gmail.com",
+                    Id = 5,
+                    Login = "f.katushonok",
                     Password = new Password()
                     {
-                        PasswordHash = "12345"
+                        PasswordHash = "ZQUlvPg9Yg7egPewtix14rfPCdayJmAXTHG62hIn754=",
+                        PasswordSalt = "7yvfk1I4B6O8brt1EL3/HA==",
+                        Iterations = 100000
                     }
                 });
             this.repository = repoMock.Object;
@@ -41,7 +43,8 @@ namespace Doppler.Tests
         [DataRow("fedir", "12345")]
         public void AuthenticationServiceLogin_Test(string login, string password)
         {
-            
+            AuthenticationService authenticationService = new AuthenticationService(repository, cryptographyProvider);
+            var user = authenticationService.Authenticate(login, password).Result;
         }
     }
 }

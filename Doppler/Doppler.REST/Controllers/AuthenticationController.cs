@@ -39,7 +39,12 @@ namespace Doppler.REST.Controllers
         [Authorize]
         public async Task<IActionResult> RecoverAccess([FromHeader] string Authorization)
         {
-            return new JsonResult(null);
+            var userAccess = await authenticationService.ChangeRefreshToken(Authorization);
+            if (userAccess == null)
+            {
+                return BadRequest();
+            }
+            return new JsonResult(userAccess);
         }
     }
 }

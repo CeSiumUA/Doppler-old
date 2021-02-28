@@ -10,14 +10,15 @@ namespace Doppler.REST.Models.Authentication
     public class IdentityService
     {
         private readonly IRepository repository;
-        public DopplerUser SignedInUser;
+        public DopplerUser AuthenticatedUser { get; private set; }
+    
         public IdentityService(IRepository repository)
         {
             this.repository = repository;
         }
         public async Task Authenticate(string claim)
         {
-            this.SignedInUser = await repository.GetDopplerUserWithPassword(claim);
+            this.AuthenticatedUser = await repository.GetDopplerUserWithPassword(claim);
         }
     }
 }

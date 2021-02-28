@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Doppler.API.Authentication;
 using Doppler.API.Social;
 using Doppler.API.Storage;
+using Doppler.REST.Models.Authentication;
 using Doppler.REST.Models.Cryptography;
 using Doppler.REST.Models.Repository;
 using Doppler.REST.Models.Social;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Doppler.REST.Services
@@ -16,14 +18,16 @@ namespace Doppler.REST.Services
     {
         private readonly IRepository repository;
         private readonly ICryptographyProvider cryptographyProvider;
+        private readonly IdentityService identityService;
 
-        public AuthenticationService(IRepository repository, ICryptographyProvider cryptographyProvider)
+        public AuthenticationService(IRepository repository, ICryptographyProvider cryptographyProvider, IdentityService identityService)
         {
             this.repository = repository;
             this.cryptographyProvider = cryptographyProvider;
+            this.identityService = identityService;
         }
 
-        private async Task<User> GetUserWithPasswordAsync(string login, string password)
+        private async Task<DopplerUser> GetUserWithPasswordAsync(string login, string password)
         {
             var userWithPassword = await repository.GetDopplerUserWithPassword(login);
             if (userWithPassword != null && !cryptographyProvider.CompareHash(userWithPassword.Password, password))
@@ -42,9 +46,14 @@ namespace Doppler.REST.Services
                 return null;
             }
 
-            var accessJwtToken = await AssignTokenAsync(retreivedUser.PhoneNumber);
-            var refreshToken = await AssignRefreshTokenAsync(retreivedUser as DopplerUser);
-            return retreivedUser.GetSignedInUser(accessJwtToken, refreshToken);
+            return await GenerateUserAccess(retreivedUser);
+        }
+
+        private async Task<SignedInUser> GenerateUserAccess(DopplerUser user)
+        {
+            var accessJwtToken = await AssignTokenAsync(user.PhoneNumber);
+            var refreshToken = await AssignRefreshTokenAsync(user);
+            return user.GetSignedInUser(accessJwtToken, refreshToken);
         }
 
         public async Task<SignedInUser> Authenticate(AuthenticateUserModel authenticateUserModel)
@@ -75,6 +84,19 @@ namespace Doppler.REST.Services
             var token = await AssignTokenAsync(registeredUser.PhoneNumber);
             var refreshToken = await AssignRefreshTokenAsync(registeredUser);
             return registeredUser.GetSignedInUser(token, refreshToken);
+        }
+
+        public async Task<SignedInUser> ChangeRefreshToken(string token)
+        {
+            token = token.Replace("Bearer ", string.Empty);
+            if (identityService.AuthenticatedUser.RefreshToken.Token == token)
+            {
+                return await GenerateUserAccess(identityService.AuthenticatedUser);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
