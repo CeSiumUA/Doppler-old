@@ -32,9 +32,11 @@ namespace Doppler.REST.Services
             var signingkey = JwtTokenExtension.GetSecurityKey(configuration);
             var currentTime = DateTime.Now;
             int tokenLifeTime = tokenOptions.TokenLifeTime;
+            string securityAlgorithm = SecurityAlgorithms.HmacSha256Signature;
             if (generateRefreshToken)
             {
                 tokenLifeTime = tokenOptions.RefreshTokenLifeTimeInDays * 24 * 60;
+                securityAlgorithm = SecurityAlgorithms.HmacSha512Signature;
             }
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
@@ -45,7 +47,7 @@ namespace Doppler.REST.Services
                 Issuer = tokenOptions.Issuer,
                 Audience = tokenOptions.Audience,
                 Expires = currentTime.AddMinutes(tokenLifeTime),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(signingkey), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(signingkey), securityAlgorithm)
             };
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);

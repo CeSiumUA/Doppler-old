@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Doppler.API.Authentication;
 using Doppler.API.Storage;
+using Doppler.REST.Models.Authentication;
 using Doppler.REST.Services;
 using Microsoft.AspNetCore.Authorization;
 

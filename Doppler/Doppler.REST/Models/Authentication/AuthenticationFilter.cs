@@ -14,6 +14,7 @@ namespace Doppler.REST.Models.Authentication
         {
             this.identityService = identityService;
         }
+
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             var identityName = context.HttpContext.User.Identity?.Name;

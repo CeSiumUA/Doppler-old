@@ -17,11 +17,12 @@ namespace Doppler.REST.Models.AppHelpers
     {
         public static void AddCustomeServices(this IServiceCollection service)
         {
+            service.AddScoped<IdentityService>();
+
             service.AddScoped<AuthenticationService>();
             service.AddDbContext<ApplicationDatabaseContext>();
             service.AddScoped<IRepository, ApplicationRepository>();
             service.AddScoped<ICryptographyProvider, CryptographyProviderService>();
-            service.AddScoped<IdentityService>();
         }
     }
 }
