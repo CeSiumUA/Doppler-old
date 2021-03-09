@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.3">
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Doppler.API\Doppler.API.csproj" />
+    <ProjectReference Include="..\Doppler.WASM\Doppler.WASM.csproj" />
   </ItemGroup>
 
 </Project>

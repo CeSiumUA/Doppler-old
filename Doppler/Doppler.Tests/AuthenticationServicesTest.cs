@@ -43,7 +43,7 @@ namespace Doppler.Tests
         [DataRow("fedir", "12345")]
         public void AuthenticationServiceLogin_Test(string login, string password)
         {
-            AuthenticationService authenticationService = new AuthenticationService(repository, cryptographyProvider);
+            AuthenticationService authenticationService = new AuthenticationService(repository, cryptographyProvider, null);
             var user = authenticationService.Authenticate(login, password).Result;
         }
     }
