@@ -68,7 +68,7 @@ namespace Doppler.REST.Services
 
         private async Task<JwtToken> AssignRefreshTokenAsync(DopplerUser dopplerUser)
         {
-            var refreshToken = this.cryptographyProvider.GenerateRefreshToken(dopplerUser.PhoneNumber);
+            var refreshToken = this.cryptographyProvider.GenerateRefreshToken();
             return await this.repository.AssignNewRefreshTokenAsync(dopplerUser, refreshToken);
         }
 
@@ -89,7 +89,7 @@ namespace Doppler.REST.Services
         public async Task<SignedInUser> ChangeRefreshToken(string token)
         {
             token = token.Replace("Bearer ", string.Empty);
-            if (identityService.AuthenticatedUser.RefreshToken.Token == token)
+            if (identityService.AuthenticatedUser.RefreshToken.Token == token && identityService.AuthenticatedUser.RefreshToken.ExpireDate > DateTime.Now)
             {
                 return await GenerateUserAccess(identityService.AuthenticatedUser);
             }

@@ -37,10 +37,9 @@ namespace Doppler.REST.Controllers
         }
 
         [HttpPost("recoveraccess")]
-        [Authorize]
-        public async Task<IActionResult> RecoverAccess([FromHeader] string Authorization)
+        public async Task<IActionResult> RecoverAccess([FromHeader] string RefreshToken)
         {
-            var userAccess = await authenticationService.ChangeRefreshToken(Authorization);
+            var userAccess = await authenticationService.ChangeRefreshToken(RefreshToken);
             if (userAccess == null)
             {
                 return BadRequest();
