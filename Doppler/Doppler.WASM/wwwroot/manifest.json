@@ -1,6 +1,6 @@
 {
-  "name": "Wasm_Test",
-  "short_name": "Wasm_Test",
+  "name": "Wasm_Hosted_Test",
+  "short_name": "Wasm_Hosted_Test",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",

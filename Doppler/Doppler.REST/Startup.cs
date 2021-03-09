@@ -25,7 +25,7 @@ namespace Doppler.REST
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(options =>
+            services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<AuthenticationFilter>();
             });
@@ -34,7 +34,6 @@ namespace Doppler.REST
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x => x.LoadTokenOptions(configuration));
-            services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddCustomeServices();
         }
