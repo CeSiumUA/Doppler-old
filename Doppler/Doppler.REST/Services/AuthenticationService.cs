@@ -89,6 +89,10 @@ namespace Doppler.REST.Services
         public async Task<SignedInUser> ChangeRefreshToken(string token)
         {
             token = token.Replace("Bearer ", string.Empty);
+            if (identityService.AuthenticatedUser == null)
+            {
+                return null;
+            }
             if (identityService.AuthenticatedUser.RefreshToken.Token == token && identityService.AuthenticatedUser.RefreshToken.ExpireDate > DateTime.Now)
             {
                 return await GenerateUserAccess(identityService.AuthenticatedUser);

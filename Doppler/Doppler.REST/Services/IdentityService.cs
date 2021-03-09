@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Doppler.REST.Models.Repository;
 using Doppler.REST.Models.Social;
 
-namespace Doppler.REST.Models.Authentication
+namespace Doppler.REST.Services
 {
     public class IdentityService
     {

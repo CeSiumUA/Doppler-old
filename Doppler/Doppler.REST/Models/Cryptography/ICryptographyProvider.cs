@@ -12,5 +12,6 @@ namespace Doppler.REST.Models.Cryptography
         public bool CompareHash(Password passwordHash, string plainText);
         public JwtToken GenerateJwtToken(string login, bool generateRefreshToken = false);
         public JwtToken GenerateRefreshToken();
+        public string GetIdentityFromOutdatedToken(string token);
     }
 }

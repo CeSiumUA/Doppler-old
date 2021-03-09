@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Doppler.REST.Models.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

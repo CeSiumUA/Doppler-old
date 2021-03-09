@@ -19,10 +19,12 @@ namespace Doppler.REST.Services
     {
         private readonly JwtTokenOptions tokenOptions;
         private readonly IConfiguration configuration;
+        private readonly byte[] signingkey;
         public CryptographyProviderService(IConfiguration configuration)
         {
             this.configuration = configuration;
             tokenOptions = JwtTokenExtension.GetJwtOptions(configuration);
+            signingkey = JwtTokenExtension.GetSecurityKey(configuration);
         }
         public bool CompareHash(Password passwordHash, string plainText)
         {
@@ -31,7 +33,6 @@ namespace Doppler.REST.Services
 
         public JwtToken GenerateJwtToken(string login, bool generateRefreshToken = false)
         {
-            var signingkey = JwtTokenExtension.GetSecurityKey(configuration);
             var currentTime = DateTime.Now;
             int tokenLifeTime = tokenOptions.TokenLifeTime;
             string securityAlgorithm = SecurityAlgorithms.HmacSha256Signature;
@@ -85,6 +86,29 @@ namespace Doppler.REST.Services
         public Password HashPassword(string plainText)
         {
             return HashProvider.GenerateHash(plainText);
+        }
+
+        public string GetIdentityFromOutdatedToken(string token)
+        {
+            token = token?.Replace("Bearer ", string.Empty);
+            if (string.IsNullOrEmpty(token))
+            {
+                return null;
+            }
+            TokenValidationParameters tokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidAudience = tokenOptions.Audience,
+                ValidIssuer = tokenOptions.Issuer,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(signingkey),
+                ValidateLifetime = false
+            };
+            var tokenHanlder = new JwtSecurityTokenHandler();
+            SecurityToken securityToken;
+            var claimsToken = tokenHanlder.ValidateToken(token, tokenValidationParameters, out securityToken);
+            return claimsToken.Identity.Name;
         }
     }
 }

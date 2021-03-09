@@ -42,7 +42,7 @@ namespace Doppler.REST.Controllers
             var userAccess = await authenticationService.ChangeRefreshToken(RefreshToken);
             if (userAccess == null)
             {
-                return BadRequest();
+                return Unauthorized();
             }
             return new JsonResult(userAccess);
         }
