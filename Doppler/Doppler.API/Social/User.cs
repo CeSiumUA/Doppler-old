@@ -16,6 +16,7 @@ namespace Doppler.API.Social
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Login { get; set; }
+        public List<UserContact> UserContacts { get; set; }
         public SignedInUser GetSignedInUser(JwtToken accessJwtToken, JwtToken refreshToken = null)
         {
             return new SignedInUser()
