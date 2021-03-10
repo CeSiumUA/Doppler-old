@@ -20,6 +20,7 @@ namespace Doppler.REST.Models
         public DbSet<User> Users { get; set; }
         public DbSet<DopplerUser> DopplerUsers { get; set; }
         public DbSet<JwtToken> RefreshTokens { get; set; }
+        public DbSet<UserContact> UsersContacts { get; set; }
         #endregion
         private readonly IConfiguration configuration;
         public ApplicationDatabaseContext(IConfiguration configuration)
@@ -31,6 +32,12 @@ namespace Doppler.REST.Models
         {
             optionsBuilder.UseSqlServer(configuration["Doppler:DatabaseConnectionString"]);
             base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasMany(user => user.UserContacts).WithOne(user => user.User);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
