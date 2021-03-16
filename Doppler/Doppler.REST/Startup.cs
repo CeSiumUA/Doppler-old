@@ -29,6 +29,15 @@ namespace Doppler.REST
             {
                 options.Filters.Add<AuthenticationFilter>();
             });
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                });
+            });
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -45,6 +54,13 @@ namespace Doppler.REST
                 app.UseWebAssemblyDebugging();
             }
             app.UseRouting();
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowCredentials();
+            });
             app.UseAuthentication();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
@@ -56,5 +72,6 @@ namespace Doppler.REST
                 endpoints.MapFallbackToFile("index.html");
             });
         }
+
     }
 }

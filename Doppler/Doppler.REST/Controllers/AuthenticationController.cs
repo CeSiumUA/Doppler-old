@@ -9,10 +9,12 @@ using Doppler.API.Storage;
 using Doppler.REST.Models.Authentication;
 using Doppler.REST.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace Doppler.REST.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
