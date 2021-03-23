@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Doppler.API.Social;
 using Doppler.REST.Models.Repository;
 
 namespace Doppler.REST.Services
@@ -15,5 +16,11 @@ namespace Doppler.REST.Services
             this.repository = repository;
             this.identityService = identityService;
         }
+
+        public async Task<List<User>> SearchUsersAsync(string keyWord)
+        {
+            return await this.repository.SearchUsersByWordAsync(keyWord);
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Doppler.API.Social
 {
@@ -9,6 +10,7 @@ namespace Doppler.API.Social
     {
         [Key]
         public Guid Id { get; set; }
+        [JsonIgnore]
         public User User { get; set; }
         public User Contact { get; set; }
 

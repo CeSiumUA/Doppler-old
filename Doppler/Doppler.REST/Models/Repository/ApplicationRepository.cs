@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Doppler.API.Authentication;
+using Doppler.API.Social;
 
 namespace Doppler.REST.Models.Repository
 {
@@ -55,6 +56,14 @@ namespace Doppler.REST.Models.Repository
             this.databaseContext.DopplerUsers.Update(dopplerUser);
             await this.databaseContext.SaveChangesAsync();
             return jwtToken;
+        }
+
+        public async Task<List<User>> SearchUsersByWordAsync(string keyWord)
+        {
+            return await this.databaseContext.Users.Where(x =>
+                    x.Name.Contains(keyWord) || x.Email.Contains(keyWord) || x.Login.Contains(keyWord) ||
+                    x.PhoneNumber == keyWord)
+                .Include(x => x.Icon).ToListAsync();
         }
     }
 }
