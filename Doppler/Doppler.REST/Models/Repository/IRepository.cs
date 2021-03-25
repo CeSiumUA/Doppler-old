@@ -14,5 +14,6 @@ namespace Doppler.REST.Models.Repository
         public Task<bool> AddUserAsync(DopplerUser dopplerUser);
         public Task<JwtToken> AssignNewRefreshTokenAsync(DopplerUser dopplerUser, JwtToken jwtToken);
         public Task<List<User>> SearchUsersByWordAsync(string keyWord);
+        public Task<List<UserContact>> GetUserContacts(User user, int? skip = 0, int? take = null);
     }
 }

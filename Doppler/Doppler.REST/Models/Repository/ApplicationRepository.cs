@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Doppler.API.Authentication;
 using Doppler.API.Social;
+using Doppler.API.Storage;
 
 namespace Doppler.REST.Models.Repository
 {
@@ -64,6 +65,16 @@ namespace Doppler.REST.Models.Repository
                     x.Name.Contains(keyWord) || x.Email.Contains(keyWord) || x.Login.Contains(keyWord) ||
                     x.PhoneNumber == keyWord)
                 .Include(x => x.Icon).ToListAsync();
+        }
+
+        public async Task<List<UserContact>> GetUserContacts(User user, int? skip = 0, int? take = null)
+        {
+            var userContactsQuery = this.databaseContext.UsersContacts
+                .Include(x => x.User)
+                .Include(x => x.Contact).ThenInclude(x => x.Icon)
+                .Where(x => x.User.Id == user.Id);
+            userContactsQuery = userContactsQuery.SkipTake(skip, take);
+            return await userContactsQuery.ToListAsync();
         }
     }
 }

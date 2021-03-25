@@ -22,5 +22,9 @@ namespace Doppler.REST.Services
             return await this.repository.SearchUsersByWordAsync(keyWord);
         }
 
+        public async Task<List<UserContact>> GetUserContacts(int? skip = 0, int? take = null)
+        {
+
+        }
     }
 }
