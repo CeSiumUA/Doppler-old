@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Doppler.API.Authentication;
 using Doppler.API.Social;
 using Doppler.API.Storage;
+using Doppler.API.Storage.FileStorage;
 
 namespace Doppler.REST.Models.Repository
 {
@@ -29,7 +30,7 @@ namespace Doppler.REST.Models.Repository
 
         public async Task<DopplerUser> GetDopplerUserWithPassword(string login)
         {
-            var dopplerUser = await databaseContext.DopplerUsers.Include(x => x.Password).Include(x => x.RefreshToken)
+            var dopplerUser = await databaseContext.DopplerUsers.Include(x => x.Password).Include(x => x.RefreshToken).Include(x => x.Icon)
                     .FirstOrDefaultAsync(x => x.PhoneNumber == login);
             return dopplerUser;
         }
@@ -75,6 +76,11 @@ namespace Doppler.REST.Models.Repository
                 .Where(x => x.User.Id == user.Id);
             userContactsQuery = userContactsQuery.SkipTake(skip, take);
             return await userContactsQuery.ToListAsync();
+        }
+
+        public async Task<Data> GetFileData(Guid Id)
+        {
+            return await this.databaseContext.Files.Include(x => x.BLOB).FirstOrDefaultAsync(x => x.Id == Id);
         }
     }
 }
