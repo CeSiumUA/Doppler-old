@@ -43,7 +43,7 @@ namespace Doppler.REST
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x => x.LoadTokenOptions(configuration));
-            services.AddRazorPages();
+            //services.AddRazorPages();
             services.AddCustomeServices();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -62,12 +62,12 @@ namespace Doppler.REST
                     .AllowCredentials();
             });
             app.UseAuthentication();
-            app.UseBlazorFrameworkFiles();
+            //app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                //endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
