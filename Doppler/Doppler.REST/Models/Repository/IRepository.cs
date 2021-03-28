@@ -18,5 +18,6 @@ namespace Doppler.REST.Models.Repository
         public Task<List<User>> SearchUsersByWordAsync(string keyWord);
         public Task<List<UserContact>> GetUserContacts(User user, int? skip = 0, int? take = null);
         public Task<Data> GetFileData(Guid Id);
+        public Task<User> GetContactAsync(string login);
     }
 }

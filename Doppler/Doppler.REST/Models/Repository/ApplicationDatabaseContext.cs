@@ -51,6 +51,7 @@ namespace Doppler.REST.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasIndex(x => x.Login).IsUnique(true);
             modelBuilder.Entity<User>().HasMany(user => user.UserContacts).WithOne(user => user.User);
             modelBuilder.Entity<ConversationMessage>().HasOne(message => message.Content).WithOne(content => content.Message).HasForeignKey<ConversationMessageContent>(x => x.Id);
             base.OnModelCreating(modelBuilder);

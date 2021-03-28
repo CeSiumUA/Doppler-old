@@ -82,5 +82,10 @@ namespace Doppler.REST.Models.Repository
         {
             return await this.databaseContext.Files.Include(x => x.BLOB).FirstOrDefaultAsync(x => x.Id == Id);
         }
+
+        public async Task<User> GetContactAsync(string login)
+        {
+            return await this.databaseContext.Users.Include(x => x.Icon).FirstOrDefaultAsync(x => x.Login == login);
+        }
     }
 }

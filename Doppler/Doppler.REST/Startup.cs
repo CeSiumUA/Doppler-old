@@ -45,6 +45,10 @@ namespace Doppler.REST
             }).AddJwtBearer(x => x.LoadTokenOptions(configuration));
             //services.AddRazorPages();
             services.AddCustomeServices();
+            services.AddSignalR(x =>
+            {
+                x.EnableDetailedErrors = true;
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -67,6 +71,7 @@ namespace Doppler.REST
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<SocialHub>("/socialHub");
                 //endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");

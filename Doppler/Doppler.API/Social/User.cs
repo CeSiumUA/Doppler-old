@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Doppler.API.Authentication;
 using Doppler.API.Storage.FileStorage;
+using Microsoft.EntityFrameworkCore;
 
 namespace Doppler.API.Social
 {
