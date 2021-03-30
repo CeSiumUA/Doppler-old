@@ -13,9 +13,11 @@ namespace Doppler.REST
     public class SocialHub : Hub
     {
         private readonly SocialService socialService;
-        public SocialHub(SocialService socialService)
+        private readonly IdentityService identityService;
+        public SocialHub(SocialService socialService, IdentityService identityService)
         {
             this.socialService = socialService;
+            this.identityService = identityService;
         }
 
         public async Task<User> GetUser(string login)

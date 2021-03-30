@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
 using Doppler.REST.Models.AppHelpers;
 using Doppler.REST.Models.Authentication;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 
 namespace Doppler.REST
@@ -47,6 +48,7 @@ namespace Doppler.REST
             services.AddCustomeServices();
             services.AddSignalR(x =>
             {
+                x.AddFilter<IdentityHubFilter>();
                 x.EnableDetailedErrors = true;
             });
         }
