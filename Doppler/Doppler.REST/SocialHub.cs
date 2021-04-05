@@ -24,5 +24,9 @@ namespace Doppler.REST
         {
             return await socialService.GetContactAsync(login);
         }
+        public async Task<List<User>> SearchUsers(string pattern)
+        {
+            return await socialService.SearchUsersAsync(pattern);
+        }
     }
 }

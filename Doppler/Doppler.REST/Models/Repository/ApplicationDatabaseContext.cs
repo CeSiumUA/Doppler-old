@@ -41,6 +41,7 @@ namespace Doppler.REST.Models
         public ApplicationDatabaseContext(IConfiguration configuration)
         {
             this.configuration = configuration;
+            this.Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
