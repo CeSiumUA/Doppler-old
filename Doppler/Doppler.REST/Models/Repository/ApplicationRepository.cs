@@ -62,9 +62,10 @@ namespace Doppler.REST.Models.Repository
 
         public async Task<List<User>> SearchUsersByWordAsync(string keyWord)
         {
+            keyWord = keyWord.ToLower();
             return await this.databaseContext.Users.Where(x =>
-                    x.Name.Contains(keyWord) || x.Email.Contains(keyWord) || x.Login.Contains(keyWord) ||
-                    x.PhoneNumber == keyWord)
+                    x.Name.ToLower().Contains(keyWord) || x.Email.ToLower() == (keyWord) || x.Login.ToLower().Contains(keyWord) ||
+                    x.PhoneNumber.ToLower() == keyWord)
                 .Include(x => x.Icon).ToListAsync();
         }
 
