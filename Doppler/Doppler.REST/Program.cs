@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure.Identity;
 
 namespace Doppler.REST
 {
@@ -18,6 +19,16 @@ namespace Doppler.REST
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development")
+                    {
+                        var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+                        config.AddAzureKeyVault(
+                            keyVaultEndpoint,
+                            new DefaultAzureCredential());
+                    }
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
