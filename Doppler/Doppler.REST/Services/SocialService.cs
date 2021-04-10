@@ -27,9 +27,18 @@ namespace Doppler.REST.Services
             return await repository.GetUserContacts(identityService.AuthenticatedUser, skip, take);
         }
 
+        public async Task<UserContact> GetUserContact(string login)
+        {
+            return await repository.GetUserContactAsync(this.identityService.AuthenticatedUser, login);
+        }
         public async Task<User> GetContactAsync(string login)
         {
             return await this.repository.GetContactAsync(login);
+        }
+
+        public async Task AddToContacts(string login, string displayname = null)
+        {
+            await this.repository.AddToContacts(this.identityService.AuthenticatedUser, login, displayname);
         }
     }
 }

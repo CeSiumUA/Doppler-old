@@ -80,6 +80,12 @@ namespace Doppler.REST.Models.Repository
             return await userContactsQuery.ToListAsync();
         }
 
+        public async Task<UserContact> GetUserContactAsync(User user, string login)
+        {
+            return await this.databaseContext.UsersContacts.Include(x => x.User)
+                .Include(x => x.Contact).ThenInclude(x => x.Icon)
+                .FirstOrDefaultAsync(x => x.Contact.Login == login && x.User.Id == user.Id);
+        }
         public async Task<Data> GetFileData(Guid Id)
         {
             return await this.databaseContext.Files.Include(x => x.BLOB).FirstOrDefaultAsync(x => x.Id == Id);
@@ -88,6 +94,16 @@ namespace Doppler.REST.Models.Repository
         public async Task<User> GetContactAsync(string login)
         {
             return await this.databaseContext.Users.Include(x => x.Icon).FirstOrDefaultAsync(x => x.Login == login);
+        }
+
+        public async Task AddToContacts(User user, string login, string displayName = null)
+        {
+            UserContact userContact = new UserContact();
+            userContact.DisplayName = displayName;
+            userContact.User = user;
+            userContact.Contact = await this.databaseContext.Users.FirstOrDefaultAsync(x => x.Login == login);
+            await this.databaseContext.UsersContacts.AddAsync(userContact);
+            await this.databaseContext.SaveChangesAsync();
         }
     }
 }
