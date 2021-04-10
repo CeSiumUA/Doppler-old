@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Doppler.API.Social;
+using Doppler.API.Social.Likes;
 using Doppler.REST.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
@@ -39,6 +40,15 @@ namespace Doppler.REST
             return await socialService.GetUserContacts();
         }
 
+        public async Task<LikeResult> RateProfile(string login, bool like)
+        {
+            return await socialService.RateProfile(login, like);
+        }
+
+        public async Task<bool> CheckUserForLike(string login)
+        {
+            return await this.socialService.CheckUserForLike(login);
+        }
         public async Task AddToContacts(string login, string displayName = null)
         {
             await socialService.AddToContacts(login, displayName);

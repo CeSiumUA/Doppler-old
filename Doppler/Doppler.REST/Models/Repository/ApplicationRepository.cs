@@ -11,6 +11,7 @@ using Doppler.API.Authentication;
 using Doppler.API.Social;
 using Doppler.API.Storage;
 using Doppler.API.Storage.FileStorage;
+using Doppler.API.Social.Likes;
 
 namespace Doppler.REST.Models.Repository
 {
@@ -31,7 +32,7 @@ namespace Doppler.REST.Models.Repository
 
         public async Task<DopplerUser> GetDopplerUserWithPassword(string login)
         {
-            var dopplerUser = await databaseContext.DopplerUsers.Include(x => x.Password).Include(x => x.RefreshToken).Include(x => x.Icon)
+            var dopplerUser = await databaseContext.DopplerUsers.Include(x => x.Password).Include(x => x.RefreshToken).Include(x => x.Icons)
                     .FirstOrDefaultAsync(x => x.PhoneNumber == login);
             return dopplerUser;
         }
@@ -67,14 +68,14 @@ namespace Doppler.REST.Models.Repository
             return await this.databaseContext.Users.Where(x =>
                     x.Name.ToLower().Contains(keyWord) || x.Email.ToLower() == (keyWord) || x.Login.ToLower().Contains(keyWord) ||
                     x.PhoneNumber.ToLower() == keyWord)
-                .Include(x => x.Icon).ToListAsync();
+                .Include(x => x.Icons).ToListAsync();
         }
 
         public async Task<List<UserContact>> GetUserContacts(User user, int? skip = 0, int? take = null)
         {
             var userContactsQuery = this.databaseContext.UsersContacts
                 .Include(x => x.User)
-                .Include(x => x.Contact).ThenInclude(x => x.Icon)
+                .Include(x => x.Contact).ThenInclude(x => x.Icons)
                 .Where(x => x.User.Id == user.Id);
             userContactsQuery = userContactsQuery.SkipTake(skip, take);
             return await userContactsQuery.ToListAsync();
@@ -83,7 +84,8 @@ namespace Doppler.REST.Models.Repository
         public async Task<UserContact> GetUserContactAsync(User user, string login)
         {
             return await this.databaseContext.UsersContacts.Include(x => x.User)
-                .Include(x => x.Contact).ThenInclude(x => x.Icon)
+                .Include(x => x.Contact).ThenInclude(x => x.Icons)
+                .Include(x => x.Contact).ThenInclude(x => x.UserLikes).ThenInclude(x => x.LikedUser)
                 .FirstOrDefaultAsync(x => x.Contact.Login == login && x.User.Id == user.Id);
         }
         public async Task<Data> GetFileData(Guid Id)
@@ -93,7 +95,9 @@ namespace Doppler.REST.Models.Repository
 
         public async Task<User> GetContactAsync(string login)
         {
-            return await this.databaseContext.Users.Include(x => x.Icon).FirstOrDefaultAsync(x => x.Login == login);
+            return await this.databaseContext.Users.Include(x => x.Icons)
+                .Include(x => x.UserLikes).ThenInclude(x => x.LikedUser)
+                .FirstOrDefaultAsync(x => x.Login == login);
         }
 
         public async Task AddToContacts(User user, string login, string displayName = null)
@@ -104,6 +108,47 @@ namespace Doppler.REST.Models.Repository
             userContact.Contact = await this.databaseContext.Users.FirstOrDefaultAsync(x => x.Login == login);
             await this.databaseContext.UsersContacts.AddAsync(userContact);
             await this.databaseContext.SaveChangesAsync();
+        }
+
+        public async Task<LikeResult> RateProfile(User user, string login, bool like)
+        {
+            var likeQuery = await this.databaseContext.UsersLikes
+                .Include(x => x.Liker)
+                .Include(x => x.LikedUser)
+                .FirstOrDefaultAsync(x => x.LikedUser.Login == login && x.Liker.Id == user.Id);
+            if (likeQuery == null)
+            {
+                likeQuery = new UserLike()
+                {
+                    LikedUser = await this.databaseContext.Users.FirstOrDefaultAsync(x => x.Login == login),
+                    Liker = user,
+                };
+                await this.databaseContext.AddAsync(likeQuery);
+            }
+
+            likeQuery.IsLiked = like;
+            await this.databaseContext.SaveChangesAsync();
+            LikeResult likeResult =  new LikeResult()
+            {
+                IsLiked = like,
+                Likes = await this.databaseContext.UsersLikes
+                    .Include(x => x.LikedUser)
+                    .LongCountAsync(x => x.IsLiked && x.LikedUser.Login == login)
+            };
+            return likeResult;
+        }
+
+        public async Task<bool> CheckUserForLike(User user, string login)
+        {
+            var userLike = await this.databaseContext.UsersLikes
+                .Include(x => x.LikedUser)
+                .Include(x => x.Liker)
+                .FirstOrDefaultAsync(x => x.LikedUser.Login == login && x.Liker.Id == user.Id);
+            if (userLike == null)
+            {
+                return false;
+            }
+            return userLike.IsLiked;
         }
     }
 }

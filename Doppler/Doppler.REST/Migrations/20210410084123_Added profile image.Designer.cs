@@ -4,14 +4,16 @@ using Doppler.REST.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Doppler.REST.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210410084123_Added profile image")]
+    partial class Addedprofileimage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,6 +199,9 @@ namespace Doppler.REST.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("IconId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Login")
                         .HasColumnType("nvarchar(450)");
 
@@ -207,6 +212,8 @@ namespace Doppler.REST.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IconId");
 
                     b.HasIndex("Login")
                         .IsUnique()
@@ -239,31 +246,6 @@ namespace Doppler.REST.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UsersContacts");
-                });
-
-            modelBuilder.Entity("Doppler.API.Social.UserLike", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsLiked")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("LikedUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LikerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LikedUserId");
-
-                    b.HasIndex("LikerId");
-
-                    b.ToTable("UsersLikes");
                 });
 
             modelBuilder.Entity("Doppler.API.Storage.FileStorage.BLOB", b =>
@@ -358,11 +340,6 @@ namespace Doppler.REST.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("UserId");
-
                     b.HasDiscriminator().HasValue("ProfileImage");
                 });
 
@@ -446,6 +423,15 @@ namespace Doppler.REST.Migrations
                     b.Navigation("Message");
                 });
 
+            modelBuilder.Entity("Doppler.API.Social.User", b =>
+                {
+                    b.HasOne("Doppler.API.Storage.UserStorage.ProfileImage", "Icon")
+                        .WithMany()
+                        .HasForeignKey("IconId");
+
+                    b.Navigation("Icon");
+                });
+
             modelBuilder.Entity("Doppler.API.Social.UserContact", b =>
                 {
                     b.HasOne("Doppler.API.Social.User", "Contact")
@@ -459,21 +445,6 @@ namespace Doppler.REST.Migrations
                     b.Navigation("Contact");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Doppler.API.Social.UserLike", b =>
-                {
-                    b.HasOne("Doppler.API.Social.User", "LikedUser")
-                        .WithMany("UserLikes")
-                        .HasForeignKey("LikedUserId");
-
-                    b.HasOne("Doppler.API.Social.User", "Liker")
-                        .WithMany()
-                        .HasForeignKey("LikerId");
-
-                    b.Navigation("LikedUser");
-
-                    b.Navigation("Liker");
                 });
 
             modelBuilder.Entity("Doppler.API.Storage.FileStorage.Data", b =>
@@ -500,15 +471,6 @@ namespace Doppler.REST.Migrations
                     b.Navigation("RefreshToken");
                 });
 
-            modelBuilder.Entity("Doppler.API.Storage.UserStorage.ProfileImage", b =>
-                {
-                    b.HasOne("Doppler.API.Social.User", "User")
-                        .WithMany("Icons")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Doppler.API.Social.Chatting.Conversation", b =>
                 {
                     b.Navigation("Members");
@@ -526,11 +488,7 @@ namespace Doppler.REST.Migrations
 
             modelBuilder.Entity("Doppler.API.Social.User", b =>
                 {
-                    b.Navigation("Icons");
-
                     b.Navigation("UserContacts");
-
-                    b.Navigation("UserLikes");
                 });
 #pragma warning restore 612, 618
         }

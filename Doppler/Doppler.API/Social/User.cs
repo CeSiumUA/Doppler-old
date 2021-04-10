@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using Doppler.API.Authentication;
+using Doppler.API.Social.Likes;
 using Doppler.API.Storage.FileStorage;
+using Doppler.API.Storage.UserStorage;
 using Microsoft.EntityFrameworkCore;
 
 namespace Doppler.API.Social
@@ -23,13 +26,15 @@ namespace Doppler.API.Social
         [JsonIgnore]
         public List<UserContact> UserContacts { get; set; }
         [JsonIgnore]
-        public Data Icon { get; set; }
+        public List<ProfileImage> Icons { get; set; }
+        [JsonIgnore]
+        public List<UserLike> UserLikes { get; set; }
         [NotMapped]
         public string IconUrl
         {
             get
             {
-                return Icon?.Id.ToString();
+                return Icons?.FirstOrDefault(x => x.IsActive)?.Id.ToString();
             }
         }
         public SignedInUser GetSignedInUser(JwtToken accessJwtToken, JwtToken refreshToken = null)
@@ -40,6 +45,14 @@ namespace Doppler.API.Social
                 AccessToken = accessJwtToken,
                 RefreshToken = refreshToken
             };
+        }
+
+        public long? Likes
+        {
+            get
+            {
+                return this.UserLikes?.Where(x => x.LikedUser.Id == this.Id && x.IsLiked).LongCount();
+            }
         }
     }
 }

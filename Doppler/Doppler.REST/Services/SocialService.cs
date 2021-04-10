@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Doppler.API.Social;
+using Doppler.API.Social.Likes;
 using Doppler.REST.Models.Repository;
 
 namespace Doppler.REST.Services
@@ -39,6 +40,16 @@ namespace Doppler.REST.Services
         public async Task AddToContacts(string login, string displayname = null)
         {
             await this.repository.AddToContacts(this.identityService.AuthenticatedUser, login, displayname);
+        }
+
+        public async Task<LikeResult> RateProfile(string login, bool like)
+        {
+            return await this.repository.RateProfile(this.identityService.AuthenticatedUser, login, like);
+        }
+
+        public async Task<bool> CheckUserForLike(string login)
+        {
+            return await this.repository.CheckUserForLike(this.identityService.AuthenticatedUser, login);
         }
     }
 }

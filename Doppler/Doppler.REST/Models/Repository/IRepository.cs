@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Doppler.API.Authentication;
 using Doppler.API.Social;
+using Doppler.API.Social.Likes;
 using Doppler.API.Storage.FileStorage;
 using Doppler.REST.Models.Social;
 
@@ -21,5 +22,7 @@ namespace Doppler.REST.Models.Repository
         public Task<User> GetContactAsync(string login);
         public Task<UserContact> GetUserContactAsync(User user, string login);
         public Task AddToContacts(User user, string login, string displayName = null);
+        public Task<LikeResult> RateProfile(User user, string login, bool like);
+        public Task<bool> CheckUserForLike(User user, string login);
     }
 }

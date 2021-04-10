@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Doppler.API.Authentication;
 using Doppler.API.Social;
 using Doppler.API.Social.Chatting;
+using Doppler.API.Social.Likes;
 using Doppler.API.Storage;
 using Doppler.API.Storage.FileStorage;
+using Doppler.API.Storage.UserStorage;
 using Doppler.REST.Models.Authentication;
 using Doppler.REST.Models.Cryptography;
 using Doppler.REST.Models.Social;
@@ -28,6 +30,8 @@ namespace Doppler.REST.Models
         #region FileStorage
         public DbSet<BLOB> Blobs { get; set; }
         public DbSet<Data> Files { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<ProfileImage> ProfileImages { get; set; }
         #endregion
         #region SocialDbSet
         public DbSet<Conversation> Conversations { get; set; }
@@ -36,6 +40,7 @@ namespace Doppler.REST.Models
         public DbSet<ConversationMessageContent> ConversationMessageContents { get; set; }
         public DbSet<ConversationMessageMediaContent> ConversationMessageMediaContents { get; set; }
         public DbSet<ConversationMessageViewer> ConversationMessageViewers { get; set; }
+        public DbSet<UserLike> UsersLikes { get; set; }
         #endregion
         private readonly IConfiguration configuration;
         public ApplicationDatabaseContext(IConfiguration configuration)
@@ -54,6 +59,7 @@ namespace Doppler.REST.Models
         {
             modelBuilder.Entity<User>().HasIndex(x => x.Login).IsUnique(true);
             modelBuilder.Entity<User>().HasMany(user => user.UserContacts).WithOne(user => user.User);
+            modelBuilder.Entity<User>().HasMany(x => x.UserLikes).WithOne(x => x.LikedUser);
             modelBuilder.Entity<ConversationMessage>().HasOne(message => message.Content).WithOne(content => content.Message).HasForeignKey<ConversationMessageContent>(x => x.Id);
             base.OnModelCreating(modelBuilder);
         }
