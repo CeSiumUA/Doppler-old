@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Doppler.API.Authentication;
 using Doppler.API.Social;
+using Doppler.API.Social.Chatting;
 using Doppler.API.Storage;
 using Doppler.API.Storage.FileStorage;
 using Doppler.API.Social.Likes;
@@ -149,6 +150,24 @@ namespace Doppler.REST.Models.Repository
                 return false;
             }
             return userLike.IsLiked;
+        }
+
+        public async Task<Guid> GetChatInstance(User user, string login)
+        {
+            var dialogue = await this.databaseContext
+                .Conversations.Include(x => x.Members).ThenInclude(x => x.User)
+                .FirstOrDefaultAsync(x => x.IsDialogue
+                                          && x.Members.Exists(x => x.User.Id == user.Id)
+                                          && x.Members.Exists(x => x.User.Login == login));
+            if (dialogue == null)
+            {
+                dialogue = new Conversation()
+                {
+
+                };
+            }
+
+            return dialogue.Id;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Doppler.API.Social.Chatting
     public class ConversationMember
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public Conversation Conversation { get; set; }
 
         public string DisplayName

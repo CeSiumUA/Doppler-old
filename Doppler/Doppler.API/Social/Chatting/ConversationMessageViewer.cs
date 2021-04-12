@@ -9,7 +9,7 @@ namespace Doppler.API.Social.Chatting
     public class ConversationMessageViewer
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public ConversationMember Member { get; set; }
         public  ConversationMessage Message { get; set; }
         public DateTime ViewedOn { get; set; }

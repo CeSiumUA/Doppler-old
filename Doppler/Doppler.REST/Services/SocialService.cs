@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Doppler.API.Social;
+using Doppler.API.Social.Chatting;
 using Doppler.API.Social.Likes;
 using Doppler.REST.Models.Repository;
 
@@ -50,6 +51,11 @@ namespace Doppler.REST.Services
         public async Task<bool> CheckUserForLike(string login)
         {
             return await this.repository.CheckUserForLike(this.identityService.AuthenticatedUser, login);
+        }
+
+        public async Task<Guid> GetChatInstance(string login)
+        {
+            return await this.repository.GetChatInstance(this.identityService.AuthenticatedUser, login);
         }
     }
 }

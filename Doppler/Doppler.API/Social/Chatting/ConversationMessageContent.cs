@@ -8,7 +8,7 @@ namespace Doppler.API.Social.Chatting
     public class ConversationMessageContent
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public ConversationMessage Message { get; set; }
         public string Text { get; set; }
         public List<ConversationMessageMediaContent> MediaContents { get; set; }

@@ -4,14 +4,16 @@ using Doppler.REST.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Doppler.REST.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210411052631_added IsDialog flag")]
+    partial class addedIsDialogflag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,9 +39,10 @@ namespace Doppler.REST.Migrations
 
             modelBuilder.Entity("Doppler.API.Social.Chatting.Conversation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -62,13 +65,13 @@ namespace Doppler.REST.Migrations
 
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMember", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("ConversationId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("ConversationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -90,19 +93,19 @@ namespace Doppler.REST.Migrations
 
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMessage", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<long?>("ReceiverId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("ReceiverId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("SenderId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("SenderId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("SentOn")
                         .HasColumnType("datetime2");
@@ -118,8 +121,8 @@ namespace Doppler.REST.Migrations
 
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMessageContent", b =>
                 {
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
@@ -131,16 +134,16 @@ namespace Doppler.REST.Migrations
 
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMessageMediaContent", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ContentType")
                         .HasColumnType("int");
 
-                    b.Property<long?>("ConversationMessageContentId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("ConversationMessageContentId")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("DataId")
                         .HasColumnType("uniqueidentifier");
@@ -156,16 +159,16 @@ namespace Doppler.REST.Migrations
 
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMessageViewer", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("MemberId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("MemberId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("MessageId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("MessageId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Viewed")
                         .HasColumnType("bit");
@@ -370,7 +373,7 @@ namespace Doppler.REST.Migrations
 
             modelBuilder.Entity("Doppler.API.Social.Chatting.Conversation", b =>
                 {
-                    b.HasOne("Doppler.API.Storage.UserStorage.ProfileImage", "Icon")
+                    b.HasOne("Doppler.API.Storage.FileStorage.Data", "Icon")
                         .WithMany()
                         .HasForeignKey("IconId");
 

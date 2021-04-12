@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Doppler.API.Social;
+using Doppler.API.Social.Chatting;
 using Doppler.API.Social.Likes;
 using Doppler.REST.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -52,6 +53,11 @@ namespace Doppler.REST
         public async Task AddToContacts(string login, string displayName = null)
         {
             await socialService.AddToContacts(login, displayName);
+        }
+
+        public async Task<Guid> GetChatInstance(string login)
+        {
+            return await this.socialService.GetChatInstance(login);
         }
     }
 }
