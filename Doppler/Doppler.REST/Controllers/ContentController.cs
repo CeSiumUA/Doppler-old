@@ -21,7 +21,7 @@ namespace Doppler.REST.Controllers
         }
 
         [HttpGet("{fileId}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetFile(Guid fileId)
         {
             var file = await repository.GetFileData(fileId);
@@ -31,6 +31,12 @@ namespace Doppler.REST.Controllers
             }
 
             return new FileContentResult(file.BLOB.Data, MediaTypeHeaderValue.Parse("image/png"));
+        }
+        [HttpPost("UploadFile")]
+        [Authorize]
+        public async Task<IActionResult> UploadFile()
+        {
+            return Ok();
         }
     }
 }

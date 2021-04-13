@@ -19,15 +19,16 @@ namespace Doppler.REST
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSystemd()
                 .ConfigureAppConfiguration((context, config) =>
                 {
-                    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development")
-                    {
-                        var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-                        config.AddAzureKeyVault(
-                            keyVaultEndpoint,
-                            new DefaultAzureCredential());
-                    }
+                    //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development")
+                    //{
+                    //    var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+                    //    config.AddAzureKeyVault(
+                    //        keyVaultEndpoint,
+                    //        new DefaultAzureCredential());
+                    //}
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

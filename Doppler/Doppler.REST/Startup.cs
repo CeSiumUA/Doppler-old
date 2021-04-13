@@ -20,9 +20,11 @@ namespace Doppler.REST
     public class Startup
     {
         private readonly IConfiguration configuration;
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment environment;
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             this.configuration = configuration;
+            this.environment = environment;
         }
         public void ConfigureServices(IServiceCollection services)
         {
@@ -44,6 +46,11 @@ namespace Doppler.REST
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x => x.LoadTokenOptions(configuration));
+            if (!this.environment.IsDevelopment())
+            {
+                services.AddLettuceEncrypt();
+            }
+
             //services.AddRazorPages();
             services.AddCustomeServices();
             services.AddSignalR(x =>
