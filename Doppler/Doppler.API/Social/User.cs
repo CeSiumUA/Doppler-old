@@ -37,6 +37,21 @@ namespace Doppler.API.Social
                 return Icons?.FirstOrDefault(x => x.IsActive)?.Id.ToString();
             }
         }
+        [NotMapped]
+        public List<UserIconURL> UserIcons
+        {
+            get
+            {
+                return Icons?.Select(x =>
+                {
+                    return new UserIconURL()
+                    {
+                        URL = x.Id,
+                        IsActive = x.IsActive
+                    };
+                }).ToList();
+            }
+        }
         public SignedInUser GetSignedInUser(JwtToken accessJwtToken, JwtToken refreshToken = null)
         {
             return new SignedInUser()
@@ -54,5 +69,11 @@ namespace Doppler.API.Social
                 return this.UserLikes?.Where(x => x.LikedUser.Id == this.Id && x.IsLiked).LongCount();
             }
         }
+    }
+
+    public class UserIconURL
+    {
+        public Guid URL { get; set; }
+        public bool IsActive { get; set; }
     }
 }
