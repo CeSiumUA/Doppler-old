@@ -21,6 +21,7 @@ namespace Doppler.REST.Models.AppHelpers
 
             service.AddScoped<AuthenticationService>();
             service.AddScoped<SocialService>();
+            service.AddScoped<ContentService>();
             service.AddDbContext<ApplicationDatabaseContext>();
             service.AddScoped<IRepository, ApplicationRepository>();
             service.AddScoped<ICryptographyProvider, CryptographyProviderService>();

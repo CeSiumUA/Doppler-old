@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Doppler.REST.Models.Repository;
+using Doppler.REST.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Net.Http.Headers;
 
@@ -14,17 +15,17 @@ namespace Doppler.REST.Controllers
     [ApiController]
     public class ContentController : ControllerBase
     {
-        private readonly IRepository repository;
-        public ContentController(IRepository repository)
+        private readonly ContentService contentService;
+        public ContentController(ContentService contentService)
         {
-            this.repository = repository;
+            this.contentService = contentService;
         }
 
         [HttpGet("{fileId}")]
         [Authorize]
         public async Task<IActionResult> GetFile(Guid fileId)
         {
-            var file = await repository.GetFileData(fileId);
+            var file = await contentService.GetFileData(fileId);
             if (file == null)
             {
                 return BadRequest();
@@ -32,10 +33,11 @@ namespace Doppler.REST.Controllers
 
             return new FileContentResult(file.BLOB.Data, MediaTypeHeaderValue.Parse("image/png"));
         }
-        [HttpPost("UploadFile")]
+        [HttpPost("uploadfile")]
         [Authorize]
         public async Task<IActionResult> UploadFile()
         {
+            var filesCollection = this.HttpContext.Request.Form.Files;
             return Ok();
         }
     }
