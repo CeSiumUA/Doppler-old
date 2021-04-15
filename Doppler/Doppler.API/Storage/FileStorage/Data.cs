@@ -11,7 +11,7 @@ namespace Doppler.API.Storage.FileStorage
         public Guid Id { get; set; }
         public string FileName { get; set; }
         public BLOB BLOB { get; set; }
-
+        public string? ContentType { get; set; }
         public long? FileSize
         {
             get
@@ -23,8 +23,17 @@ namespace Doppler.API.Storage.FileStorage
 
                 return BLOB.Data.LongLength;
             }
+            set
+            {
+                this.fileSize = value;
+            }
         }
 
         private long? fileSize { get; set; }
+    }
+    public enum FileUploadType
+    {
+        FileAttachment = 0,
+        ProfileImage = 1
     }
 }

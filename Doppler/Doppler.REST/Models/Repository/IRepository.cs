@@ -8,6 +8,7 @@ using Doppler.API.Social;
 using Doppler.API.Social.Likes;
 using Doppler.API.Storage.FileStorage;
 using Doppler.REST.Models.Social;
+using Microsoft.AspNetCore.Http;
 
 namespace Doppler.REST.Models.Repository
 {
@@ -25,5 +26,6 @@ namespace Doppler.REST.Models.Repository
         public Task<LikeResult> RateProfile(User user, string login, bool like);
         public Task<bool> CheckUserForLike(User user, string login);
         public Task<Guid> GetChatInstance(User user, string login);
+        public Task<Guid> SetProfileImage(User user, IFormFile formFile);
     }
 }

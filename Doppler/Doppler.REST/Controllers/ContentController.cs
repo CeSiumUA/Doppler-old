@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Doppler.API.Storage.FileStorage;
 using Doppler.REST.Models.Repository;
 using Doppler.REST.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -35,10 +36,11 @@ namespace Doppler.REST.Controllers
         }
         [HttpPost("uploadfile")]
         [Authorize]
-        public async Task<IActionResult> UploadFile()
+        public async Task<IActionResult> UploadFile([FromForm] FileUploadType uploadType)
         {
             var filesCollection = this.HttpContext.Request.Form.Files;
-            return Ok();
+            var uploadResult = await this.contentService.UploadFile(filesCollection, uploadType);
+            return new JsonResult(uploadResult);
         }
     }
 }

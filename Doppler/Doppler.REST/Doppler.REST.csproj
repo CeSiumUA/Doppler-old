@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="doppler.service">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

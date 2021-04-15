@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Doppler.API.Storage.FileStorage;
 using Doppler.REST.Models.Repository;
+using Microsoft.AspNetCore.Http;
 
 namespace Doppler.REST.Services
 {
@@ -23,9 +24,19 @@ namespace Doppler.REST.Services
             return file;
         }
 
-        public async Task UploadFile()
+        public async Task<Guid> UploadFile(IFormFileCollection files, FileUploadType uploadType)
         {
-
+            Guid result = Guid.Empty;
+            switch (uploadType)
+            {
+                case FileUploadType.ProfileImage:
+                    result = await this.repository.SetProfileImage(identityService.AuthenticatedUser,
+                        files.FirstOrDefault());
+                    break;
+                default:
+                    break;
+            }
+            return result;
         }
     }
 }

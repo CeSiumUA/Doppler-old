@@ -1,6 +1,7 @@
 ﻿using Doppler.REST.Models.Social;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection.Metadata;
@@ -13,6 +14,8 @@ using Doppler.API.Social.Chatting;
 using Doppler.API.Storage;
 using Doppler.API.Storage.FileStorage;
 using Doppler.API.Social.Likes;
+using Doppler.API.Storage.UserStorage;
+using Microsoft.AspNetCore.Http;
 
 namespace Doppler.REST.Models.Repository
 {
@@ -55,6 +58,8 @@ namespace Doppler.REST.Models.Repository
             if (dopplerUser.RefreshToken != null)
             {
                 this.databaseContext.RefreshTokens.Remove(dopplerUser.RefreshToken);
+                //FIXME
+                this.databaseContext.DopplerUsers.Update(dopplerUser);
             }
 
             dopplerUser.RefreshToken = jwtToken;
@@ -169,5 +174,50 @@ namespace Doppler.REST.Models.Repository
 
             return dialogue.Id;
         }
+
+        public async Task<Guid> SetProfileImage(User user, IFormFile formFile)
+        {
+            var images = (await this.databaseContext.Users.Include(x => x.Icons)
+                .FirstOrDefaultAsync(x => x.Id == user.Id)).Icons;
+            ProfileImage profileImage;
+            await using (MemoryStream ms = new MemoryStream())
+            {
+                await formFile.CopyToAsync(ms);
+                profileImage = new ProfileImage()
+                {
+                    IsActive = true,
+                    BLOB = new BLOB()
+                    {
+                        Data = ms.ToArray()
+                    },
+                    ContentType = formFile.ContentType,
+                    FileName = formFile.FileName,
+                    FileSize = formFile.Length,
+                    User = user
+                };
+            }
+            images.ForEach(x => x.IsActive = false);
+            images.Add(profileImage);
+            //await this.databaseContext.ProfileImages.AddAsync(profileImage);
+            await this.databaseContext.SaveChangesAsync();
+            return profileImage.Id;
+        }
+
+        private async Task<Data> UploadData(MemoryStream fileStream, string? fileName = null, string? contentType = null,
+            long? fileLength = 0)
+        {
+            Data fileData = new Data()
+            {
+                ContentType = contentType,
+                FileName = fileName,
+                FileSize = fileLength,
+                BLOB = new BLOB()
+                {
+                    Data = fileStream.ToArray()
+                }
+            };
+            return fileData;
+        }
+        
     }
 }
