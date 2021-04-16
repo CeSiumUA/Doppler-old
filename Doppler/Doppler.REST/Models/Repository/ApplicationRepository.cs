@@ -59,7 +59,7 @@ namespace Doppler.REST.Models.Repository
             {
                 this.databaseContext.RefreshTokens.Remove(dopplerUser.RefreshToken);
                 //FIXME
-                this.databaseContext.DopplerUsers.Update(dopplerUser);
+                await this.databaseContext.SaveChangesAsync();
             }
 
             dopplerUser.RefreshToken = jwtToken;
@@ -157,24 +157,61 @@ namespace Doppler.REST.Models.Repository
             return userLike.IsLiked;
         }
 
-        public async Task<Guid> GetChatInstance(User user, string login)
+        public async Task<Guid> GetDialogueInstanceId(User user, string login)
         {
-            var dialogue = await this.databaseContext
-                .Conversations.Include(x => x.Members).ThenInclude(x => x.User)
-                .FirstOrDefaultAsync(x => x.IsDialogue
-                                          && x.Members.Exists(x => x.User.Id == user.Id)
-                                          && x.Members.Exists(x => x.User.Login == login));
-            if (dialogue == null)
-            {
-                dialogue = new Conversation()
-                {
-
-                };
-            }
-
+            var dialogue = await RetreiveDialogue(user, login);
             return dialogue.Id;
         }
 
+        private async Task<Dialogue> RetreiveDialogue(User user, string login, bool includeImageToQuery = true)
+        {
+            var opponent = await this.databaseContext.UsersContacts.Include(x => x.Contact).Include(x => x.User).FirstOrDefaultAsync(x => x.User.Id == user.Id && x.Contact.Login == login);
+            string opponentDisplayName = opponent?.DisplayName;
+            var opponentUser = opponent?.User;
+            if (opponent == null)
+            {
+                opponentUser = await this.databaseContext.Users.FirstOrDefaultAsync(x => x.Login == login);
+                opponentDisplayName = opponentUser?.Name;
+            }
+
+            Dialogue dialogue = null;
+            if(includeImageToQuery)
+            { 
+                dialogue = await this.databaseContext.Dialogues
+                .Include(x => x.FirstUser).ThenInclude(x => x.User).ThenInclude(x => x.Icons)
+                .Include(x => x.SecondUser).ThenInclude(x => x.User).ThenInclude(x => x.Icons)
+                .FirstOrDefaultAsync(x => (x.FirstUser.User.Id == user.Id && x.SecondUser.User.Id == opponentUser.Id) || (x.SecondUser.User.Id == user.Id && x.FirstUser.User.Id == opponentUser.Id));
+            }
+            else
+            {
+                dialogue = await this.databaseContext.Dialogues
+                    .Include(x => x.FirstUser).ThenInclude(x => x.User)
+                    .Include(x => x.SecondUser).ThenInclude(x => x.User)
+                    .FirstOrDefaultAsync(x => (x.FirstUser.User.Id == user.Id && x.SecondUser.User.Id == opponentUser.Id) || (x.SecondUser.User.Id == user.Id && x.FirstUser.User.Id == opponentUser.Id));
+            }
+            if (dialogue == null)
+            {
+                dialogue = new Dialogue();
+                await this.databaseContext.Conversations.AddAsync(dialogue);
+                await this.databaseContext.SaveChangesAsync();
+                dialogue.FirstUser = new ConversationMember()
+                {
+                    Conversation = dialogue,
+                    Role = ConversationMemberRole.Member,
+                    User = user
+                };
+                dialogue.SecondUser = new ConversationMember()
+                {
+                    Conversation = dialogue,
+                    DisplayName = opponentDisplayName,
+                    Role = ConversationMemberRole.Member,
+                    User = opponentUser
+                };
+                await this.databaseContext.SaveChangesAsync();
+            }
+
+            return dialogue;
+        }
         public async Task<Guid> SetProfileImage(User user, IFormFile formFile)
         {
             var images = (await this.databaseContext.Users.Include(x => x.Icons)

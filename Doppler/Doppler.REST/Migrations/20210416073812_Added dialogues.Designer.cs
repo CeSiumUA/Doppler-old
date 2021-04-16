@@ -4,14 +4,16 @@ using Doppler.REST.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Doppler.REST.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210416073812_Added dialogues")]
+    partial class Addeddialogues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,6 +53,9 @@ namespace Doppler.REST.Migrations
                     b.Property<Guid?>("IconId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsDialogue")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -76,9 +81,6 @@ namespace Doppler.REST.Migrations
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
@@ -88,8 +90,6 @@ namespace Doppler.REST.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ConversationId");
-
-                    b.HasIndex("GroupId");
 
                     b.HasIndex("UserId");
 
@@ -363,13 +363,6 @@ namespace Doppler.REST.Migrations
                     b.HasDiscriminator().HasValue("Dialogue");
                 });
 
-            modelBuilder.Entity("Doppler.API.Social.Chatting.Group", b =>
-                {
-                    b.HasBaseType("Doppler.API.Social.Chatting.Conversation");
-
-                    b.HasDiscriminator().HasValue("Group");
-                });
-
             modelBuilder.Entity("Doppler.REST.Models.Social.DopplerUser", b =>
                 {
                     b.HasBaseType("Doppler.API.Social.User");
@@ -421,12 +414,8 @@ namespace Doppler.REST.Migrations
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMember", b =>
                 {
                     b.HasOne("Doppler.API.Social.Chatting.Conversation", "Conversation")
-                        .WithMany()
-                        .HasForeignKey("ConversationId");
-
-                    b.HasOne("Doppler.API.Social.Chatting.Group", null)
                         .WithMany("Members")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("ConversationId");
 
                     b.HasOne("Doppler.API.Social.User", "User")
                         .WithMany()
@@ -571,6 +560,11 @@ namespace Doppler.REST.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Doppler.API.Social.Chatting.Conversation", b =>
+                {
+                    b.Navigation("Members");
+                });
+
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMessage", b =>
                 {
                     b.Navigation("Content");
@@ -588,11 +582,6 @@ namespace Doppler.REST.Migrations
                     b.Navigation("UserContacts");
 
                     b.Navigation("UserLikes");
-                });
-
-            modelBuilder.Entity("Doppler.API.Social.Chatting.Group", b =>
-                {
-                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }

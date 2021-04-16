@@ -55,9 +55,9 @@ namespace Doppler.REST
             await socialService.AddToContacts(login, displayName);
         }
 
-        public async Task<Guid> GetChatInstance(string login)
+        public async Task<Guid> GetDialogueInstanceId(string login)
         {
-            return await this.socialService.GetChatInstance(login);
+            return await this.socialService.GetDialogueInstanceId(login);
         }
     }
 }

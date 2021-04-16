@@ -35,6 +35,8 @@ namespace Doppler.REST.Models
         #endregion
         #region SocialDbSet
         public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<Dialogue> Dialogues { get; set; }
+        public DbSet<Group> Groups { get; set; }
         public DbSet<ConversationMember> ConversationMembers { get; set; }
         public DbSet<ConversationMessage> ConversationMessages { get; set; }
         public DbSet<ConversationMessageContent> ConversationMessageContents { get; set; }
@@ -52,6 +54,8 @@ namespace Doppler.REST.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(configuration["Doppler:DatabaseConnectionString"]);
+            optionsBuilder.EnableDetailedErrors();
+            optionsBuilder.EnableSensitiveDataLogging();
             base.OnConfiguring(optionsBuilder);
         }
 
@@ -61,6 +65,8 @@ namespace Doppler.REST.Models
             modelBuilder.Entity<User>().HasMany(user => user.UserContacts).WithOne(user => user.User);
             modelBuilder.Entity<User>().HasMany(x => x.UserLikes).WithOne(x => x.LikedUser);
             modelBuilder.Entity<ConversationMessage>().HasOne(message => message.Content).WithOne(content => content.Message).HasForeignKey<ConversationMessageContent>(x => x.Id);
+            modelBuilder.Entity<Dialogue>().HasOne(x => x.FirstUser).WithMany();
+            modelBuilder.Entity<Dialogue>().HasOne(x => x.SecondUser).WithMany();
             base.OnModelCreating(modelBuilder);
         }
     }

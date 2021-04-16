@@ -53,9 +53,9 @@ namespace Doppler.REST.Services
             return await this.repository.CheckUserForLike(this.identityService.AuthenticatedUser, login);
         }
 
-        public async Task<Guid> GetChatInstance(string login)
+        public async Task<Guid> GetDialogueInstanceId(string login)
         {
-            return await this.repository.GetChatInstance(this.identityService.AuthenticatedUser, login);
+            return await this.repository.GetDialogueInstanceId(this.identityService.AuthenticatedUser, login);
         }
     }
 }

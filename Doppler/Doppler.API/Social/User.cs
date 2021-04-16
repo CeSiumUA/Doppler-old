@@ -42,7 +42,7 @@ namespace Doppler.API.Social
         {
             get
             {
-                return Icons?.Select(x =>
+                return Icons?.OrderByDescending(x => x.UploadDate).OrderByDescending(x => x.IsActive ? 1 : 0).Select(x =>
                 {
                     return new UserIconURL()
                     {

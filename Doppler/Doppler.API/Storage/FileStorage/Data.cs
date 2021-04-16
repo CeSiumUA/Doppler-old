@@ -12,6 +12,7 @@ namespace Doppler.API.Storage.FileStorage
         public string FileName { get; set; }
         public BLOB BLOB { get; set; }
         public string? ContentType { get; set; }
+        public DateTime UploadDate { get; set; }
         public long? FileSize
         {
             get
@@ -27,6 +28,11 @@ namespace Doppler.API.Storage.FileStorage
             {
                 this.fileSize = value;
             }
+        }
+
+        public Data()
+        {
+            this.UploadDate = DateTime.UtcNow;
         }
 
         private long? fileSize { get; set; }

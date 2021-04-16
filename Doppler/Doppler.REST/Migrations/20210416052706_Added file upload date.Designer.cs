@@ -4,14 +4,16 @@ using Doppler.REST.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Doppler.REST.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210416052706_Added file upload date")]
+    partial class Addedfileuploaddate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,12 +46,11 @@ namespace Doppler.REST.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("IconId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDialogue")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -59,8 +60,6 @@ namespace Doppler.REST.Migrations
                     b.HasIndex("IconId");
 
                     b.ToTable("Conversations");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Conversation");
                 });
 
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMember", b =>
@@ -76,9 +75,6 @@ namespace Doppler.REST.Migrations
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
@@ -88,8 +84,6 @@ namespace Doppler.REST.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ConversationId");
-
-                    b.HasIndex("GroupId");
 
                     b.HasIndex("UserId");
 
@@ -346,30 +340,6 @@ namespace Doppler.REST.Migrations
                     b.ToTable("Passwords");
                 });
 
-            modelBuilder.Entity("Doppler.API.Social.Chatting.Dialogue", b =>
-                {
-                    b.HasBaseType("Doppler.API.Social.Chatting.Conversation");
-
-                    b.Property<long?>("FirstUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("SecondUserId")
-                        .HasColumnType("bigint");
-
-                    b.HasIndex("FirstUserId");
-
-                    b.HasIndex("SecondUserId");
-
-                    b.HasDiscriminator().HasValue("Dialogue");
-                });
-
-            modelBuilder.Entity("Doppler.API.Social.Chatting.Group", b =>
-                {
-                    b.HasBaseType("Doppler.API.Social.Chatting.Conversation");
-
-                    b.HasDiscriminator().HasValue("Group");
-                });
-
             modelBuilder.Entity("Doppler.REST.Models.Social.DopplerUser", b =>
                 {
                     b.HasBaseType("Doppler.API.Social.User");
@@ -421,12 +391,8 @@ namespace Doppler.REST.Migrations
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMember", b =>
                 {
                     b.HasOne("Doppler.API.Social.Chatting.Conversation", "Conversation")
-                        .WithMany()
-                        .HasForeignKey("ConversationId");
-
-                    b.HasOne("Doppler.API.Social.Chatting.Group", null)
                         .WithMany("Members")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("ConversationId");
 
                     b.HasOne("Doppler.API.Social.User", "User")
                         .WithMany()
@@ -532,21 +498,6 @@ namespace Doppler.REST.Migrations
                     b.Navigation("BLOB");
                 });
 
-            modelBuilder.Entity("Doppler.API.Social.Chatting.Dialogue", b =>
-                {
-                    b.HasOne("Doppler.API.Social.Chatting.ConversationMember", "FirstUser")
-                        .WithMany()
-                        .HasForeignKey("FirstUserId");
-
-                    b.HasOne("Doppler.API.Social.Chatting.ConversationMember", "SecondUser")
-                        .WithMany()
-                        .HasForeignKey("SecondUserId");
-
-                    b.Navigation("FirstUser");
-
-                    b.Navigation("SecondUser");
-                });
-
             modelBuilder.Entity("Doppler.REST.Models.Social.DopplerUser", b =>
                 {
                     b.HasOne("Doppler.REST.Models.Cryptography.Password", "Password")
@@ -571,6 +522,11 @@ namespace Doppler.REST.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Doppler.API.Social.Chatting.Conversation", b =>
+                {
+                    b.Navigation("Members");
+                });
+
             modelBuilder.Entity("Doppler.API.Social.Chatting.ConversationMessage", b =>
                 {
                     b.Navigation("Content");
@@ -588,11 +544,6 @@ namespace Doppler.REST.Migrations
                     b.Navigation("UserContacts");
 
                     b.Navigation("UserLikes");
-                });
-
-            modelBuilder.Entity("Doppler.API.Social.Chatting.Group", b =>
-                {
-                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }
