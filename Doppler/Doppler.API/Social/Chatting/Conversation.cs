@@ -17,6 +17,7 @@ namespace Doppler.API.Social.Chatting
         public virtual string Description { get; set; }
         [JsonIgnore]
         public ProfileImage Icon { get; set; }
+        [JsonIgnore]
         public List<ConversationMember> Members { get; set; }
         [NotMapped]
         public virtual string IconUrl

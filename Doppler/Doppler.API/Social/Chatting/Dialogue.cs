@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Doppler.API.Storage.UserStorage;
 
@@ -8,9 +9,39 @@ namespace Doppler.API.Social.Chatting
     public class Dialogue : Conversation
     {
         //public long FirstUserId { get; set; }
-        public ConversationMember FirstUser { get; set; }
+        public ConversationMember FirstUser
+        {
+            get
+            {
+                if (this.firstUser == null)
+                {
+                    this.firstUser = this.Members?.FirstOrDefault();
+                }
+
+                return firstUser;
+            }
+            set
+            {
+                this.firstUser = value;
+            }
+        }
         //public long SecondUserId { get; set; }
-        public ConversationMember SecondUser { get; set; }
+        public ConversationMember SecondUser
+        {
+            get
+            {
+                if (this.secondUser == null)
+                {
+                    secondUser = this.Members?.LastOrDefault();
+                }
+
+                return secondUser;
+            }
+            set
+            {
+                this.secondUser = value;
+            }
+        }
 
         public override string Name
         {
@@ -61,5 +92,7 @@ namespace Doppler.API.Social.Chatting
         }
 
         private User userContext;
+        private ConversationMember firstUser { get; set; }
+        private ConversationMember secondUser { get; set; }
     }
 }

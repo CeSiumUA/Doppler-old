@@ -64,5 +64,11 @@ namespace Doppler.REST
         {
             return await this.socialService.GetUserConversations(skip, take);
         }
+
+        public async Task<List<ConversationMessage>> GetConversationMessages(Guid chatId, int? skip = 0,
+            int? take = null)
+        {
+            return await socialService.GetConversationMessages(chatId, skip, take);
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Doppler.API.Social.Chatting
     {
         [Key]
         public long Id { get; set; }
-        public long ConversationMessageContentId { get; set; }
+        public Guid ConversationMessageContentId { get; set; }
         public ConversationMessageContent ConversationMessageContent { get; set; }
         [DefaultValue(MediaContentType.File)]
         public MediaContentType ContentType { get; set; }

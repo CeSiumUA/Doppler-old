@@ -279,5 +279,17 @@ namespace Doppler.REST.Models.Repository
 
             return conversations;
         }
+
+        public async Task<List<ConversationMessage>> GetConversationMessages(User user, Guid conversationId, int? skip = 0, int? take = null)
+        {
+            var conversation =
+                await this.databaseContext.Conversations.Include(x => x.Members).Include(x => x.Icon).FirstOrDefaultAsync(conv => conv.Id == conversationId);
+            if (!conversation.Members.Select(x => x.UserId).Contains(user.Id))
+            {
+                return null;
+            }
+
+            return null;
+        }
     }
 }

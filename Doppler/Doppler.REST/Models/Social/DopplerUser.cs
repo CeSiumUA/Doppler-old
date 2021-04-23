@@ -16,6 +16,7 @@ namespace Doppler.REST.Models.Social
         public Password Password { get; set; }
         [JsonIgnore]
         public JwtToken RefreshToken { get; set; }
+        public string RefreshTokenToken { get; set; }
         public static DopplerUser InitializeNewUser(RegisterUserModel registerUserModel, ICryptographyProvider cryptographyProvider)
         {
             return InitializeNewUser(registerUserModel.Email, registerUserModel.Login,
