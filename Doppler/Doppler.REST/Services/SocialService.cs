@@ -57,5 +57,10 @@ namespace Doppler.REST.Services
         {
             return await this.repository.GetDialogueInstanceId(this.identityService.AuthenticatedUser, login);
         }
+
+        public async Task<List<Conversation>> GetUserConversations(int? skip = 0, int? take = null)
+        {
+            return await this.repository.GetUserConversationsAsync(this.identityService.AuthenticatedUser, skip, take);
+        }
     }
 }

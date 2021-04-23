@@ -10,7 +10,9 @@ namespace Doppler.API.Social.Chatting
     {
         [Key]
         public long Id { get; set; }
+        public long MemberId { get; set; }
         public ConversationMember Member { get; set; }
+        public long MessageId { get; set; }
         public  ConversationMessage Message { get; set; }
         public DateTime ViewedOn { get; set; }
         [DefaultValue(true)]

@@ -4,14 +4,16 @@ using Doppler.REST.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Doppler.REST.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210422085422_Added id properties to all entities")]
+    partial class Addedidpropertiestoallentities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -356,10 +358,10 @@ namespace Doppler.REST.Migrations
                 {
                     b.HasBaseType("Doppler.API.Social.Chatting.Conversation");
 
-                    b.Property<long?>("FirstUserId")
+                    b.Property<long>("FirstUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("SecondUserId")
+                    b.Property<long>("SecondUserId")
                         .HasColumnType("bigint");
 
                     b.HasIndex("FirstUserId");
@@ -552,11 +554,15 @@ namespace Doppler.REST.Migrations
                 {
                     b.HasOne("Doppler.API.Social.Chatting.ConversationMember", "FirstUser")
                         .WithMany()
-                        .HasForeignKey("FirstUserId");
+                        .HasForeignKey("FirstUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Doppler.API.Social.Chatting.ConversationMember", "SecondUser")
                         .WithMany()
-                        .HasForeignKey("SecondUserId");
+                        .HasForeignKey("SecondUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("FirstUser");
 

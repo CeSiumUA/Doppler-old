@@ -7,19 +7,37 @@ namespace Doppler.API.Social.Chatting
 {
     public class Dialogue : Conversation
     {
+        //public long FirstUserId { get; set; }
         public ConversationMember FirstUser { get; set; }
+        //public long SecondUserId { get; set; }
         public ConversationMember SecondUser { get; set; }
 
         public override string Name
         {
             get
             {
-                return $"Dialogue between {FirstUser?.DisplayName} and {SecondUser?.DisplayName}";
+                return GetName(userContext);
             }
         }
 
-        public string GetName(User user)
+        public override string IconUrl
         {
+            get
+            {
+                return RetreiveProfileIconValue(userContext);
+            }
+        }
+
+        public void SetUserContext(User user)
+        {
+            this.userContext = user;
+        }
+        private string GetName(User user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (FirstUser.User.Id == user.Id)
             {
                 return SecondUser.DisplayName;
@@ -28,8 +46,12 @@ namespace Doppler.API.Social.Chatting
             return FirstUser.DisplayName;
         }
 
-        public string GetProfileImage(User user)
+        private string RetreiveProfileIconValue(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (FirstUser.User.Id == user.Id)
             {
                 return SecondUser.User.IconUrl;
@@ -37,5 +59,7 @@ namespace Doppler.API.Social.Chatting
 
             return FirstUser.User.IconUrl;
         }
+
+        private User userContext;
     }
 }

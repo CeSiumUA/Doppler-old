@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Doppler.API.Authentication;
 using Doppler.API.Social;
+using Doppler.API.Social.Chatting;
 using Doppler.API.Social.Likes;
 using Doppler.API.Storage.FileStorage;
 using Doppler.REST.Models.Social;
@@ -27,5 +28,6 @@ namespace Doppler.REST.Models.Repository
         public Task<bool> CheckUserForLike(User user, string login);
         public Task<Guid> GetDialogueInstanceId(User user, string login);
         public Task<Guid> SetProfileImage(User user, IFormFile formFile);
+        public Task<List<Conversation>> GetUserConversationsAsync(User user, int? skip = 0, int? take = null);
     }
 }

@@ -167,7 +167,7 @@ namespace Doppler.REST.Models.Repository
         {
             var opponent = await this.databaseContext.UsersContacts.Include(x => x.Contact).Include(x => x.User).FirstOrDefaultAsync(x => x.User.Id == user.Id && x.Contact.Login == login);
             string opponentDisplayName = opponent?.DisplayName;
-            var opponentUser = opponent?.User;
+            var opponentUser = opponent?.Contact;
             if (opponent == null)
             {
                 opponentUser = await this.databaseContext.Users.FirstOrDefaultAsync(x => x.Login == login);
@@ -255,6 +255,29 @@ namespace Doppler.REST.Models.Repository
             };
             return fileData;
         }
-        
+
+        public async Task<List<Conversation>> GetUserConversationsAsync(User user, int? skip = 0, int? take = null)
+        {
+            var conversationMembers = await this.databaseContext.ConversationMembers.Include(x => x.User).Include(x => x.Conversation)
+                .Where(x => x.User.Id == user.Id).Select(x => x.Conversation).ToListAsync();
+            List<Conversation> conversations = new List<Conversation>();
+
+            foreach (var conversation in conversationMembers)
+            {
+                if (conversation is Dialogue)
+                {
+                    var dialogue = await this.databaseContext.Dialogues
+                        .Include(x => x.FirstUser).ThenInclude(x => x.User).ThenInclude(x => x.Icons)
+                        .Include(x => x.SecondUser).ThenInclude(x => x.User).ThenInclude(x => x.Icons)
+                        .FirstOrDefaultAsync(x => x.Id == conversation.Id);
+                    dialogue.SetUserContext(user);
+                    conversations.Add(dialogue);
+                    continue;
+                }
+                conversations.Add(conversation);
+            }
+
+            return conversations;
+        }
     }
 }

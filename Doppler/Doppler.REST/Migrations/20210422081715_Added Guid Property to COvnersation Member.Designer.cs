@@ -4,14 +4,16 @@ using Doppler.REST.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Doppler.REST.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210422081715_Added Guid Property to COvnersation Member")]
+    partial class AddedGuidPropertytoCOvnersationMember
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,7 @@ namespace Doppler.REST.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -102,9 +104,6 @@ namespace Doppler.REST.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("ContentId")
-                        .HasColumnType("bigint");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
@@ -132,9 +131,6 @@ namespace Doppler.REST.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("MessageId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
@@ -153,7 +149,7 @@ namespace Doppler.REST.Migrations
                     b.Property<int>("ContentType")
                         .HasColumnType("int");
 
-                    b.Property<long>("ConversationMessageContentId")
+                    b.Property<long?>("ConversationMessageContentId")
                         .HasColumnType("bigint");
 
                     b.Property<Guid?>("DataId")
@@ -175,10 +171,10 @@ namespace Doppler.REST.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("MemberId")
+                    b.Property<long?>("MemberId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("MessageId")
+                    b.Property<long?>("MessageId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("Viewed")
@@ -438,9 +434,7 @@ namespace Doppler.REST.Migrations
 
                     b.HasOne("Doppler.API.Social.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Conversation");
 
@@ -477,9 +471,7 @@ namespace Doppler.REST.Migrations
                 {
                     b.HasOne("Doppler.API.Social.Chatting.ConversationMessageContent", "ConversationMessageContent")
                         .WithMany("MediaContents")
-                        .HasForeignKey("ConversationMessageContentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ConversationMessageContentId");
 
                     b.HasOne("Doppler.API.Storage.FileStorage.Data", "Data")
                         .WithMany()
@@ -494,15 +486,11 @@ namespace Doppler.REST.Migrations
                 {
                     b.HasOne("Doppler.API.Social.Chatting.ConversationMember", "Member")
                         .WithMany()
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MemberId");
 
                     b.HasOne("Doppler.API.Social.Chatting.ConversationMessage", "Message")
                         .WithMany()
-                        .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MessageId");
 
                     b.Navigation("Member");
 

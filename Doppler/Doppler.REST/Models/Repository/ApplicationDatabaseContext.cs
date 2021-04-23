@@ -65,8 +65,8 @@ namespace Doppler.REST.Models
             modelBuilder.Entity<User>().HasMany(user => user.UserContacts).WithOne(user => user.User);
             modelBuilder.Entity<User>().HasMany(x => x.UserLikes).WithOne(x => x.LikedUser);
             modelBuilder.Entity<ConversationMessage>().HasOne(message => message.Content).WithOne(content => content.Message).HasForeignKey<ConversationMessageContent>(x => x.Id);
-            modelBuilder.Entity<Dialogue>().HasOne(x => x.FirstUser).WithMany();
-            modelBuilder.Entity<Dialogue>().HasOne(x => x.SecondUser).WithMany();
+            //modelBuilder.Entity<Dialogue>().HasOne(x => x.FirstUser).WithMany();
+            //modelBuilder.Entity<Dialogue>().HasOne(x => x.SecondUser).WithMany();
             base.OnModelCreating(modelBuilder);
         }
     }

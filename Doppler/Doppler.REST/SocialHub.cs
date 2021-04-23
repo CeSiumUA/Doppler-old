@@ -59,5 +59,10 @@ namespace Doppler.REST
         {
             return await this.socialService.GetDialogueInstanceId(login);
         }
+
+        public async Task<List<Conversation>> GetUserConversations(int? skip = 0, int? take = null)
+        {
+            return await this.socialService.GetUserConversations(skip, take);
+        }
     }
 }

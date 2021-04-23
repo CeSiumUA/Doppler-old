@@ -10,8 +10,8 @@ namespace Doppler.API.Social.Chatting
     {
         [Key]
         public long Id { get; set; }
+        public Guid ConversationId { get; set; }
         public Conversation Conversation { get; set; }
-
         public string DisplayName
         {
             get
@@ -30,6 +30,7 @@ namespace Doppler.API.Social.Chatting
         }
         [DefaultValue(ConversationMemberRole.Member)]
         public ConversationMemberRole Role { get; set; }
+        public int UserId { get; set; } 
         public User User { get; set; }
         private string displayName { get; set; }
     }
