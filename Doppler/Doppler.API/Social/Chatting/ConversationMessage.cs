@@ -9,6 +9,7 @@ namespace Doppler.API.Social.Chatting
     {
         [Key]
         public Guid Id { get; set; }
+        public Guid ClientGeneratedId { get; set; }
         public long? SenderId { get; set; }
         public ConversationMember Sender { get; set; }
         public long? ReceiverId { get; set; }

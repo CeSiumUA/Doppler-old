@@ -69,5 +69,10 @@ namespace Doppler.REST.Services
             return await this.repository.GetConversationMessages(this.identityService.AuthenticatedUser, chatId, skip,
                 take);
         }
+
+        public async Task<ConversationMessage> WriteMessageToChat(Guid chatId, ConversationMessage message)
+        {
+            return await this.repository.WriteMessageToChat(this.identityService.AuthenticatedUser, chatId, message);
+        }
     }
 }

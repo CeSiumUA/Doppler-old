@@ -88,12 +88,6 @@
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Doppler\Doppler.csproj">
-      <Project>{236E6653-7BAB-4075-89FC-139311CDDA7F}</Project>
-      <Name>Doppler</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

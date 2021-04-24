@@ -127,10 +127,4 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\Doppler\Doppler.csproj">
-      <Project>{236E6653-7BAB-4075-89FC-139311CDDA7F}</Project>
-      <Name>Doppler</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

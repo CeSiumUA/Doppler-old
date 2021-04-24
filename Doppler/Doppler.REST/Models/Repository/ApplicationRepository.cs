@@ -282,14 +282,28 @@ namespace Doppler.REST.Models.Repository
 
         public async Task<List<ConversationMessage>> GetConversationMessages(User user, Guid conversationId, int? skip = 0, int? take = null)
         {
-            var conversation =
-                await this.databaseContext.Conversations.Include(x => x.Members).Include(x => x.Icon).FirstOrDefaultAsync(conv => conv.Id == conversationId);
-            if (!conversation.Members.Select(x => x.UserId).Contains(user.Id))
-            {
-                return null;
-            }
+            var conversationMember =
+                await this.databaseContext.ConversationMembers.FirstOrDefaultAsync(x =>
+                    x.ConversationId == conversationId && x.UserId == user.Id);
+            var lastMessages = await this.databaseContext.ConversationMessages
+                .Include(x => x.Sender)
+                .Where(x => x.Sender.ConversationId == conversationId)
+                .Include(x => x.Content).ThenInclude(x => x.MediaContents).ThenInclude(x => x.Data)
+                .OrderByDescending(x => x.SentOn).SkipTake(skip, take).ToListAsync();
+            return lastMessages;
+        }
 
-            return null;
+        public async Task<ConversationMessage> WriteMessageToChat(User user, Guid chatId, ConversationMessage message)
+        {
+            var conversationMember =
+                await this.databaseContext.ConversationMembers.FirstOrDefaultAsync(x =>
+                    x.UserId == user.Id && x.ConversationId == chatId);
+            if (conversationMember == null) return null;
+            message.Sender = conversationMember;
+            message.SentOn = DateTime.UtcNow;
+            await this.databaseContext.ConversationMessages.AddAsync(message);
+            await this.databaseContext.SaveChangesAsync();
+            return message;
         }
     }
 }

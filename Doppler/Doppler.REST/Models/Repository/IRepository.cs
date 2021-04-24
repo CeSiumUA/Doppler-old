@@ -30,5 +30,6 @@ namespace Doppler.REST.Models.Repository
         public Task<Guid> SetProfileImage(User user, IFormFile formFile);
         public Task<List<Conversation>> GetUserConversationsAsync(User user, int? skip = 0, int? take = null);
         public Task<List<ConversationMessage>> GetConversationMessages(User user, Guid conversationId, int? skip = 0, int? take = null);
+        public Task<ConversationMessage> WriteMessageToChat(User user, Guid chatId, ConversationMessage message);
     }
 }

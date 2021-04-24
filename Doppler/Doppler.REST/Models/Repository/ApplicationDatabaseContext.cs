@@ -11,13 +11,14 @@ using Doppler.API.Storage.FileStorage;
 using Doppler.API.Storage.UserStorage;
 using Doppler.REST.Models.Authentication;
 using Doppler.REST.Models.Cryptography;
+using Doppler.REST.Models.Repository;
 using Doppler.REST.Models.Social;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Doppler.REST.Models
 {
-    public class ApplicationDatabaseContext : DbContext, IDBContextEntities
+    public class ApplicationDatabaseContext : DbContext, IBackEndDbContextEntities
     {
         #region DBSet
         public DbSet<Password> Passwords { get; set; }

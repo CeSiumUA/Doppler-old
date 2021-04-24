@@ -9,7 +9,7 @@ using Doppler.REST.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Doppler.REST
+namespace Doppler.REST.Hubs
 {
     [Authorize]
     public class SocialHub : Hub
@@ -69,6 +69,17 @@ namespace Doppler.REST
             int? take = null)
         {
             return await socialService.GetConversationMessages(chatId, skip, take);
+        }
+
+        public async Task<object> WriteMessageToChat(Guid chatId, ConversationMessage message)
+        {
+            var sendMesageResult = await this.socialService.WriteMessageToChat(chatId, message);
+            return new
+            {
+                messageId = sendMesageResult?.Id,
+                clientGeneratedId = sendMesageResult?.ClientGeneratedId,
+                delivered = sendMesageResult != null
+            };
         }
     }
 }

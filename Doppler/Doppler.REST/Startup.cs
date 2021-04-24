@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
+using Doppler.REST.Hubs;
 using Doppler.REST.Models.AppHelpers;
 using Doppler.REST.Models.Authentication;
 using Microsoft.AspNetCore.SignalR;
