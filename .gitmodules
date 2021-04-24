@@ -1,0 +1,3 @@
+[submodule "Doppler.WEB"]
+	path = Doppler.WEB
+	url = https://github.com/CeSiumUA/Doppler.WEB.git
