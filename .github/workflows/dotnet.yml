@@ -25,7 +25,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Publish web app
       working-directory: ./Doppler.REST
-      run: dotnet publish -c Release --runtime linux-x64 --self-contained true
+      run: dotnet publish -c Release --runtime linux-x64 --self-contained false
     - name: Release delivery
       uses: svenstaro/upload-release-action@v2
       with:
