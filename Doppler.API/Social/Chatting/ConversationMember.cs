@@ -12,6 +12,8 @@ namespace Doppler.API.Social.Chatting
         public long Id { get; set; }
         public Guid ConversationId { get; set; }
         public Conversation Conversation { get; set; }
+        [MaxLength(7)]
+        public string Color { get; set; }
         public string DisplayName
         {
             get
@@ -33,6 +35,18 @@ namespace Doppler.API.Social.Chatting
         public int UserId { get; set; } 
         public User User { get; set; }
         private string displayName { get; set; }
+
+        public ConversationMember()
+        {
+            var rnd = new Random();
+            string color = "#FFFFFF";
+            do
+            {
+                color = String.Format("#{0:x6}", rnd.Next(0x1000000));
+            } while (color == "#000000" || color == "#FFFFFF");
+
+            this.Color = color;
+        }
     }
 
     public enum ConversationMemberRole
