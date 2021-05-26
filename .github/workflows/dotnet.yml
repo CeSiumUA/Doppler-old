@@ -55,7 +55,7 @@ jobs:
         asset_name: Doppler
         tag: ${{ github.ref }}
         overwrite: true
-        body: "Doppler release"
+        body: "Doppler Linux release"
         file_glob: true
     - name: Release windows delivery
       uses: svenstaro/upload-release-action@v2
@@ -65,9 +65,9 @@ jobs:
         asset_name: Doppler
         tag: ${{ github.ref }}
         overwrite: true
-        body: "Doppler release"
+        body: "Doppler Windows release"
         file_glob: true
-    - name: Release windows delivery
+    - name: Release osx delivery
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -75,5 +75,5 @@ jobs:
         asset_name: Doppler
         tag: ${{ github.ref }}
         overwrite: true
-        body: "Doppler release"
+        body: "Doppler OSX release"
         file_glob: true
