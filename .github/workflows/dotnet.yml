@@ -77,3 +77,12 @@ jobs:
         overwrite: true
         body: "Doppler OSX release"
         file_glob: true
+    - name: SCP copy
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.VM_IP }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: ${{ secrets.VM_PORT }}
+        source: "publish-linux.tar.gz"
+        target: "/root/prod/doppler"
