@@ -86,3 +86,21 @@ jobs:
         port: ${{ secrets.VM_PORT }}
         source: "publish-linux.tar.gz"
         target: "/root/prod/doppler"
+    - name: Unpack and Start
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VM_IP }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: ${{ secrets.VM_PORT }}
+        script: |
+          sudo systemctl stop doppler
+          cd prod/doppler/
+          rm -r publish/*
+          rm -r /srv/Doppler/*
+          cp appsettings.Production.json /srv/Doppler/
+          unzip publish-linux.tar.gz -d publish/
+          cd publish/Doppler.REST/bin/Release/net5.0/linux-x64/publish
+          cp -R * /srv/Doppler
+          sudo systemctl daemon-reload
+          sudo systemctl start doppler
