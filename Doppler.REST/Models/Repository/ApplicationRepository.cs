@@ -286,7 +286,7 @@ namespace Doppler.REST.Models.Repository
                 await this.databaseContext.ConversationMembers.FirstOrDefaultAsync(x =>
                     x.ConversationId == conversationId && x.UserId == user.Id);
             var lastMessages = await this.databaseContext.ConversationMessages
-                .Include(x => x.Sender)
+                .Include(x => x.Sender).ThenInclude(x => x.User).ThenInclude(x => x.Icons)
                 .Where(x => x.Sender.ConversationId == conversationId)
                 .Include(x => x.Content).ThenInclude(x => x.MediaContents).ThenInclude(x => x.Data)
                 .OrderByDescending(x => x.SentOn).SkipTake(skip, take).Reverse().ToListAsync();
