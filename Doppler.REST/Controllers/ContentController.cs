@@ -35,10 +35,10 @@ namespace Doppler.REST.Controllers
         }
         [HttpPost("uploadfile")]
         [Authorize]
-        public async Task<IActionResult> UploadFile([FromForm] FileUploadType uploadType)
+        public async Task<IActionResult> UploadFile([FromForm] FileUploadType uploadType, [FromForm] FileAccessLevel fileAccessLevel = FileAccessLevel.Public)
         {
             var filesCollection = this.HttpContext.Request.Form.Files;
-            var uploadResult = await this.contentService.UploadFile(filesCollection, uploadType);
+            var uploadResult = await this.contentService.UploadFile(filesCollection, uploadType, fileAccessLevel);
             return new JsonResult(uploadResult);
         }
     }

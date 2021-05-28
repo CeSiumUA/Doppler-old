@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -34,7 +35,9 @@ namespace Doppler.API.Storage.FileStorage
         {
             this.UploadDate = DateTime.UtcNow;
         }
-        public FileAccessLevel AccessLevel { get; set; }
+
+        [DefaultValue(FileAccessLevel.Public)] 
+        public FileAccessLevel AccessLevel = FileAccessLevel.Public;
         private long? fileSize { get; set; }
     }
     public enum FileUploadType

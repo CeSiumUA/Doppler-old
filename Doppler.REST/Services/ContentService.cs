@@ -24,7 +24,7 @@ namespace Doppler.REST.Services
             return file;
         }
 
-        public async Task<Guid> UploadFile(IFormFileCollection files, FileUploadType uploadType)
+        public async Task<Guid> UploadFile(IFormFileCollection files, FileUploadType uploadType, FileAccessLevel fileAccessLevel)
         {
             Guid result = Guid.Empty;
             switch (uploadType)

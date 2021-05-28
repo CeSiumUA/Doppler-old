@@ -80,6 +80,19 @@ namespace Doppler.REST.Hubs
         public async Task<object> WriteMessageToChat(Guid chatId, ConversationMessage message)
         {
             var sendMesageResult = await this.socialService.WriteMessageToChat(chatId, message);
+            var typer = this.Context?.User?.Identity?.Name;
+            var phoneNumbers = await this.socialService.GetConversationMembersPhones(chatId);
+            foreach (var phone in phoneNumbers)
+            {
+                if (phone != typer)
+                {
+                    var connectionId = this.hubClientsMappingService.Get(phone);
+                    if (!string.IsNullOrEmpty(connectionId))
+                    {
+                        await this.Clients.Client(connectionId).SendAsync("HandleNewMessageInput", chatId, typer);
+                    }
+                }
+            }
             return new
             {
                 messageId = sendMesageResult?.Id,
