@@ -34,12 +34,21 @@ namespace Doppler.API.Storage.FileStorage
         {
             this.UploadDate = DateTime.UtcNow;
         }
-
+        public FileAccessLevel AccessLevel { get; set; }
         private long? fileSize { get; set; }
     }
     public enum FileUploadType
     {
         FileAttachment = 0,
         ProfileImage = 1
+    }
+
+    public enum FileAccessLevel
+    {
+        Public = 0,
+        Users = 1,
+        Conversation = 2,
+        Private = 3,
+        System =4
     }
 }
