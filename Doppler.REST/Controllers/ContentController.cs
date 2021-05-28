@@ -23,7 +23,6 @@ namespace Doppler.REST.Controllers
         }
 
         [HttpGet("{fileId}")]
-        [Authorize]
         public async Task<IActionResult> GetFile(Guid fileId)
         {
             var file = await contentService.GetFileData(fileId);
