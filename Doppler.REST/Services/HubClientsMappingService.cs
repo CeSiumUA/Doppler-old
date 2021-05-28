@@ -16,7 +16,12 @@ namespace Doppler.REST.Services
 
         public string Get(string phoneNumber)
         {
-            return clients[phoneNumber];
+            if (this.clients.ContainsKey(phoneNumber))
+            {
+                return clients[phoneNumber];
+            }
+
+            return null;
         }
 
         public void Set(string phoneNumber, string connectionId)

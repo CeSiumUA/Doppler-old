@@ -97,7 +97,10 @@ namespace Doppler.REST.Hubs
                 if (phone != typer)
                 {
                     var connectionId = this.hubClientsMappingService.Get(phone);
-                    await this.Clients.Client(connectionId).SendAsync("HandleChatTyping", chatId, typer); 
+                    if (!string.IsNullOrEmpty(connectionId))
+                    {
+                        await this.Clients.Client(connectionId).SendAsync("HandleChatTyping", chatId, typer);
+                    }
                 }
             }
         }
