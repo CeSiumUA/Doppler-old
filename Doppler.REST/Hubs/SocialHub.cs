@@ -16,10 +16,12 @@ namespace Doppler.REST.Hubs
     {
         private readonly SocialService socialService;
         private readonly IdentityService identityService;
-        public SocialHub(SocialService socialService, IdentityService identityService)
+        private readonly HubClientsMappingService hubClientsMappingService;
+        public SocialHub(SocialService socialService, IdentityService identityService, HubClientsMappingService hubClientsMappingService)
         {
             this.socialService = socialService;
             this.identityService = identityService;
+            this.hubClientsMappingService = hubClientsMappingService;
         }
         public async Task<User> GetUser(string login)
         {
@@ -94,9 +96,23 @@ namespace Doppler.REST.Hubs
             {
                 if (phone != typer)
                 {
-                    await this.Clients.User(phone).SendAsync("HandleChatTyping", chatId, typer);
+                    var connectionId = this.hubClientsMappingService.Get(phone);
+                    await this.Clients.Client(connectionId).SendAsync("HandleChatTyping", chatId, typer); 
                 }
             }
+        }
+
+        public override async Task OnConnectedAsync()
+        {
+            var identityName = this.Context.User.Identity.Name;
+            var connectionId = this.Context.ConnectionId;
+            this.hubClientsMappingService.Set(identityName, connectionId);
+        }
+
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        { 
+            this.hubClientsMappingService.Remove(this.Context.User.Identity.Name);
+            await base.OnDisconnectedAsync(exception);
         }
     }
 }

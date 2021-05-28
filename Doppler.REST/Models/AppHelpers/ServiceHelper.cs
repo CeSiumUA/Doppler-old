@@ -25,6 +25,7 @@ namespace Doppler.REST.Models.AppHelpers
             service.AddDbContext<ApplicationDatabaseContext>();
             service.AddScoped<IRepository, ApplicationRepository>();
             service.AddScoped<ICryptographyProvider, CryptographyProviderService>();
+            service.AddSingleton<HubClientsMappingService>();
         }
     }
 }
