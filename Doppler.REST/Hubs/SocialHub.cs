@@ -17,11 +17,13 @@ namespace Doppler.REST.Hubs
         private readonly SocialService socialService;
         private readonly IdentityService identityService;
         private readonly HubClientsMappingService hubClientsMappingService;
-        public SocialHub(SocialService socialService, IdentityService identityService, HubClientsMappingService hubClientsMappingService)
+        private readonly PushNotificationService pushNotificationService;
+        public SocialHub(SocialService socialService, IdentityService identityService, HubClientsMappingService hubClientsMappingService, PushNotificationService pushNotificationService)
         {
             this.socialService = socialService;
             this.identityService = identityService;
             this.hubClientsMappingService = hubClientsMappingService;
+            this.pushNotificationService = pushNotificationService;
         }
         public async Task<User> GetUser(string login)
         {
@@ -90,6 +92,10 @@ namespace Doppler.REST.Hubs
                     if (!string.IsNullOrEmpty(connectionId))
                     {
                         await this.Clients.Client(connectionId).SendAsync("HandleNewMessageInput", chatId, typer);
+                    }
+                    else
+                    {
+                        await pushNotificationService.SendPersonalNotification();
                     }
                 }
             }
